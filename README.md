@@ -1,6 +1,6 @@
 ### hola a todos.
 
-El mundo de la programación es algo hermoso, lleno de desafios y sobre todo aprendizjes.
+El mundo de la programación es algo hermoso, lleno de desafios y sobre todo aprendizajes.
 
 Mi nombre es kaner murillo, tengo 19 años, y amo la programacion.
 
