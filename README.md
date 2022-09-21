@@ -1,12 +1,12 @@
-### hola a todos.
+### hello everyone.
 
-El mundo de la programación es algo hermoso, lleno de desafíos y sobre todo aprendizajes.
+The world of programming is a beautiful thing, full of challenges and above all learning.
 
-Mi nombre es kaner murillo, tengo 20 años, y amo la programación.
+My name is Kaner Murillo, I am 20 years old, and I love programming.
 
-Hobby: tocar instrumentos, bailar, la programación competitiva, análisis de algoritmos eficientes para ciertos problemas.
+Hobbies: playing instruments, dancing, competitive programming, analysis of efficient algorithms for certain problems.
 
-Lenguajes que domino: c/c++ y especialmente python
+Languages mastered: c/c++ and especially python
 
-Perfil online judge: https://uhunt.onlinejudge.org/id/1257197
+Profile online judge: https://uhunt.onlinejudge.org/id/1257197
 
