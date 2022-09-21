@@ -1,100 +1,20 @@
-Yes, visiting 0 other holes.
-Yes, visiting 0 other holes.
-Yes, visiting 0 other holes.
-Yes, visiting 0 other holes.
-Yes, visiting 0 other holes.
-No.
-Yes, visiting 0 other holes.
-Yes, visiting 1 other holes.
-Yes, visiting 1 other holes.
-Yes, visiting 0 other holes.
-No.
-No.
-No.
-No.
-No.
-No.
-No.
-Yes, visiting 0 other holes.
-No.
-No.
-No.
-No.
-No.
-No.
-No.
-Yes, visiting 0 other holes.
-Yes, visiting 2 other holes.
-No.
-No.
-Yes, visiting 3 other holes.
-No.
-No.
-No.
-No.
-No.
-No.
-No.
-Yes, visiting 1 other holes.
-No.
-No.
-No.
-No.
-No.
-No.
-No.
-No.
-Yes, visiting 2 other holes.
-No.
-No.
-No.
-No.
-No.
-Yes, visiting 4 other holes.
-No.
-Yes, visiting 1 other holes.
-No.
-Yes, visiting 3 other holes.
-Yes, visiting 0 other holes.
-Yes, visiting 0 other holes.
-No.
-No.
-No.
-Yes, visiting 2 other holes.
-No.
-No.
-No.
-No.
-Yes, visiting 1 other holes.
-No.
-Yes, visiting 1 other holes.
-Yes, visiting 3 other holes.
-Yes, visiting 4 other holes.
-Yes, visiting 0 other holes.
-No.
-Yes, visiting 4 other holes.
-Yes, visiting 0 other holes.
-No.
-No.
-Yes, visiting 0 other holes.
-Yes, visiting 0 other holes.
-No.
-No.
-No.
-Yes, visiting 5 other holes.
-No.
-Yes, visiting 3 other holes.
-No.
-Yes, visiting 0 other holes.
-No.
-No.
-Yes, visiting 0 other holes.
-Yes, visiting 0 other holes.
-No.
-Yes, visiting 2 other holes.
-Yes, visiting 0 other holes.
-Yes, visiting 2 other holes.
-Yes, visiting 2 other holes.
-No.
-Yes, visiting 2 other holes.
-No.
+1 B
+2 B
+3 W
+4 W
+5 W
+6 B
+7 B
+8 B
+9 B
+10 B
+11 W
+12 W
+13 W
+14 B
+15 W
+16 B
+17 B
+18 W
+19 W
+20 B
