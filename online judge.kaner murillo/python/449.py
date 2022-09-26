@@ -4,6 +4,7 @@
 from sys import stdin
 
 cad = stdin.readline().strip()
+keys = {}
 
 while cad != "":
 
