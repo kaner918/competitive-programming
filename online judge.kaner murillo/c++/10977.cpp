@@ -63,11 +63,11 @@ void bfs(tuple<int, int, int>tuple1, vector<vector<int>>&iGrafo, set<tuple<int, 
     queue<tuple<int, int, int>>q;
     set<tuple<int, int, int>>::iterator it;
     int i, auxRow, auxColum;
-
+    bool ans = false;
     q.push(tuple1);
     visits.insert(tuple1);
 
-    while(!q.empty()){
+    while(!q.empty() && ans == false){
 
         tuple1 = q.front();
         q.pop();
@@ -75,6 +75,7 @@ void bfs(tuple<int, int, int>tuple1, vector<vector<int>>&iGrafo, set<tuple<int, 
         if(get<0>(tuple1) == iGrafo.size()-1 && get<1>(tuple1) == iGrafo[0].size()-1){
 
             cout<<get<2>(tuple1)<<endl;
+            ans = true;
         }
 
         else{
@@ -131,7 +132,7 @@ int main(){
         while(monsters--){
 
             scanf("%i %i %i", &limitRow, &limitColum, &area);
-            //moster(limitRow-1, limitColum-1, area, iGrafo, visits2);
+            moster(limitRow-1, limitColum-1, area, iGrafo, visits2);
 
             if((limitColum-1) - area > -1){
 
@@ -156,7 +157,7 @@ int main(){
         
         tuple<int, int, int>tu = make_tuple(0, 0, 0);
 
-        //bfs(tu, iGrafo, visits, limitRow, limitColum, area);
+        bfs(tu, iGrafo, visits, limitRow, limitColum, area);
 
         /*for(i = 0; i<iGrafo.size(); i++){
 
