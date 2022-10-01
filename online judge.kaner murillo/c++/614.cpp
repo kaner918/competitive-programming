@@ -98,7 +98,7 @@ int main(){
 
                 else{
 
-                    printf("  %i", visits[i][n]);
+                    printf("%3i", visits[i][n]);
                 }
 
                 if(iGraph[i][n] == 1){
@@ -144,15 +144,15 @@ int main(){
                 }
             }
 
-            printf("|");
+            printf("|\n");
 
             if(i<row-1){
 
-                printf("\n%s\n", line.c_str());
+                printf("%s\n", line.c_str());
             }
         }
-
-        printf("\n%s\n\n\n", cad.c_str());
+        
+        printf("%s\n\n\n", cad.c_str());
 
         cases+=1;
         cin.ignore();
