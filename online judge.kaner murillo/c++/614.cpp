@@ -30,7 +30,7 @@ void dfs(int row, int colum, int rowFinish, int columFinish, int sizeRow, int si
             auxRow = row + arrRow[i];
             auxColum = colum + arrColum[i];
 
-            if(ans == false && (auxRow>-1 && auxColum>-1) && (auxRow<sizeRow && auxColum<sizeColum) && visits[auxRow][auxColum] == -1 && (iGraph[row][colum] == 0 || (iGraph[row][colum]!= 3 && iGraph[row][colum] != i-1 ) || (iGraph[row][colum] == 3 && i!=2 && i!=3))){
+            if(ans == false && (auxRow>-1 && auxColum>-1) && (auxRow<sizeRow && auxColum<sizeColum) && visits[auxRow][auxColum] == -1 && ((i == 0 && iGraph[auxRow][auxColum] != 1 && iGraph[auxRow][auxColum] != 3) || (i == 1 && iGraph[auxRow][auxColum]!=2 && iGraph[auxRow][auxColum] != 3)||(i==2 && iGraph[row][colum] != 1 && iGraph[row][colum]!=3)||(i == 3 && iGraph[row][colum]!=2 && iGraph[row][colum]!=3))){
 
                 dfs(auxRow, auxColum, rowFinish, columFinish, sizeRow, sizeColum, iGraph, visits);
 
