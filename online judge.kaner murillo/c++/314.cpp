@@ -11,8 +11,8 @@
 
 using namespace std;
 
-int arrRow[] = {0, 0, 0, -1, -2, -3, 0, 0, 0, 1, 2, 3}, arrColum[]={-1, -2, -3, 0, 0, 0, 1, 2, 3, 0, 0, 0}, 
-matrixMovements[4][4] = {{2, 1, 2, 3},{2, 3, 2, 1},{3, 2, 1, 2},{1, 2, 3, 2}};
+int matrixMovements[4][24] = {{-1, 0, -2, 0, -3, 0, 0, 1, 0, 2, 0, 3, 0, -1, 0, -2, 0, -3, 1, 0, 2, 0, 3, 0}, {1, 0, 2, 0, 3, 0, 0, 1, 0, 2, 0, 3, 0, -1, 0, -2, 0, -3, -1, 0, -2, 0, -3, 0}, {0, 1, 0, 2, 0, 3, -1, 0, -2, 0, -3, 0, 1, 0, 2, 0, 3, 0, 0, -1, 0, -2, 0, -1}, {0, -1, 0, -2, 0, -3, -1, 0, -2, 0, -3, 0, 1, 0, 2, 0, 3, 0, 0, 1, 0, 2, 0, 1}}, 
+matrixSums[4][8] = {{0, 1, 2, 2, 3, 2, 1, 3}, {1, 1, 2, 2, 3, 2, 0,3}, {2, 1, 0, 2, 1, 2, 3, 3}, {3, 1, 0, 2, 1, 2, 2, 3}};
 
 struct Node{
 
@@ -36,9 +36,7 @@ int bfs(int row, int colum, int orientation, int rowFinish, int columFinish, vec
     while(!q.empty()){
 
         tuple1 = q.front();
-
-        cout<<get<0>(tuple1)<<" "<<get<1>(tuple1)<<" "<<get<3>(tuple1)<<endl;
-
+        //cout<< get<0>(tuple1)<<" "<<get<1>(tuple1)<<endl;
         q.pop();
 
         if((get<0>(tuple1) == rowFinish && get<1>(tuple1) == columFinish) /* || (get<0>(tuple1)+1 == rowFinish && get<1>(tuple1) == columFinish) || (get<0>(tuple1) == rowFinish && get<1>(tuple1)+1 == columFinish) || (get<0>(tuple1)+1 == rowFinish && get<1>(tuple1)+1 == columFinish) */){
@@ -48,47 +46,46 @@ int bfs(int row, int colum, int orientation, int rowFinish, int columFinish, vec
 
         else{
 
-            n = 0;
+            n = 1;
             move = 1;
 
-            for(i = 1; i<13; i++){
+            for(i = 1; i<25; i+=2){
 
-                auxRow = get<0>(tuple1) + arrRow[i-1];
-                auxColum = get<1>(tuple1) + arrColum[i-1];
+                auxRow = get<0>(tuple1) + matrixMovements[get<2>(tuple1)][i-1];
+                auxColum = get<1>(tuple1) + matrixMovements[get<2>(tuple1)][i];
 
-                if((auxRow>-1 && auxColum>-1) && (auxRow<iGrafo.size()-1 && auxColum<iGrafo[0].size()-1) && (iGrafo[auxRow][auxColum] != 1 && iGrafo[auxRow+1][auxColum]!=1 && iGrafo[auxRow][auxColum+1]!=1 && iGrafo[auxRow+1][auxColum+1]!=1)){
+                //cout<<move<<" "<<n<<endl;
+
+                if((auxRow>-1 && auxColum>-1) && (auxRow<iGrafo.size()-1 && auxColum<iGrafo[0].size()-1) && (iGrafo[auxRow][auxColum] != 1 && iGrafo[auxRow+1][auxColum]!= 1 && iGrafo[auxRow][auxColum+1]!=1 && iGrafo[auxRow+1][auxColum+1]!=1)){
 
                     if (move == 1 && visits[auxRow][auxColum].movement1 == -1){
-
-                        q.push(make_tuple(auxRow, auxColum, n, get<3>(tuple1)+matrixMovements[get<2>(tuple1)][n]));
+                        
+                        q.push(make_tuple(auxRow, auxColum, matrixSums[get<2>(tuple1)][n-1], get<3>(tuple1)+matrixSums[get<2>(tuple1)][n]));
                         visits[auxRow][auxColum].movement1 = 1;
-                        iGrafo[auxRow][auxColum] = 2;
+                        //iGrafo[auxRow][auxColum] = 2;
 
                     }
                     
                     else if (move == 2 && visits[auxRow][auxColum].movement2 == -1){
 
-                        q.push(make_tuple(auxRow, auxColum, n, get<3>(tuple1)+matrixMovements[get<2>(tuple1)][n]));
+                        q.push(make_tuple(auxRow, auxColum, matrixSums[get<2>(tuple1)][n-1], get<3>(tuple1)+matrixSums[get<2>(tuple1)][n]));
                         visits[auxRow][auxColum].movement2 = 1;
-                        iGrafo[auxRow][auxColum] = 2;
+                        //iGrafo[auxRow][auxColum] = 2;
                     }
                     
                     else if (move == 3 && visits[auxRow][auxColum].movement3 == -1){
 
-                        q.push(make_tuple(auxRow, auxColum, n, get<3>(tuple1)+matrixMovements[get<2>(tuple1)][n]));
+                        q.push(make_tuple(auxRow, auxColum, matrixSums[get<2>(tuple1)][n-1], get<3>(tuple1)+matrixSums[get<2>(tuple1)][n]));
                         visits[auxRow][auxColum].movement3 = 1;
-                        iGrafo[auxRow][auxColum] = 2;
+                        //iGrafo[auxRow][auxColum] = 3;
+
                     }
-                }
-
-                if(i % 3 == 0){
-
-                    n+=1;
-                }       
+                }     
 
                 if(move == 3){
 
                     move = 0;
+                    n+=2;
                 }     
 
                 move+=1;
@@ -126,7 +123,7 @@ int main(){
             visits.push_back(vec1);
         }
 
-        cin>>rowIni>>columIni>>rowFinish>>columFinish>>cadOrientation; //modificar lo de la orientación.
+        cin>>rowIni>>columIni>>rowFinish>>columFinish>>cadOrientation;
         
         if(cadOrientation == "south"){
             orientation = 1;
