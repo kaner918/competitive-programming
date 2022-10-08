@@ -1,7 +1,6 @@
 #https://onlinejudge.org/external/100/10009.pdf
 #10009
 
-from re import A
 from sys import stdin
 from collections import deque
 

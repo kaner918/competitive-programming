@@ -20,17 +20,19 @@ while len(prerequisites) > 1:
         n = 2
         counter = 0
 
-        while n < len(category) and counter < category[1]:
+        if ans == True:
 
-            if category[n] in courses:
+            while n < len(category) and counter < category[1]:
 
-                counter+=1
+                if category[n] in courses:
 
-            n+=1
+                    counter+=1
+
+                n+=1
         
-        if counter < category[1]:
+            if counter < category[1]:
 
-            ans = False
+                ans = False
 
     if ans == True:
 
