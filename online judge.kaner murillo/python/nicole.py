@@ -1,97 +1,40 @@
-#########variables.
+###listas
 
-## int
-## string
-## float
-## boleanos - valores de verdad - > True or False.
+##append ->agregar un elemento a la lista.
+#len->tamaño del contenedor
+#acceder a la posicion -> nombre[x]
 
-'''
-variable = 3
-variable = 4
-nombre = "kaner"
-ans = True
-### print ->imprimir por pantalla
-### estructura de control
-### operadores, ==, >, <, >=, <=, !=, and, or.
+number = int(input())
 
-x = int(input())#cadena
-y = int(input())
+def drawTriangle(tamno):
 
-if y > 0 and x < 0:
+    posicion = number-1
+    flag = False
 
-    print("cuadrante 1")
+    for i in range(number*2-1):
 
-elif y<0 and x<0:
-
-    print("cuadrante 3")
-
-elif y>0 and x>0:
-
-    print("cuadrante 2")
-
-else:
-
-    print("cuadrante 4")
-
-###### ciclos.
-'''
-#for.
-'''
-for i in range (2, 10, 2):
-    print(i)
-
-for i in range (1, 11):
-
-    if i % 2 == 0:
-        print(i)
-'''
-#while.
-
-'''
-while i<10:
-
-    i = i + 1 
-
-i = "hola"
-n = 0
-
-while i != "nicole":
-
-    print("hola")
-
-    if n == 11:
-
-        i = "nicole"
-
-    n = n + 1
-
-'''
-
-#numeros no primos.
-
-lista = [1]
-n = int(input())
-
-for i in range(1, n+1):
-
-    ans = False
-
-    for n in range(2, i):
-
-        if i % n == 0:
-
-            ans = True
+        cad = ""
         
-    if ans == True:
+        for n in range(number):
 
-        lista.append(i)
+            if n < posicion:
 
-print(lista)
+                cad+="O"
+            
+            else:
 
+                cad+="X"
+        
+        if posicion ==  0:
 
+            flag = True
 
+        if flag == False:
 
+            posicion-=1
+        
+        else:
 
-     
-    
-
+            posicion+=1
+        
+        print(cad)
