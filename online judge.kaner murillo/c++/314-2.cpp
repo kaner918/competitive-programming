@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int arrRow[] = {-1, 0, 1, 0}, arrColum[] = {0, 1, 0, -1}, arrRotation[] = {0, 1, -1, 2};
+int arrRow[] = {-1, 0, 1, 0}, arrColum[] = {0, 1, 0, -1}, arrRotation[] = {0, 1, -1};
 
 int bfs(int row, int colum, int orientation, int rowFinish, int columFinish, vector<vector<int>>&iGrafo, vector<vector<vector<int>>>&visits){
 
@@ -23,17 +23,15 @@ int bfs(int row, int colum, int orientation, int rowFinish, int columFinish, vec
 
     q.push(tuple1);
 
-    int auxRow, auxColum, i, n, auxRotation, auxSum, can;
+    int auxRow, auxColum, i, n, auxRotation, can;
 
     while(!q.empty()){
 
         tuple1 = q.front();
-        //cout<< get<0>(tuple1)<<" "<<get<1>(tuple1)<<endl;
         
         if(get<0>(tuple1) == rowFinish && get<1>(tuple1) == columFinish){
 
             return visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)];
-            //cout<<visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)]<<endl;
         }
 
         q.pop();
@@ -52,11 +50,6 @@ int bfs(int row, int colum, int orientation, int rowFinish, int columFinish, vec
                 auxRotation = 3;
             }
 
-            else if(auxRotation==5){
-
-                auxRotation = 1;
-            }
-
             can = 0;
 
             for(n = 1; n<4; n++){
@@ -65,7 +58,6 @@ int bfs(int row, int colum, int orientation, int rowFinish, int columFinish, vec
                 auxColum = get<1>(tuple1) + (arrColum[auxRotation] * n);
                 
                 ans = false;
-                //cout<<orientation<<" "<<iGrafo[auxRow][auxColum]<<" "<<iGrafo[auxRow+1][auxColum]<<" "<<iGrafo[auxRow][auxColum+1]<<" "<<iGrafo[auxRow+1][auxColum+1]<<endl;
 
                 if(n == 3 && auxRow<iGrafo.size()-1 && auxColum<iGrafo[0].size()-1 && (iGrafo[auxRow][auxColum] != 1 && iGrafo[auxRow+1][auxColum]!= 1 && iGrafo[auxRow][auxColum+1]!=1 && iGrafo[auxRow+1][auxColum+1]!=1) && can==2){
 
@@ -85,10 +77,6 @@ int bfs(int row, int colum, int orientation, int rowFinish, int columFinish, vec
                         q.push(make_tuple(auxRow, auxColum, auxRotation));
                         visits[auxRow][auxColum][auxRotation] = visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)] + 1;
 
-                        /* if(iGrafo[auxRow][auxColum] == 0){
-
-                            iGrafo[auxRow][auxColum] = (visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)] + 1)*-1;
-                        } */
                 }
 
                 else if(visits[get<0>(tuple1)][get<1>(tuple1)][auxRotation] == -1){
@@ -157,16 +145,6 @@ int main(){
         }
 
         cout<<bfs(rowIni-1, columIni-1, orientation, rowFinish-1, columFinish-1, iGrafo, visits)<<endl;
-
-        /* for(i = 0; i<iGrafo.size(); i++){
-
-            for(n = 0; n<iGrafo[0].size(); n++){
-                
-                printf("  %3i  ", iGrafo[i][n]);
-            }
-
-            cout<<endl;
-        } */ 
     }
 
     return 0;
