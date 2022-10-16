@@ -11,56 +11,92 @@
 
 using namespace std;
 
-int arrRow[] = {-1, 0, 1, 0}, arrColum[] = {0, 1, 0, -1}, arrRotation[] = {0, 1, -1};
+int arrRow[] = {-1, 0, 1, 0}, arrColum[] = {0, 1, 0, -1}, arrRotation[] = {0, 1, -1, 2};
 
 int bfs(int row, int colum, int orientation, int rowFinish, int columFinish, vector<vector<int>>&iGrafo, vector<vector<vector<int>>>&visits){
 
     tuple<int, int, int>tuple1 = make_tuple(row, colum, orientation);
     queue<tuple<int, int, int>>q;
+    bool ans;
 
     visits[row][colum][orientation] = 0;
 
     q.push(tuple1);
 
-    int auxRow, auxColum, i, n, auxRotation, auxSum;
+    int auxRow, auxColum, i, n, auxRotation, auxSum, can;
 
     while(!q.empty()){
 
         tuple1 = q.front();
-        cout<< get<0>(tuple1)<<" "<<get<1>(tuple1)<<endl;
+        //cout<< get<0>(tuple1)<<" "<<get<1>(tuple1)<<endl;
         
         if(get<0>(tuple1) == rowFinish && get<1>(tuple1) == columFinish){
 
             return visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)];
+            //cout<<visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)]<<endl;
         }
 
         q.pop();
 
         for(i = 0; i<3; i++){
-
+                    
             auxRotation = get<2>(tuple1) + arrRotation[i];
-
-            if(auxRotation>3){
+            
+            if(auxRotation==4){
 
                 auxRotation = 0;
             }    
 
-            if(auxRotation<0){
+            else if(auxRotation==-1){
 
                 auxRotation = 3;
             }
 
-            
-            auxRow = get<0>(tuple1) + (arrRow[auxRotation]);
-            auxColum = get<1>(tuple1) + (arrColum[auxRotation]);
+            else if(auxRotation==5){
 
-            if((auxRow>-1 && auxColum>-1) && (auxRow<iGrafo.size()-1 && auxColum<iGrafo[0].size()-1) && (iGrafo[auxRow][auxColum] != 1 && iGrafo[auxRow+1][auxColum]!= 1 && iGrafo[auxRow][auxColum+1]!=1 && iGrafo[auxRow+1][auxColum+1]!=1) && visits[auxRow][auxColum][auxRotation] == -1){
-
-                q.push(make_tuple(auxRow, auxColum, auxRotation));
-                visits[auxRow][auxColum][auxRotation] = visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)] + 1;
-
+                auxRotation = 1;
             }
 
+            can = 0;
+
+            for(n = 1; n<4; n++){
+
+                auxRow = get<0>(tuple1) + (arrRow[auxRotation] * n);
+                auxColum = get<1>(tuple1) + (arrColum[auxRotation] * n);
+                
+                ans = false;
+                //cout<<orientation<<" "<<iGrafo[auxRow][auxColum]<<" "<<iGrafo[auxRow+1][auxColum]<<" "<<iGrafo[auxRow][auxColum+1]<<" "<<iGrafo[auxRow+1][auxColum+1]<<endl;
+
+                if(n == 3 && auxRow<iGrafo.size()-1 && auxColum<iGrafo[0].size()-1 && (iGrafo[auxRow][auxColum] != 1 && iGrafo[auxRow+1][auxColum]!= 1 && iGrafo[auxRow][auxColum+1]!=1 && iGrafo[auxRow+1][auxColum+1]!=1) && can==2){
+
+                    ans = true;
+
+                }
+
+                else if(n < 3 && auxRow<iGrafo.size()-1 && auxColum<iGrafo[0].size()-1 && (iGrafo[auxRow][auxColum] != 1 && iGrafo[auxRow+1][auxColum]!= 1 && iGrafo[auxRow][auxColum+1]!=1 && iGrafo[auxRow+1][auxColum+1]!=1)){
+
+                    can+=1;
+                    ans = true;
+                    
+                }
+
+                if(i == 0 && (auxRow>-1 && auxColum>-1) && (ans) && visits[auxRow][auxColum][auxRotation] == -1){
+                    
+                        q.push(make_tuple(auxRow, auxColum, auxRotation));
+                        visits[auxRow][auxColum][auxRotation] = visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)] + 1;
+
+                        /* if(iGrafo[auxRow][auxColum] == 0){
+
+                            iGrafo[auxRow][auxColum] = (visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)] + 1)*-1;
+                        } */
+                }
+
+                else if(visits[get<0>(tuple1)][get<1>(tuple1)][auxRotation] == -1){
+
+                    q.push(make_tuple(get<0>(tuple1), get<1>(tuple1), auxRotation));
+                    visits[get<0>(tuple1)][get<1>(tuple1)][auxRotation] = visits[get<0>(tuple1)][get<1>(tuple1)][get<2>(tuple1)] + 1;
+                }
+            }
         }        
     }
 
@@ -97,37 +133,40 @@ int main(){
         cin>>rowIni>>columIni>>rowFinish>>columFinish>>cadOrientation;
         
         if(cadOrientation == "south"){
-            orientation = 1;           
-            visits[rowIni-1][columIni-1][1] = 0;
+            orientation = 2;           
+            visits[rowIni-1][columIni-1][2] = 0;
         }
 
         else if(cadOrientation == "north"){
 
 
             orientation = 0;
+            visits[rowIni-1][columIni-1][0] = 0;
         }
 
         else if(cadOrientation == "east"){
 
-            orientation = 2;
+            orientation = 1;
+            visits[rowIni-1][columIni-1][1] = 0;
         }
 
         else{
 
             orientation = 3;
+            visits[rowIni-1][columIni-1][3] = 0;
         }
 
         cout<<bfs(rowIni-1, columIni-1, orientation, rowFinish-1, columFinish-1, iGrafo, visits)<<endl;
 
-        for(i = 0; i<iGrafo.size(); i++){
+        /* for(i = 0; i<iGrafo.size(); i++){
 
             for(n = 0; n<iGrafo[0].size(); n++){
                 
-                cout<<iGrafo[i][n]<<" ";
+                printf("  %3i  ", iGrafo[i][n]);
             }
 
             cout<<endl;
-        }
+        } */ 
     }
 
     return 0;
