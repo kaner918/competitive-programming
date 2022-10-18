@@ -16,13 +16,15 @@ struct State{
     int row;
     int colum;
     int state;
+    int stateVisit;
 
     State(){}
-    State(int row2, int colum2, int state2){
+    State(int row2, int colum2, int state2, int state3){
 
         row = row2;
         colum = colum2;
         state = state2;
+        stateVisit = state3;
     }
 };
 
@@ -34,59 +36,59 @@ int bfs(State stateInit, State stateFinish, int sizeRow, int sizeColum){
     q.push(stateInit);
     bool ans;
 
-    visits[stateInit.row][stateInit.colum][stateInit.state] = 0;
+    visits[stateInit.row][stateInit.colum][stateInit.state-1] = 0;
 
     while(!q.empty()){
 
         auxState = q.front();
 
-        cout<<auxState.row<<" "<<auxState.colum<<endl;
+        cout<<auxState.row<<" "<<auxState.colum<<" prox move "<<auxState.state<<endl;
         q.pop();
 
         if(auxState.row == stateFinish.row && auxState.colum == stateFinish.colum){
 
-            return visits[auxState.row][auxState.colum][auxState.state];
+            return visits[auxState.row][auxState.colum][auxState.stateVisit];
         }
 
-        if(auxState.state == 0){
+        if(auxState.state == 1){
 
             ans = true;
-            move = 1;
+            move = 2;
         }
 
-        else if(auxState.state == 1){
+        else if(auxState.state == 2){
 
-            move = 2;
+            move = 3;
             ans = false;
         }
 
         else{
 
             ans = false;
-            move = 0;
+            move = 1;
         }
 
         for(i = 0; i<4; i++){
 
-            auxRow = auxState.row + arrRow[i] * auxState.state;
-            auxColum = auxState.colum + arrColum[i] * auxState.state;
+            auxRow = auxState.row + (arrRow[i] * auxState.state);
+            auxColum = auxState.colum + (arrColum[i] * auxState.state);
 
-            if((auxRow > -1 && auxColum > -1) && (auxRow < sizeRow && auxColum < sizeColum) && graph[auxRow][auxColum] != '#' && visits[auxRow][auxColum][auxState.state] == -1){
+            if((auxRow > -1 && auxColum > -1) && (auxRow < sizeRow && auxColum < sizeColum) && graph[auxRow][auxColum] != '#' && visits[auxRow][auxColum][auxState.state-1] == -1){
                 
-                if(auxState.state == 2 && (graph[auxState.row + arrRow[i] * 1][auxState.colum + arrColum[i] * 1] != '#') && ((graph[auxState.row + arrRow[i] * 2][auxState.colum + arrColum[i] * 2] != '#'))){
+                if(auxState.state == 3 && (graph[auxState.row + arrRow[i] * 1][auxState.colum + arrColum[i] * 1] != '#') && ((graph[auxState.row + arrRow[i] * 2][auxState.colum + arrColum[i] * 2] != '#'))){
 
                     ans = true;
                 }
 
-                else if(auxState.state == 1 && graph[auxState.row + arrRow[i] * 1][auxState.colum + arrColum[i] * 1] != '#'){
+                else if(auxState.state == 2 && graph[auxState.row + arrRow[i] * 1][auxState.colum + arrColum[i] * 1] != '#'){
 
                     ans = true;
                 }
 
                 if(ans = true){
 
-                    q.push(State(auxRow, auxColum, move));
-                    visits[auxRow][auxColum][auxState.state] = visits[auxState.row][auxState.colum][auxState.state] + 1;
+                    q.push(State(auxRow, auxColum, move, auxState.state));
+                    visits[auxRow][auxColum][auxState.state-1] = visits[auxState.row][auxState.colum][auxState.state-1] + 1;
 
                 }
             }
@@ -130,7 +132,7 @@ int main(){
             }
         }
         
-        ans = bfs(State(rowInit, columInit, 0), State(rowFinish, columFinish, 0), row, colum);
+        ans = bfs(State(rowInit, columInit, 1, 0), State(rowFinish, columFinish, 1, 0), row, colum);
 
         if(ans != -1){
 
