@@ -95,6 +95,7 @@ int bfs(State stateInit, State stateFinish, int sizeRow, int sizeColum){
 
         }
     }
+    
     return -1;
 }
 int main(){
