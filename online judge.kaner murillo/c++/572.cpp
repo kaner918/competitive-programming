@@ -1,4 +1,4 @@
-//
+//https://onlinejudge.org/external/5/572.pdf
 //572
 
 #include<cstdio>
