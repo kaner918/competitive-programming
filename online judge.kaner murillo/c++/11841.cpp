@@ -3,34 +3,92 @@
 
 #include<cstdio>
 #include<iostream>
-#include<map>
+#include<set>
 #include<tuple>
 #include<vector>
 
 using namespace std;
 
-void dfs(tuple<int, int, int>node, map<tuple<int, int, int>, int>&graph){
+bool ans1, ans2, ans3;
 
-    map<tuple<int, int, int>, int>::iterator it;
-    graph[node] = 0; 
+bool compare(tuple<int, int, int>node, set<tuple<int, int, int>>&graph, set<tuple<int, int, int>>&visits){//verifico si ya visite el nodo, y si se encuentra dentro de los movimientos del color negro
 
-    tuple<int, int, int> aux1 = make_tuple(get<0>(node)+1, get<1>(node), get<2>(node)-1);
-    tuple<int, int, int> aux2 = make_tuple(get<0>(node), get<1>(node)+1, get<2>(node)-1);
+    set<tuple<int, int, int>>::iterator it;
 
-    if(get<2>(node) > 0){
+    for(it = visits.begin(); it!=visits.end() && (get<0>(*it) != get<0>(node) || get<1>(*it)  != get<1>(node) || get<2>(*it) != get<2>(node)); it++);
 
-        for(it = graph.begin(); it!=graph.end() && (get<0>(it->first) != get<0>(aux1) || get<1>(it->first) != get<1>(aux1) || get<2>(it->first) != get<2>(aux1)); it++);
+        if(it==visits.end()){
 
-        if(it==graph.end()){
+            for(it = graph.begin(); it!=graph.end() && (get<0>(*it)  != get<0>(node) || get<1>(*it)  != get<1>(node) || get<2>(*it)  != get<2>(node)); it++);
 
-            dfs(aux1, graph);
+            if(it != graph.end()){
+
+                return true;
+
+            }
         }
 
-        for(it = graph.begin(); it!=graph.end() && (get<0>(it->first) != get<0>(aux2) || get<1>(it->first) != get<1>(aux2) || get<2>(it->first) != get<2>(aux2)); it++);
+    return false;
+}
 
-        if(it==graph.end()){
+//separador
+void dfs(tuple<int, int, int>node, set<tuple<int, int, int>>&graph, set<tuple<int, int, int>>&visits, int size){
 
-            dfs(aux2, graph);
+    
+    visits.insert(node);
+
+    if(get<0>(node) == 0){
+
+        ans1 = true;
+    }
+
+    if(get<1>(node) == 0){
+
+        ans2 = true;
+    }
+
+    if(get<2>(node) == 0){
+
+        ans3 = true;
+    }
+    
+    tuple<int, int, int> aux1 = make_tuple(get<0>(node)+1, get<1>(node), get<2>(node)-1);//abajo izquierda
+    tuple<int, int, int> aux2 = make_tuple(get<0>(node), get<1>(node)+1, get<2>(node)-1);//abajo izquierda
+    tuple<int, int, int> aux3 = make_tuple(get<0>(node)-1, get<1>(node), get<2>(node)+1);//arriba izquierda
+    tuple<int, int, int> aux4 = make_tuple(get<0>(node), get<1>(node)-1, get<2>(node)+1);//arriba derecha
+    tuple<int, int, int> aux5 = make_tuple(get<0>(node)-1, get<1>(node)+1, get<2>(node));//mismo level
+    tuple<int, int, int> aux6 = make_tuple(get<0>(node)+1, get<1>(node)-1, get<2>(node));//mismo level
+
+    if(get<0>(node)>=0 && get<1>(node)>=0 && get<2>(node)>=0 && (get<0>(node) + get<1>(node) + get<2>(node)) == size){
+
+        if(compare(aux1, graph, visits) && (!ans1 || !ans2 || !ans3)){
+
+            dfs(aux1, graph, visits, size);
+        }
+
+        if(compare(aux2, graph, visits)&& (!ans1 || !ans2 || !ans3)){
+
+            dfs(aux2, graph, visits, size);
+        }
+
+        if(compare(aux3, graph, visits)&& (!ans1 || !ans2 || !ans3)){
+
+            dfs(aux3, graph, visits, size);
+        }
+
+        if(compare(aux4, graph, visits)&& (!ans1 || !ans2 || !ans3)){
+
+            dfs(aux4, graph, visits, size);
+        }
+
+        if(compare(aux5, graph, visits)&& (!ans1 || !ans2 || !ans3)){
+
+            dfs(aux5, graph, visits, size);
+        }
+
+        if(compare(aux6, graph, visits)&& (!ans1 || !ans2 || !ans3)){
+
+            dfs(aux6, graph, visits, size);
         }
     }
 }
@@ -45,12 +103,10 @@ int main(){
 
     while(scanf("%i %i", &size, &consults) && (size != 0 || consults != 0)){
 
-        map<tuple<int, int, int>, int>graph;
+        set<tuple<int, int, int>>graph;
         vector<tuple<int, int, int>>vecConsult;
-
-        dfs(make_tuple(0, 0, size), graph);
         ans = false;
-        map<tuple<int, int, int>, int>::iterator it;
+        set<tuple<int, int, int>>::iterator it;
 
         for(n = 0; n<consults; n++){
 
@@ -61,25 +117,24 @@ int main(){
             get<2>(auxTuple) = z;
 
             vecConsult.push_back(auxTuple);
-            graph[auxTuple] = 1;
+            graph.insert(auxTuple);
 
         }
 
-        /* for(it = graph.begin(); it!=graph.end(); it++){
-
-            cout<<get<0>(it->first)<<" "<<get<1>(it->first)<<" "<<get<2>(it->first)<<" "<<graph[it->first]<<endl;
-        } */
-
         for(n = 0; n<vecConsult.size() && ans == false; n++){
             
-            auxTuple = make_tuple(get<0>(vecConsult[n])-1, get<1>(vecConsult[n]), get<2>(vecConsult[n])+1); 
-            auxTuple2 = make_tuple(get<0>(vecConsult[n]), get<1>(vecConsult[n])-1, get<2>(vecConsult[n])+1); 
-            auxTuple3 = make_tuple(get<0>(vecConsult[n]), get<1>(vecConsult[n])+1, get<2>(vecConsult[n])-1); 
+            ans1 = false;
+            ans2 = false;
+            ans3 = false;
+            set<tuple<int, int, int>>visits;
 
-            if((get<0>(auxTuple) > -1 && graph[auxTuple] == 1) && (get<1>(auxTuple2) > -1 && graph[auxTuple2] == 1) && (get<2>(auxTuple3) > -1 && graph[auxTuple3] == 1)){
+            dfs(vecConsult[n], graph, visits, size);
+
+            if(ans1 && ans2 && ans3){
 
                 ans = true;
             }
+
         }
 
         if(ans){
@@ -94,3 +149,4 @@ int main(){
     }
 
     return 0;
+}
