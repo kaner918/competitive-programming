@@ -34,16 +34,25 @@ int main(){
 
             scanf("%i %i", &dor1, &dor2);
 
-            graph[dor1-1].lights.p
+            graph[dor1-1].lights.push_back(dor2-1);
         }
 
         for(i = 0; i<graph.size(); i++){
 
-            printf("%i: ", i+1);
+            printf("%i conection: ", i+1);
 
             for(n = 0; n<graph[i].conections.size(); n++){
 
-                printf("%i ", graph[i][n]+1);
+                printf("%i ", graph[i].conections[n]+1);
+            }
+
+            printf("\n");
+
+            printf("%i lights: ", i+1);
+
+            for(n = 0; n<graph[i].lights.size(); n++){
+
+                printf("%i ", graph[i].lights[n]+1);
             }
 
             printf("\n");
