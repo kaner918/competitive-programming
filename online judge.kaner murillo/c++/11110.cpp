@@ -3,7 +3,9 @@
 
 #include<cstdio>
 #include<iostream>
+#include<sstream>
 #include<map>
+#include<string>
 
 using namespace std;
 
@@ -32,6 +34,7 @@ int main(){
 
     int size, n, m, i, x;
     bool ans;
+    string cad;
 
     while(scanf("%i", &size) && size !=  0){
 
@@ -49,13 +52,16 @@ int main(){
             }
         }
 
+        cin.ignore();
+        
         for(i = 1; i<size; i++){
+            
+            getline(cin, cad);
+            stringstream stk(cad);
 
-            for(x = 0; x<size; x++){
-                
-                scanf("%i %i", &n, &m);
+            while(stk>>n>>m){
+
                 graph[n-1][m-1] = i;
-
             }
         }
 
