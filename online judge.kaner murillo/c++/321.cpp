@@ -5,13 +5,57 @@
 #include<iostream>
 #include<vector>
 #include<set>
+#include<queue>
+#include<tuple>
 
 using namespace std;
+
 struct Lights{
 
     vector<int>lights;
     vector<int>conections;
+    int counter = 0;
+
 };
+
+int bfs(int init, vector<Lights>&graph, set<tuple<int, vector<int>>>&visits){
+
+    queue<tuple<int, vector<int>>>q;
+    set<tuple<int, vector<int>>>::iterator it;
+    int i, n;
+    vector<int>auxVec(graph.size(), -1);
+    tuple<int, vector<int>>auxTuple = make_tuple(init, auxVec);
+    auxVec[0] = 1;
+    q.push(auxTuple);
+    visits.insert(auxTuple);
+    
+    while(!q.empty()){
+
+        auxTuple = q.front();
+        cout<<get<0>(auxTuple)<<endl;
+        auxVec = get<1>(auxTuple);
+        
+        q.pop();
+
+        for(n = 0; n<graph[get<0>(auxTuple)].lights.size(); n++){
+
+            auxVec[graph[get<0>(auxTuple)].lights[n]]*=-1;
+
+            for(i = 0; i<graph[get<0>(auxTuple)].conections.size(); i++){
+                
+                for(it = visits.begin(); it!=visits.end() && (graph[get<0>(auxTuple)].conections[i] != get<0>(*it) || auxVec != get<1>(*it)); it++);
+                if(it == visits.end() && auxVec[graph[get<0>(auxTuple)].conections[i]] == 1){
+
+                    q.push(make_tuple(graph[get<0>(auxTuple)].conections[i], auxVec));
+                    visits.insert(make_tuple(graph[get<0>(auxTuple)].conections[i], auxVec));
+                }
+            }
+        }
+    }
+
+    return -1;
+
+}
 
 int main(){
 
@@ -20,6 +64,7 @@ int main(){
     while(scanf("%i %i %i", &doors, &paths, &light) && (doors != 0 || paths != 0 || light != 0)){
 
         vector<Lights>graph(doors);
+        set<tuple<int, vector<int>>>visits;
 
         for(i = 0; i<paths; i++){
 
@@ -37,7 +82,9 @@ int main(){
             graph[dor1-1].lights.push_back(dor2-1);
         }
 
-        for(i = 0; i<graph.size(); i++){
+        bfs(0, graph, visits);
+
+       /*  for(i = 0; i<graph.size(); i++){
 
             printf("%i conection: ", i+1);
 
@@ -56,7 +103,7 @@ int main(){
             }
 
             printf("\n");
-        }
+        } */
         cin.ignore();
     }
 
