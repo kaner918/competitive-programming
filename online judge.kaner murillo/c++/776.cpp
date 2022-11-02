@@ -6,44 +6,32 @@
 
 using namespace std;
 
-int arrRow[] = {1, 1, 0, -1, -1, -1, 0, 1}, arrColum[] = {0, -1, -1, -1, 0, 1, 1, 1}, space[202];
+int arrRow[] = {1, 1, 0, -1, -1, -1, 0, 1}, arrColum[] = {0, -1, -1, -1, 0, 1, 1, 1}, space[203];
 
-void comp(int n){
+int calculation(int n){
 
-    int i;
+    int i, size = 0;
 
-    for(i = 0; i<n; i++){
-
-        printf(" ");
+    while(n > 0){
+        
+        size++;
+        n/=10;
     }
 
+    return size;
 }
 
 void dfs(int row, int colum, vector<vector<int>>&visits, vector<vector<string>>&graph, int counter){
     
+    int i, auxRow, auxColum, auxCounter;
+
     visits[row][colum] = counter;
+    auxCounter = calculation(visits[row][colum]);
 
-    if(visits[row][colum] > 9 && space[colum] == 1){
+    if( auxCounter > space[colum]){
 
-        space[colum] = 2;
+        space[colum] = auxCounter;
     }
-
-    else if(visits[row][colum] > 99 && (space[colum] == 1 || space[colum] == 2)){
-
-        space[colum] = 3;
-    }
-
-    else if(visits[row][colum] > 999 && (space[colum] == 1 || space[colum] == 2 || space[colum] == 3)){
-
-        space[colum] = 4;
-    }
-
-    else if(visits[row][colum] > 9999 && (space[colum] == 1 || space[colum] == 2 || space[colum] == 3 || space[colum] == 4)){
-
-        space[colum] = 5;
-    }
-
-    int i, auxRow, auxColum;
 
     for(i = 0; i<8; i++){
 
@@ -67,7 +55,7 @@ int main(){
         vector<vector<string>>graph;
         vector<vector<int>>visits;
         counter = 1;
-
+        
         do{
 
             position = 0;
@@ -102,57 +90,11 @@ int main(){
 
         for(n = 0; n<graph.size(); n++){
 
-            if(space[0] == 2){
-
-                printf("%2i", visits[n][0]);
-            }
-            
-            else if(space[0] == 3){
-                
-                printf("%3i", visits[n][0]);
-            }
-
-            else if(space[0] == 4){
-                
-                printf("%4i", visits[n][0]);
-            }
-
-            else if(space[0] == 5){
-                
-                printf("%5i", visits[n][0]);
-            }
-
-            else{
-
-                printf("%i", visits[n][0]);
-            }
+            printf("%*d", space[0], visits[n][0]);
 
             for(m = 1; m<graph[0].size(); m++){
                 
-                if(space[m] == 2){
-
-                    printf("%3i", visits[n][m]);
-                }
-                
-                else if(space[m] == 3){
-                    
-                    printf("%4i", visits[n][m]);
-                }
-
-                else if(space[m] == 4){
-                    
-                    printf("%5i", visits[n][m]);
-                }
-
-                else if(space[0] == 5){
-                
-                    printf("%6i", visits[n][0]);
-                }
-
-                else{
-
-                    printf("%2i", visits[n][m]);
-                }
+                printf("%*d", space[m]+1, visits[n][m]);
             }
 
             printf("\n");
