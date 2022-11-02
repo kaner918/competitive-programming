@@ -23,19 +23,24 @@ void dfs(int row, int colum, vector<vector<int>>&visits, vector<vector<string>>&
     
     visits[row][colum] = counter;
 
-    if(visits[row][colum] > 9){
+    if(visits[row][colum] > 9 && space[colum] == 1){
 
         space[colum] = 2;
     }
 
-    else if(visits[row][colum] > 99){
+    else if(visits[row][colum] > 99 && (space[colum] == 1 || space[colum] == 2)){
 
         space[colum] = 3;
     }
 
-    else if(visits[row][colum] > 999){
+    else if(visits[row][colum] > 999 && (space[colum] == 1 || space[colum] == 2 || space[colum] == 3)){
 
         space[colum] = 4;
+    }
+
+    else if(visits[row][colum] > 9999 && (space[colum] == 1 || space[colum] == 2 || space[colum] == 3 || space[colum] == 4)){
+
+        space[colum] = 5;
     }
 
     int i, auxRow, auxColum;
@@ -112,6 +117,11 @@ int main(){
                 printf("%4i", visits[n][0]);
             }
 
+            else if(space[0] == 5){
+                
+                printf("%5i", visits[n][0]);
+            }
+
             else{
 
                 printf("%i", visits[n][0]);
@@ -121,22 +131,27 @@ int main(){
                 
                 if(space[m] == 2){
 
-                    printf("%4i", visits[n][m]);
+                    printf("%3i", visits[n][m]);
                 }
                 
                 else if(space[m] == 3){
                     
-                    printf("%5i", visits[n][m]);
+                    printf("%4i", visits[n][m]);
                 }
 
                 else if(space[m] == 4){
                     
-                    printf("%6i", visits[n][m]);
+                    printf("%5i", visits[n][m]);
+                }
+
+                else if(space[0] == 5){
+                
+                    printf("%6i", visits[n][0]);
                 }
 
                 else{
 
-                    printf("%3i", visits[n][m]);
+                    printf("%2i", visits[n][m]);
                 }
             }
 
