@@ -24,31 +24,49 @@ int bfs(int init, vector<Lights>&graph, set<tuple<int, vector<int>>>&visits){
     set<tuple<int, vector<int>>>::iterator it;
     int i, n;
     vector<int>auxVec(graph.size(), -1);
+    vector<int>auxVecFinish(graph.size(), -1);
     tuple<int, vector<int>>auxTuple = make_tuple(init, auxVec);
     auxVec[0] = 1;
+    auxVecFinish[graph.size()-1] = 1;
     q.push(auxTuple);
     visits.insert(auxTuple);
     
     while(!q.empty()){
 
         auxTuple = q.front();
-        cout<<get<0>(auxTuple)<<endl;
-        auxVec = get<1>(auxTuple);
-        
+        cout<<get<0>(auxTuple)<<":"<<endl;
+
+        for(n = 0; n)
+
+        if(get<0>(auxTuple) == graph.size()-1 && get<1>(auxTuple) == auxVecFinish){
+
+            return 1;
+        }
+
         q.pop();
 
         for(n = 0; n<graph[get<0>(auxTuple)].lights.size(); n++){
 
+            auxVec = get<1>(auxTuple);
             auxVec[graph[get<0>(auxTuple)].lights[n]]*=-1;
 
-            for(i = 0; i<graph[get<0>(auxTuple)].conections.size(); i++){
-                
-                for(it = visits.begin(); it!=visits.end() && (graph[get<0>(auxTuple)].conections[i] != get<0>(*it) || auxVec != get<1>(*it)); it++);
-                if(it == visits.end() && auxVec[graph[get<0>(auxTuple)].conections[i]] == 1){
+            for(it = visits.begin(); it!=visits.end() && (get<0>(*it) != get<0>(auxTuple) || (get<1>(*it) != auxVec)); it++);
 
-                    q.push(make_tuple(graph[get<0>(auxTuple)].conections[i], auxVec));
-                    visits.insert(make_tuple(graph[get<0>(auxTuple)].conections[i], auxVec));
-                }
+            if(it==visits.end()){
+
+                q.push(make_tuple(get<0>(auxTuple), auxVec));
+                visits.insert(make_tuple(get<0>(auxTuple), auxVec));
+            }
+        }
+
+        for(n = 0; n<graph[get<0>(auxTuple)].conections.size(); n++){
+
+            for(it = visits.begin(); it!=visits.end() && (get<0>(*it) != graph[get<0>(auxTuple)].conections[n] || (get<1>(*it) != get<1>(auxTuple))); it++);
+            
+            if(it==visits.end() && get<1>(auxTuple)[graph[get<0>(auxTuple)].conections[n]] == 1){
+
+                q.push(make_tuple(graph[get<0>(auxTuple)].conections[n], get<1>(auxTuple)));
+                visits.insert(make_tuple(graph[get<0>(auxTuple)].conections[n], get<1>(auxTuple)));
             }
         }
     }
