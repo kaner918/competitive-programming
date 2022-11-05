@@ -1,45 +1,950 @@
-  1   2   3 4 5   6   7   8
-  9  10  11 5 4  12  13  14
- 15  16  17 4 5  18  19  20
- 21  22  23 5 4  24  25  26
- 27  28  29 4 5  30  31  32
- 33  34  35 5 4  36  37  38
- 39  40  41 4 5  42  43  44
- 45  46  47 5 4  48  49  50
- 51  52  53 4 5  54  55  56
- 57  58  59 5 4  60  61  62
- 63  64  65 4 5  66  67  68
- 69  70  71 5 4  72  73  74
- 75  76  77 4 5  78  79  80
- 81  82  83 5 4  84  85  86
- 87  88  89 4 5  90  91  92
- 93  94  95 5 4  96  97  98
- 99 100 101 4 5 102 103 104
-105 106 107 5 4 108 109 110
-111 112 113 4 5 114 115 116
-117 118 119 5 4 120 121 122
-123 124 125 4 5 126 127 128
-129 130 131 5 4 132 133 134
-135 136 137 4 5 138 139 140
-141 142 143 5 4 144 145 146
-147 148 149 4 5 150 151 152
-153 154 155 5 4 156 157 158
-159 160 161 4 5 162 163 164
-165 166 167 5 4 168 169 170
-171 172 173 4 5 174 175 176
-177 178 179 5 4 180 181 182
-183 184 185 4 5 186 187 188
-189 190 191 5 4 192 193 194
-195 196 197 4 5 198 199 200
-201 202 203 5 4 204 205 206
-207 208 209 4 5 210 211 212
-213 214 215 5 4 216 217 218
-219 220 221 4 5 222 223 224
-225 226 227 5 4 228 229 230
-231 232 233 4 5 234 235 236
-237 238 239 5 4 240 241 242
-243 244 245 4 5 246 247 248
-249 250 251 5 4 252 253 254
-255 256 257 4 5 258 259 260
-261 262 263 5 4 264 265 266
-%
+Villa #1
+The problem can be solved in 0 steps:
+
+Villa #2
+The problem can be solved in 3 steps:
+- Switch on light in room 2.
+- Move to room 2.
+- Switch off light in room 1.
+
+Villa #3
+The problem can be solved in 3 steps:
+- Switch on light in room 3.
+- Move to room 3.
+- Switch off light in room 1.
+
+Villa #4
+The problem cannot be solved.
+
+Villa #5
+The problem cannot be solved.
+
+Villa #6
+The problem can be solved in 7 steps:
+- Switch on light in room 3.
+- Move to room 3.
+- Switch on light in room 6.
+- Move to room 1.
+- Switch off light in room 3.
+- Move to room 6.
+- Switch off light in room 1.
+
+Villa #7
+The problem can be solved in 10 steps:
+- Switch on light in room 2.
+- Switch on light in room 4.
+- Move to room 4.
+- Switch on light in room 7.
+- Move to room 7.
+- Switch off light in room 4.
+- Move to room 2.
+- Switch off light in room 1.
+- Move to room 7.
+- Switch off light in room 2.
+
+Villa #8
+The problem can be solved in 10 steps:
+- Switch on light in room 5.
+- Switch on light in room 8.
+- Move to room 5.
+- Switch on light in room 7.
+- Move to room 1.
+- Switch off light in room 5.
+- Move to room 7.
+- Switch off light in room 1.
+- Move to room 8.
+- Switch off light in room 7.
+
+Villa #9
+The problem cannot be solved.
+
+Villa #10
+The problem can be solved in 24 steps:
+- Switch on light in room 3.
+- Switch on light in room 7.
+- Move to room 7.
+- Switch on light in room 8.
+- Switch on light in room 9.
+- Switch on light in room 10.
+- Move to room 1.
+- Move to room 8.
+- Switch on light in room 2.
+- Switch on light in room 5.
+- Move to room 1.
+- Move to room 7.
+- Switch off light in room 8.
+- Move to room 5.
+- Move to room 9.
+- Move to room 3.
+- Switch off light in room 5.
+- Switch off light in room 9.
+- Move to room 2.
+- Switch off light in room 1.
+- Switch off light in room 3.
+- Switch off light in room 7.
+- Move to room 10.
+- Switch off light in room 2.
+
+Villa #11
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #12
+The problem can be solved in 12 steps:
+- Switch on light in room 3.
+- Switch on light in room 7.
+- Move to room 3.
+- Switch off light in room 1.
+- Switch on light in room 5.
+- Switch on light in room 10.
+- Move to room 7.
+- Switch off light in room 3.
+- Move to room 5.
+- Switch off light in room 7.
+- Move to room 10.
+- Switch off light in room 5.
+
+Villa #13
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #14
+The problem cannot be solved.
+
+Villa #15
+The problem cannot be solved.
+
+Villa #16
+The problem cannot be solved.
+
+Villa #17
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #18
+The problem can be solved in 11 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch on light in room 2.
+- Switch on light in room 3.
+- Move to room 3.
+- Move to room 2.
+- Switch off light in room 1.
+- Move to room 3.
+- Move to room 10.
+- Switch off light in room 2.
+- Switch off light in room 3.
+
+Villa #19
+The problem can be solved in 6 steps:
+- Switch on light in room 5.
+- Switch on light in room 10.
+- Move to room 5.
+- Switch off light in room 1.
+- Move to room 10.
+- Switch off light in room 5.
+
+Villa #20
+The problem cannot be solved.
+
+Villa #21
+The problem can be solved in 6 steps:
+- Switch on light in room 3.
+- Switch on light in room 10.
+- Move to room 3.
+- Switch off light in room 1.
+- Move to room 10.
+- Switch off light in room 3.
+
+Villa #22
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #23
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #24
+The problem can be solved in 9 steps:
+- Switch on light in room 2.
+- Switch on light in room 3.
+- Switch on light in room 10.
+- Move to room 2.
+- Switch off light in room 1.
+- Move to room 3.
+- Switch off light in room 2.
+- Move to room 10.
+- Switch off light in room 3.
+
+Villa #25
+The problem can be solved in 9 steps:
+- Switch on light in room 2.
+- Switch on light in room 4.
+- Switch on light in room 10.
+- Move to room 2.
+- Move to room 4.
+- Switch off light in room 2.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 4.
+
+Villa #26
+The problem can be solved in 12 steps:
+- Switch on light in room 4.
+- Switch on light in room 6.
+- Switch on light in room 9.
+- Move to room 9.
+- Switch off light in room 1.
+- Move to room 4.
+- Switch off light in room 9.
+- Switch on light in room 10.
+- Move to room 6.
+- Switch off light in room 4.
+- Move to room 10.
+- Switch off light in room 6.
+
+Villa #27
+The problem can be solved in 9 steps:
+- Switch on light in room 8.
+- Switch on light in room 10.
+- Move to room 8.
+- Switch off light in room 1.
+- Switch on light in room 3.
+- Move to room 3.
+- Switch off light in room 8.
+- Move to room 10.
+- Switch off light in room 3.
+
+Villa #28
+The problem can be solved in 16 steps:
+- Switch on light in room 3.
+- Move to room 3.
+- Switch on light in room 4.
+- Switch on light in room 6.
+- Move to room 1.
+- Move to room 4.
+- Switch off light in room 1.
+- Switch on light in room 10.
+- Move to room 10.
+- Move to room 6.
+- Move to room 3.
+- Switch off light in room 4.
+- Move to room 6.
+- Switch off light in room 3.
+- Move to room 10.
+- Switch off light in room 6.
+
+Villa #29
+The problem can be solved in 6 steps:
+- Switch on light in room 5.
+- Switch on light in room 10.
+- Move to room 5.
+- Switch off light in room 1.
+- Move to room 10.
+- Switch off light in room 5.
+
+Villa #30
+The problem can be solved in 17 steps:
+- Switch on light in room 3.
+- Switch on light in room 4.
+- Move to room 4.
+- Switch on light in room 2.
+- Switch on light in room 8.
+- Switch on light in room 10.
+- Move to room 1.
+- Switch off light in room 4.
+- Move to room 8.
+- Switch off light in room 1.
+- Move to room 3.
+- Switch off light in room 8.
+- Move to room 10.
+- Move to room 2.
+- Switch off light in room 3.
+- Move to room 10.
+- Switch off light in room 2.
+
+Villa #31
+The problem can be solved in 21 steps:
+- Switch on light in room 4.
+- Switch on light in room 6.
+- Switch on light in room 10.
+- Move to room 4.
+- Switch on light in room 7.
+- Switch on light in room 9.
+- Move to room 1.
+- Move to room 7.
+- Switch on light in room 8.
+- Move to room 1.
+- Move to room 4.
+- Switch off light in room 7.
+- Move to room 6.
+- Switch off light in room 1.
+- Switch off light in room 4.
+- Move to room 8.
+- Move to room 9.
+- Switch off light in room 6.
+- Move to room 10.
+- Switch off light in room 8.
+- Switch off light in room 9.
+
+Villa #32
+The problem cannot be solved.
+
+Villa #33
+The problem cannot be solved.
+
+Villa #34
+The problem cannot be solved.
+
+Villa #35
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #36
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #37
+The problem cannot be solved.
+
+Villa #38
+The problem can be solved in 16 steps:
+- Switch on light in room 3.
+- Switch on light in room 7.
+- Switch on light in room 8.
+- Move to room 8.
+- Switch off light in room 1.
+- Switch on light in room 5.
+- Switch on light in room 10.
+- Move to room 3.
+- Move to room 7.
+- Switch off light in room 8.
+- Move to room 3.
+- Switch off light in room 7.
+- Move to room 5.
+- Move to room 10.
+- Switch off light in room 3.
+- Switch off light in room 5.
+
+Villa #39
+The problem can be solved in 20 steps:
+- Switch on light in room 6.
+- Switch on light in room 8.
+- Move to room 8.
+- Switch on light in room 2.
+- Switch on light in room 3.
+- Switch on light in room 5.
+- Move to room 6.
+- Switch off light in room 8.
+- Move to room 5.
+- Switch off light in room 6.
+- Move to room 3.
+- Switch off light in room 1.
+- Switch on light in room 10.
+- Move to room 5.
+- Move to room 10.
+- Switch off light in room 5.
+- Move to room 2.
+- Switch off light in room 3.
+- Move to room 10.
+- Switch off light in room 2.
+
+Villa #40
+The problem cannot be solved.
+
+Villa #41
+The problem can be solved in 12 steps:
+- Switch on light in room 5.
+- Switch on light in room 7.
+- Move to room 5.
+- Switch off light in room 1.
+- Switch on light in room 3.
+- Move to room 3.
+- Switch off light in room 5.
+- Switch on light in room 10.
+- Move to room 7.
+- Switch off light in room 3.
+- Move to room 10.
+- Switch off light in room 7.
+
+Villa #42
+The problem cannot be solved.
+
+Villa #43
+The problem can be solved in 19 steps:
+- Switch on light in room 5.
+- Switch on light in room 7.
+- Switch on light in room 10.
+- Move to room 5.
+- Switch on light in room 4.
+- Move to room 7.
+- Switch on light in room 3.
+- Move to room 5.
+- Move to room 1.
+- Switch off light in room 5.
+- Move to room 4.
+- Switch off light in room 1.
+- Move to room 3.
+- Switch off light in room 4.
+- Move to room 10.
+- Move to room 7.
+- Switch off light in room 3.
+- Move to room 10.
+- Switch off light in room 7.
+
+Villa #44
+The problem cannot be solved.
+
+Villa #45
+The problem cannot be solved.
+
+Villa #46
+The problem can be solved in 9 steps:
+- Switch on light in room 7.
+- Switch on light in room 8.
+- Move to room 7.
+- Switch off light in room 1.
+- Switch on light in room 10.
+- Move to room 8.
+- Switch off light in room 7.
+- Move to room 10.
+- Switch off light in room 8.
+
+Villa #47
+The problem can be solved in 14 steps:
+- Switch on light in room 7.
+- Move to room 7.
+- Switch on light in room 5.
+- Switch on light in room 10.
+- Move to room 5.
+- Switch on light in room 2.
+- Move to room 7.
+- Switch off light in room 5.
+- Move to room 1.
+- Switch off light in room 7.
+- Move to room 2.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 2.
+
+Villa #48
+The problem can be solved in 14 steps:
+- Switch on light in room 8.
+- Switch on light in room 10.
+- Move to room 8.
+- Switch on light in room 3.
+- Switch on light in room 7.
+- Move to room 1.
+- Switch off light in room 8.
+- Move to room 7.
+- Move to room 3.
+- Switch off light in room 1.
+- Move to room 7.
+- Switch off light in room 3.
+- Move to room 10.
+- Switch off light in room 7.
+
+Villa #49
+The problem cannot be solved.
+
+Villa #50
+The problem can be solved in 17 steps:
+- Switch on light in room 7.
+- Switch on light in room 8.
+- Move to room 8.
+- Switch on light in room 10.
+- Move to room 10.
+- Switch on light in room 5.
+- Switch off light in room 8.
+- Switch on light in room 9.
+- Move to room 7.
+- Switch off light in room 1.
+- Move to room 5.
+- Move to room 9.
+- Switch off light in room 7.
+- Move to room 5.
+- Switch off light in room 9.
+- Move to room 10.
+- Switch off light in room 5.
+
+Villa #51
+The problem cannot be solved.
+
+Villa #52
+The problem can be solved in 10 steps:
+- Switch on light in room 4.
+- Switch on light in room 10.
+- Move to room 4.
+- Move to room 10.
+- Switch on light in room 2.
+- Move to room 2.
+- Switch off light in room 1.
+- Switch off light in room 4.
+- Move to room 10.
+- Switch off light in room 2.
+
+Villa #53
+The problem can be solved in 15 steps:
+- Switch on light in room 4.
+- Switch on light in room 5.
+- Switch on light in room 9.
+- Move to room 5.
+- Switch on light in room 6.
+- Switch on light in room 10.
+- Move to room 9.
+- Switch off light in room 1.
+- Move to room 4.
+- Move to room 6.
+- Switch off light in room 4.
+- Switch off light in room 5.
+- Switch off light in room 9.
+- Move to room 10.
+- Switch off light in room 6.
+
+Villa #54
+The problem can be solved in 10 steps:
+- Switch on light in room 8.
+- Switch on light in room 10.
+- Move to room 8.
+- Switch on light in room 2.
+- Move to room 1.
+- Switch off light in room 8.
+- Move to room 2.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 2.
+
+Villa #55
+The problem cannot be solved.
+
+Villa #56
+The problem cannot be solved.
+
+Villa #57
+The problem can be solved in 20 steps:
+- Switch on light in room 5.
+- Move to room 5.
+- Switch on light in room 4.
+- Switch on light in room 8.
+- Move to room 1.
+- Switch off light in room 5.
+- Move to room 8.
+- Switch off light in room 1.
+- Move to room 4.
+- Switch on light in room 6.
+- Switch on light in room 10.
+- Move to room 8.
+- Move to room 6.
+- Switch off light in room 8.
+- Switch on light in room 9.
+- Move to room 9.
+- Switch off light in room 4.
+- Switch off light in room 6.
+- Move to room 10.
+- Switch off light in room 9.
+
+Villa #58
+The problem can be solved in 7 steps:
+- Switch on light in room 6.
+- Switch on light in room 10.
+- Move to room 10.
+- Move to room 6.
+- Switch off light in room 1.
+- Move to room 10.
+- Switch off light in room 6.
+
+Villa #59
+The problem can be solved in 7 steps:
+- Switch on light in room 6.
+- Move to room 6.
+- Switch on light in room 10.
+- Move to room 1.
+- Switch off light in room 6.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #60
+The problem can be solved in 10 steps:
+- Switch on light in room 8.
+- Switch on light in room 10.
+- Move to room 8.
+- Switch on light in room 2.
+- Move to room 1.
+- Switch off light in room 8.
+- Move to room 2.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 2.
+
+Villa #61
+The problem can be solved in 6 steps:
+- Switch on light in room 7.
+- Switch on light in room 10.
+- Move to room 7.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 7.
+
+Villa #62
+The problem cannot be solved.
+
+Villa #63
+The problem cannot be solved.
+
+Villa #64
+The problem cannot be solved.
+
+Villa #65
+The problem cannot be solved.
+
+Villa #66
+The problem can be solved in 10 steps:
+- Switch on light in room 7.
+- Move to room 7.
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch on light in room 3.
+- Move to room 3.
+- Switch off light in room 7.
+- Move to room 10.
+- Switch off light in room 3.
+
+Villa #67
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #68
+The problem cannot be solved.
+
+Villa #69
+The problem cannot be solved.
+
+Villa #70
+The problem can be solved in 7 steps:
+- Switch on light in room 6.
+- Move to room 6.
+- Switch on light in room 10.
+- Move to room 1.
+- Switch off light in room 6.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #71
+The problem cannot be solved.
+
+Villa #72
+The problem can be solved in 14 steps:
+- Switch on light in room 3.
+- Move to room 3.
+- Switch on light in room 4.
+- Switch on light in room 5.
+- Move to room 1.
+- Switch off light in room 3.
+- Move to room 5.
+- Switch on light in room 10.
+- Move to room 4.
+- Switch off light in room 1.
+- Move to room 5.
+- Switch off light in room 4.
+- Move to room 10.
+- Switch off light in room 5.
+
+Villa #73
+The problem can be solved in 15 steps:
+- Switch on light in room 8.
+- Move to room 8.
+- Switch on light in room 4.
+- Move to room 4.
+- Switch on light in room 6.
+- Move to room 6.
+- Switch on light in room 10.
+- Move to room 4.
+- Switch off light in room 6.
+- Move to room 8.
+- Switch off light in room 4.
+- Move to room 1.
+- Switch off light in room 8.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #74
+The problem cannot be solved.
+
+Villa #75
+The problem can be solved in 3 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+
+Villa #76
+The problem cannot be solved.
+
+Villa #77
+The problem can be solved in 17 steps:
+- Switch on light in room 4.
+- Switch on light in room 9.
+- Move to room 9.
+- Move to room 4.
+- Switch on light in room 5.
+- Switch on light in room 8.
+- Switch on light in room 10.
+- Move to room 9.
+- Move to room 1.
+- Switch off light in room 4.
+- Switch off light in room 9.
+- Move to room 5.
+- Switch off light in room 1.
+- Move to room 8.
+- Switch off light in room 5.
+- Move to room 10.
+- Switch off light in room 8.
+
+Villa #78
+The problem cannot be solved.
+
+Villa #79
+The problem can be solved in 18 steps:
+- Switch on light in room 3.
+- Switch on light in room 7.
+- Switch on light in room 10.
+- Move to room 7.
+- Switch on light in room 4.
+- Move to room 1.
+- Switch off light in room 7.
+- Move to room 4.
+- Move to room 3.
+- Switch on light in room 5.
+- Move to room 4.
+- Move to room 1.
+- Switch off light in room 3.
+- Move to room 5.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 4.
+- Switch off light in room 5.
+
+Villa #80
+The problem cannot be solved.
+
+Villa #81
+The problem can be solved in 15 steps:
+- Switch on light in room 3.
+- Switch on light in room 6.
+- Switch on light in room 7.
+- Switch on light in room 9.
+- Move to room 9.
+- Move to room 3.
+- Move to room 6.
+- Switch off light in room 3.
+- Switch off light in room 9.
+- Move to room 7.
+- Switch off light in room 6.
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 7.
+
+Villa #82
+The problem cannot be solved.
+
+Villa #83
+The problem cannot be solved.
+
+Villa #84
+The problem cannot be solved.
+
+Villa #85
+The problem cannot be solved.
+
+Villa #86
+The problem can be solved in 7 steps:
+- Switch on light in room 10.
+- Move to room 10.
+- Switch on light in room 5.
+- Move to room 5.
+- Switch off light in room 1.
+- Move to room 10.
+- Switch off light in room 5.
+
+Villa #87
+The problem can be solved in 16 steps:
+- Switch on light in room 2.
+- Switch on light in room 5.
+- Switch on light in room 6.
+- Move to room 6.
+- Switch off light in room 1.
+- Move to room 2.
+- Switch on light in room 10.
+- Move to room 5.
+- Switch off light in room 2.
+- Switch off light in room 6.
+- Move to room 10.
+- Switch on light in room 9.
+- Move to room 9.
+- Switch off light in room 5.
+- Move to room 10.
+- Switch off light in room 9.
+
+Villa #88
+The problem can be solved in 9 steps:
+- Switch on light in room 5.
+- Switch on light in room 7.
+- Move to room 7.
+- Move to room 5.
+- Switch on light in room 10.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 5.
+- Switch off light in room 7.
+
+Villa #89
+The problem can be solved in 12 steps:
+- Switch on light in room 3.
+- Switch on light in room 10.
+- Move to room 3.
+- Move to room 10.
+- Switch on light in room 4.
+- Move to room 3.
+- Move to room 4.
+- Switch off light in room 1.
+- Move to room 3.
+- Move to room 10.
+- Switch off light in room 3.
+- Switch off light in room 4.
+
+Villa #90
+The problem cannot be solved.
+
+Villa #91
+The problem can be solved in 11 steps:
+- Switch on light in room 5.
+- Move to room 5.
+- Switch on light in room 9.
+- Move to room 1.
+- Switch off light in room 5.
+- Move to room 9.
+- Switch on light in room 10.
+- Move to room 1.
+- Move to room 10.
+- Switch off light in room 1.
+- Switch off light in room 9.
+
+Villa #92
+The problem cannot be solved.
+
+Villa #93
+The problem can be solved in 10 steps:
+- Switch on light in room 5.
+- Switch on light in room 6.
+- Switch on light in room 10.
+- Move to room 5.
+- Move to room 10.
+- Switch off light in room 5.
+- Move to room 6.
+- Switch off light in room 1.
+- Move to room 10.
+- Switch off light in room 6.
+
+Villa #94
+The problem can be solved in 12 steps:
+- Switch on light in room 4.
+- Switch on light in room 9.
+- Move to room 9.
+- Switch off light in room 1.
+- Switch on light in room 3.
+- Switch on light in room 10.
+- Move to room 3.
+- Switch off light in room 9.
+- Move to room 4.
+- Switch off light in room 3.
+- Move to room 10.
+- Switch off light in room 4.
+
+Villa #95
+The problem cannot be solved.
+
+Villa #96
+The problem can be solved in 9 steps:
+- Switch on light in room 4.
+- Switch on light in room 7.
+- Move to room 7.
+- Switch off light in room 1.
+- Switch on light in room 10.
+- Move to room 4.
+- Switch off light in room 7.
+- Move to room 10.
+- Switch off light in room 4.
+
+Villa #97
+The problem can be solved in 19 steps:
+- Switch on light in room 6.
+- Switch on light in room 8.
+- Switch on light in room 9.
+- Move to room 6.
+- Switch on light in room 5.
+- Switch on light in room 10.
+- Move to room 1.
+- Switch off light in room 6.
+- Move to room 5.
+- Switch on light in room 7.
+- Move to room 8.
+- Switch off light in room 1.
+- Move to room 9.
+- Switch off light in room 5.
+- Switch off light in room 8.
+- Move to room 7.
+- Switch off light in room 9.
+- Move to room 10.
+- Switch off light in room 7.
+
+Villa #98
+The problem cannot be solved.
+
+Villa #99
+The problem can be solved in 12 steps:
+- Switch on light in room 3.
+- Switch on light in room 6.
+- Switch on light in room 9.
+- Move to room 6.
+- Switch off light in room 1.
+- Switch on light in room 10.
+- Move to room 3.
+- Switch off light in room 6.
+- Move to room 9.
+- Switch off light in room 3.
+- Move to room 10.
+- Switch off light in room 9.
+
+Villa #100
+The problem can be solved in 13 steps:
+- Switch on light in room 4.
+- Switch on light in room 6.
+- Switch on light in room 10.
+- Move to room 6.
+- Move to room 4.
+- Switch on light in room 2.
+- Move to room 6.
+- Switch off light in room 4.
+- Move to room 2.
+- Switch off light in room 1.
+- Switch off light in room 6.
+- Move to room 10.
+- Switch off light in room 2.
+
