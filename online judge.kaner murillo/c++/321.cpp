@@ -145,26 +145,6 @@ int main(){
             printf("The problem cannot be solved.\n");
         }
 
-       /*  for(i = 0; i<graph.size(); i++){
-
-            printf("%i conection: ", i+1);
-
-            for(n = 0; n<graph[i].conections.size(); n++){
-
-                printf("%i ", graph[i].conections[n]+1);
-            }
-
-            printf("\n");
-
-            printf("%i lights: ", i+1);
-
-            for(n = 0; n<graph[i].lights.size(); n++){
-
-                printf("%i ", graph[i].lights[n]+1);
-            }
-
-            printf("\n");
-        } */
         cin.ignore();
         printf("\n");
         counter++;
