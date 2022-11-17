@@ -11,7 +11,7 @@ using namespace std;
 int points;
 vector<int>cost(100);
 
-void init(int point){
+void init(int point){ //inicializamos los valores de la estructura auxiliar, donde guardamos el menor costo, para el nodo visitado
 
     int i;
 
@@ -20,13 +20,13 @@ void init(int point){
         cost[i] = INT_MAX;
     }
 
-    cost[point] = 0;
+    cost[point] = 0;//actualizamos el costo para el nodo incial, esto porque para llegar de x a x, tenemos un costo de 0
 }
 
 void dijkstra(int point, vector<vector<pair<int, int>>>&graph){
 
     int i, vertex, vertexAd, auxCost, weight;
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>cola;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>cola; //constructor para la cola de prioridad-> prioridad asiganda al menor valor de la cola.
 
     init(point);
 
