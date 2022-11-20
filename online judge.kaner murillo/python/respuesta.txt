@@ -1,100 +1,248 @@
-Case 1: average length between pages = 3.671 clicks
-Case 2: average length between pages = 1.867 clicks
-Case 3: average length between pages = 5.297 clicks
-Case 4: average length between pages = 3.000 clicks
-Case 5: average length between pages = 1.417 clicks
-Case 6: average length between pages = 3.929 clicks
-Case 7: average length between pages = 1.333 clicks
-Case 8: average length between pages = 3.169 clicks
-Case 9: average length between pages = 4.644 clicks
-Case 10: average length between pages = 2.657 clicks
-Case 11: average length between pages = 1.661 clicks
-Case 12: average length between pages = 1.931 clicks
-Case 13: average length between pages = 1.743 clicks
-Case 14: average length between pages = 1.633 clicks
-Case 15: average length between pages = 2.357 clicks
-Case 16: average length between pages = 2.182 clicks
-Case 17: average length between pages = 5.313 clicks
-Case 18: average length between pages = 1.822 clicks
-Case 19: average length between pages = 4.347 clicks
-Case 20: average length between pages = 5.076 clicks
-Case 21: average length between pages = 3.310 clicks
-Case 22: average length between pages = 5.717 clicks
-Case 23: average length between pages = 4.337 clicks
-Case 24: average length between pages = 1.167 clicks
-Case 25: average length between pages = 4.545 clicks
-Case 26: average length between pages = 4.669 clicks
-Case 27: average length between pages = 1.400 clicks
-Case 28: average length between pages = 2.413 clicks
-Case 29: average length between pages = 2.542 clicks
-Case 30: average length between pages = 5.180 clicks
-Case 31: average length between pages = 4.913 clicks
-Case 32: average length between pages = 2.735 clicks
-Case 33: average length between pages = 1.674 clicks
-Case 34: average length between pages = 1.885 clicks
-Case 35: average length between pages = 2.725 clicks
-Case 36: average length between pages = 4.588 clicks
-Case 37: average length between pages = 4.960 clicks
-Case 38: average length between pages = 1.967 clicks
-Case 39: average length between pages = 6.174 clicks
-Case 40: average length between pages = 2.127 clicks
-Case 41: average length between pages = 3.406 clicks
-Case 42: average length between pages = 4.055 clicks
-Case 43: average length between pages = 5.206 clicks
-Case 44: average length between pages = 3.099 clicks
-Case 45: average length between pages = 4.866 clicks
-Case 46: average length between pages = 1.917 clicks
-Case 47: average length between pages = 4.388 clicks
-Case 48: average length between pages = 4.914 clicks
-Case 49: average length between pages = 3.481 clicks
-Case 50: average length between pages = 3.834 clicks
-Case 51: average length between pages = 5.398 clicks
-Case 52: average length between pages = 3.087 clicks
-Case 53: average length between pages = 1.536 clicks
-Case 54: average length between pages = 5.034 clicks
-Case 55: average length between pages = 4.477 clicks
-Case 56: average length between pages = 4.506 clicks
-Case 57: average length between pages = 3.130 clicks
-Case 58: average length between pages = 1.808 clicks
-Case 59: average length between pages = 1.500 clicks
-Case 60: average length between pages = 4.747 clicks
-Case 61: average length between pages = 3.826 clicks
-Case 62: average length between pages = 2.149 clicks
-Case 63: average length between pages = 2.510 clicks
-Case 64: average length between pages = 2.385 clicks
-Case 65: average length between pages = 4.164 clicks
-Case 66: average length between pages = 4.759 clicks
-Case 67: average length between pages = 1.568 clicks
-Case 68: average length between pages = 3.937 clicks
-Case 69: average length between pages = 4.110 clicks
-Case 70: average length between pages = 3.274 clicks
-Case 71: average length between pages = 1.890 clicks
-Case 72: average length between pages = 2.603 clicks
-Case 73: average length between pages = 2.421 clicks
-Case 74: average length between pages = 5.382 clicks
-Case 75: average length between pages = 2.320 clicks
-Case 76: average length between pages = 3.281 clicks
-Case 77: average length between pages = 1.000 clicks
-Case 78: average length between pages = 2.943 clicks
-Case 79: average length between pages = 3.727 clicks
-Case 80: average length between pages = 2.300 clicks
-Case 81: average length between pages = 5.005 clicks
-Case 82: average length between pages = 2.439 clicks
-Case 83: average length between pages = 2.395 clicks
-Case 84: average length between pages = 1.567 clicks
-Case 85: average length between pages = 5.152 clicks
-Case 86: average length between pages = 1.678 clicks
-Case 87: average length between pages = 3.421 clicks
-Case 88: average length between pages = 1.433 clicks
-Case 89: average length between pages = 3.251 clicks
-Case 90: average length between pages = 1.571 clicks
-Case 91: average length between pages = 4.974 clicks
-Case 92: average length between pages = 4.317 clicks
-Case 93: average length between pages = 3.625 clicks
-Case 94: average length between pages = 2.913 clicks
-Case 95: average length between pages = 4.152 clicks
-Case 96: average length between pages = 3.395 clicks
-Case 97: average length between pages = 3.417 clicks
-Case 98: average length between pages = 3.955 clicks
-Case 99: average length between pages = 1.583 clicks
-Case 100: average length between pages = 2.348 clicks
+Aspen 2.0000
+Basswood 6.0000
+Beech 8.0000
+Black Walnut 4.0000
+Cherry 8.0000
+Cottonwood 2.0000
+Cypress 4.0000
+Gum 2.0000
+Hackberry 10.0000
+Hard Maple 2.0000
+Pecan 6.0000
+Poplan 6.0000
+Red Alder 4.0000
+Red Elm 4.0000
+Red Oak 6.0000
+Sassafras 2.0000
+Soft Maple 2.0000
+Sycamore 8.0000
+White Oak 6.0000
+Willow 6.0000
+Yellow Birch 2.0000
+
+Ash 2.0000
+Aspen 3.0000
+Basswood 3.0000
+Beech 6.0000
+Black Walnut 4.0000
+Cherry 5.0000
+Cottonwood 1.0000
+Cypress 4.0000
+Gum 6.0000
+Hackberry 8.0000
+Hard Maple 2.0000
+Pecan 8.0000
+Poplan 5.0000
+Red Alder 3.0000
+Red Elm 6.0000
+Red Oak 4.0000
+Sassafras 3.0000
+Soft Maple 4.0000
+Sycamore 10.0000
+White Oak 7.0000
+Willow 4.0000
+Yellow Birch 2.0000
+
+Aspen 1.8868
+Basswood 5.6604
+Beech 7.5472
+Black Walnut 3.7736
+Cherry 7.5472
+Cottonwood 3.7736
+Cypress 3.7736
+Gum 1.8868
+Hackberry 9.4340
+Hard Maple 1.8868
+Pecan 5.6604
+Poplan 5.6604
+Red Alder 3.7736
+Red Elm 3.7736
+Red Oak 5.6604
+Sassafras 1.8868
+Soft Maple 1.8868
+Sycamore 7.5472
+White Oak 5.6604
+Willow 5.6604
+Yellow Birch 5.6604
+
+Ash 3.0000
+Aspen 3.5000
+Basswood 2.5000
+Beech 5.0000
+Black Walnut 4.5000
+Cherry 4.0000
+Cottonwood 2.5000
+Cypress 3.0000
+Gum 5.0000
+Hackberry 5.5000
+Hard Maple 2.5000
+Hickory 1.0000
+Pecan 6.5000
+Poplan 4.0000
+Red Alder 3.0000
+Red Elm 5.5000
+Red Oak 5.5000
+Sassafras 3.5000
+Soft Maple 2.5000
+Sycamore 8.0000
+White Oak 10.0000
+Willow 6.0000
+Yellow Birch 3.5000
+
+Ash 13.7931
+Aspen 3.4483
+Basswood 3.4483
+Beech 3.4483
+Black Walnut 3.4483
+Cherry 3.4483
+Cottonwood 3.4483
+Cypress 3.4483
+Gum 3.4483
+Hackberry 3.4483
+Hard Maple 3.4483
+Hickory 3.4483
+Pecan 3.4483
+Poplan 3.4483
+Red Alder 3.4483
+Red Elm 3.4483
+Red Oak 6.8966
+Sassafras 3.4483
+Soft Maple 3.4483
+Sycamore 3.4483
+White Oak 10.3448
+Willow 3.4483
+Yellow Birch 3.4483
+
+Ash 4.5455
+Aspen 4.5455
+Basswood 2.2727
+Beech 4.5455
+Cherry 4.5455
+Cottonwood 4.5455
+Cypress 2.2727
+Gum 4.5455
+Hackberry 2.2727
+Hard Maple 2.2727
+Hickory 4.5455
+Pecan 4.5455
+Poplan 6.8182
+Red Alder 2.2727
+Red Elm 2.2727
+Red Oak 4.5455
+Sassafras 6.8182
+Sycamore 4.5455
+White Oak 13.6364
+Willow 9.0909
+Yellow Birch 4.5455
+
+Ash 4.5455
+Aspen 4.5455
+Basswood 2.2727
+Beech 4.5455
+Cherry 4.5455
+Cottonwood 4.5455
+Cypress 2.2727
+Gum 4.5455
+Hackberry 2.2727
+Hard Maple 2.2727
+Hickory 4.5455
+Pecan 4.5455
+Poplan 6.8182
+Red Alder 2.2727
+Red Elm 2.2727
+Red Oak 4.5455
+Sassafras 6.8182
+Sycamore 4.5455
+White Oak 13.6364
+Willow 9.0909
+Yellow Birch 4.5455
+
+Ash 4.5455
+Aspen 4.5455
+Basswood 2.2727
+Beech 4.5455
+Cherry 4.5455
+Cottonwood 4.5455
+Cypress 2.2727
+Gum 4.5455
+Hackberry 2.2727
+Hard Maple 2.2727
+Hickory 4.5455
+Pecan 4.5455
+Poplan 6.8182
+Red Alder 2.2727
+Red Elm 2.2727
+Red Oak 4.5455
+Sassafras 6.8182
+Sycamore 4.5455
+White Oak 13.6364
+Willow 9.0909
+Yellow Birch 4.5455
+
+Ash 4.5455
+Aspen 4.5455
+Basswood 2.2727
+Beech 4.5455
+Cherry 4.5455
+Cottonwood 4.5455
+Cypress 2.2727
+Gum 4.5455
+Hackberry 2.2727
+Hard Maple 2.2727
+Hickory 4.5455
+Pecan 4.5455
+Poplan 6.8182
+Red Alder 2.2727
+Red Elm 2.2727
+Red Oak 4.5455
+Sassafras 6.8182
+Sycamore 4.5455
+White Oak 13.6364
+Willow 9.0909
+Yellow Birch 4.5455
+
+Ash 3.9275
+Aspen 3.9275
+Basswood 1.2085
+Beech 5.4381
+Cherry 5.4381
+Cottonwood 5.4381
+Cypress 2.7190
+Gum 3.9275
+Hackberry 2.7190
+Hard Maple 2.7190
+Hickory 5.4381
+Pecan 3.9275
+Poplan 6.6465
+Red Alder 2.7190
+Red Elm 1.2085
+Red Oak 3.9275
+Sassafras 6.6465
+Sycamore 5.4381
+White Oak 14.8036
+Willow 6.3444
+Yellow Birch 5.4381
+
+Ash 13.7931
+Aspen 3.4483
+Basswood 3.4483
+Beech 3.4483
+Black Walnut 3.4483
+Cherry 3.4483
+Cottonwood 3.4483
+Cypress 3.4483
+Gum 3.4483
+Hackberry 3.4483
+Hard Maple 3.4483
+Hickory 3.4483
+Pecan 3.4483
+Poplan 3.4483
+Red Alder 3.4483
+Red Elm 3.4483
+Red Oak 6.8966
+Sassafras 3.4483
+Soft Maple 3.4483
+Sycamore 3.4483
+White Oak 10.3448
+Willow 3.4483
+Yellow Birch 3.4483
