@@ -10,10 +10,13 @@ while mensaje != "":
     dic = {}
     cantidad, cadena = mensaje.split()
     nombre = ""
+    aux_nombre = ""
+    higer = 0
+    i = 0
 
-    for i in range(len(cadena) - int(cantidad)+1):
+    while i <= len(cadena)-int(cantidad):
         
-        nombre = cadena[i: i+int(cantidad)]
+        nombre = cadena[i: int(cantidad)]
 
         if nombre in dic:
             dic[nombre]+=1
@@ -21,8 +24,13 @@ while mensaje != "":
         else:
             dic[nombre] = 1
 
-    ordenado = sorted(dic.items(), key=lambda x: x[1])
+        if dic[nombre] > higer:
+            
+            higer = dic[nombre]
+            aux_nombre = nombre
 
-    print(ordenado[-1][0])
+        i+=1
+
+    print(dic)
 
     mensaje = stdin.readline().strip()
