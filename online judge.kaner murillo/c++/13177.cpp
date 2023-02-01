@@ -13,18 +13,20 @@ class Musician{
     public:
 
         int number;
+        int calculation;
         int division;
 
         Musician(){}
-        Musician(int a, int b){
+        Musician(int a, int b, int c){
 
             number = a;
-            division = b;
+            calculation = b;
+            division = c;
         } 
 
         bool operator()(Musician &a, Musician &b){
 
-            return a.number / a.division< b.number / b.division; 
+            return a.calculation< b.calculation; 
         }
 };
 
@@ -41,7 +43,7 @@ int main(){
 
             cin >> aux;
 
-            q.push(Musician(aux, 1));
+            q.push(Musician(aux, aux, 2));
 
         }
         
@@ -50,9 +52,11 @@ int main(){
         while(tikets>0){
 
             aux2 = q.top();
-            aux2.division ++;
 
-            //cout<<aux2.number<<" "<<aux2.number<<endl;
+            if(aux2.number % aux2.division) aux2.calculation = aux2.number / aux2.division + 1;
+            else aux2.calculation = aux2.number / aux2.division;
+
+            aux2.division ++;
             q.pop();
             
             q.push(aux2);
@@ -60,9 +64,7 @@ int main(){
             tikets--;
         }
 
-        ans = q.top().number/q.top().division;
-
-        cout<<ans + abs(q.top().number-(ans*q.top().division))<<" "<<q.top().number<<endl;
+        cout<<q.top().calculation<<endl;
     }
 
     return 0;

@@ -43,6 +43,7 @@ void dfs(int row, int colum, char letter, int size, bool sign){
         flag = true;
 
     }
+    
 
     else if(letter == 'B' && row == size-1 && sign == false){
 
