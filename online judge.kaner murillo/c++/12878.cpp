@@ -43,10 +43,8 @@ void dijkstra(int init, vector<vector<tuple<int, int, int>>>&graph){
 
         cola.pop();
         //cout<<vertex<<" "<<auxCost<<endl;
-        
-        if(vertex == points-1 && auxCost == cost[vertex]) res+=auxCost, re+=recar;
-        
-        else if(auxCost == cost[vertex]){
+    
+        if(auxCost == cost[vertex]){
 
             for(i = 0; i<graph[vertex].size(); i++){
 
@@ -62,7 +60,7 @@ void dijkstra(int init, vector<vector<tuple<int, int, int>>>&graph){
 
                 else if(auxCost != INT_MAX && auxCost + weight < cost[vertexAd] && vertexAd == points-1) cost[vertexAd] = auxCost + weight, res = auxCost + weight, re = recar+get<2>(graph[vertex][i]);
 
-                else if(auxCost != INT_MAX && auxCost + weight == cost[vertexAd] && vertexAd == points-1) cola.push(make_tuple(vertexAd, cost[vertexAd], 0));
+                else if(auxCost != INT_MAX && auxCost + weight == cost[vertexAd] && vertexAd == points-1) res+=cost[vertexAd], re+=recar+get<2>(graph[vertex][i]);
             }
         }
     }
@@ -95,7 +93,7 @@ int main(){
         }
 
         dijkstra(0, graph);
-        cout<<(res+re)*2<<" "<<counter<<endl;
+        cout<<(res+re)*2<<endl;
         counter++;
     }
 
