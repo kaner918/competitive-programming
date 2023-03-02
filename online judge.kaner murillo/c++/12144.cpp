@@ -27,36 +27,39 @@ vector<int> dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&visits, v
         
         q.pop();
 
-        for(i = 0; i<graph[node].size(); i++){
+        if(coste == visits[node]){
 
-            auxNode = graph[node][i].first;
-            auxCoste = graph[node][i].second;
+            for(i = 0; i<graph[node].size(); i++){
 
-            if(auxNode == destiny){
-                
+                auxNode = graph[node][i].first;
+                auxCoste = graph[node][i].second;
 
-                if(visits[auxNode] != INT_MAX && auxCoste + coste == visits[auxNode]){
+                if(auxNode == destiny){
+                    
 
-                    res.push_back(node);
+                    if(visits[auxNode] != INT_MAX && auxCoste + coste == visits[auxNode]){
+
+                        res.push_back(node);
+                    }
+
+                    else if(auxCoste + coste < visits[auxNode] && ((p == 1 && node != init)  || (p == 0))){
+                        
+                        //cout<<node<<"-"<<auxCoste + coste<<endl;
+                        res = {node};
+                        visits[auxNode] = auxCoste + coste;
+                        best = visits[auxNode];
+                    }
+                    
                 }
 
-                else if(auxCoste + coste < visits[auxNode] && (counter > 0 || p == 0 || node!=init)){
-                    
-                    //cout<<node<<"-"<<auxCoste + coste<<endl;
-                    res = {node};
-                    visits[auxNode] = auxCoste + coste;
-                    best = visits[auxNode];
-                }
-                
-            }
+                else{
 
-            else{
-
-                if(auxCoste + coste < visits[auxNode] && visits2[auxNode] == -1){
-                    
-                    pre[auxNode] = node;
-                    visits[auxNode] = auxCoste + coste;
-                    q.push(make_pair(auxNode, visits[auxNode]));
+                    if(auxCoste + coste < visits[auxNode] && visits2[auxNode] == -1){
+                        
+                        pre[auxNode] = node;
+                        visits[auxNode] = auxCoste + coste;
+                        q.push(make_pair(auxNode, visits[auxNode]));
+                    }
                 }
             }
         }
@@ -67,11 +70,12 @@ vector<int> dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&visits, v
 
 int main(){
 
-    int nodes, conections, i, node, node2, weight, init, destiny, aux;
+    int nodes, conections, i, node, node2, weight, init, destiny, aux, p;
 
     while(scanf("%i %i", &nodes, &conections) && (nodes!= 0 || conections != 0)){
 
         counter = 0;
+        p = 0;
         vector<vector<pair<int, int>>>graph(nodes);
         vector<int>visits(nodes, INT_MAX);
         vector<int>visits2(nodes, -1);
@@ -86,7 +90,7 @@ int main(){
             graph[node].push_back(make_pair(node2, weight));
         }
 
-        none = dijkstra(graph, visits, visits2, pre, init, destiny, 0);
+        none = dijkstra(graph, visits, visits2, pre, init, destiny, p);
         best = -1;
 
         for(i = 0; i<none.size(); i++){
@@ -94,12 +98,21 @@ int main(){
             aux = none[i];
             //cout<<none[i]<<endl;
 
-            while(pre[aux] != -1){
-                
-                counter++;
-                visits2[aux] = 1;
-                aux = pre[aux];
-            } 
+            if(aux == init){
+
+                p = 1;
+
+            }
+
+            else{
+
+                while(pre[aux] != -1){
+                    
+                    counter++;
+                    visits2[aux] = 1;
+                    aux = pre[aux];
+                } 
+            }
         }
         
         
@@ -109,7 +122,7 @@ int main(){
         }  */
 
         vector<int>visits3(nodes, INT_MAX);
-        none = dijkstra(graph, visits3, visits2, pre, init, destiny, 1);
+        none = dijkstra(graph, visits3, visits2, pre, init, destiny, p);
 
         printf("%i\n", best);
     }
