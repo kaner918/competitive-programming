@@ -14,15 +14,15 @@
 
 using namespace std;
 
-void dijkstra(vector<int>&visits, vector<vector<tuple<int, int, int>>>&graph, set<tuple<int, int, int>>&conj){
+void dijkstra(vector<int>&visits, vector<vector<tuple<int, int, int>>>&graph, set<tuple<int, int, int, int>>&conj, int destiny){
 
-    priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>>q;
-    set<tuple<int, int, int>>::iterator it;
+    priority_queue<tuple<int, int, int, int>, vector<tuple<int, int, int, int>>, greater<tuple<int, int, int, int>>>q;
+    set<tuple<int, int, int, int>>::iterator it;
 
     visits[0] = 0;
 
-    q.push(make_tuple(0, 0, -1));
-    int i, floor, weight, auxFloor, elevator, auxElevator, calculate;
+    q.push(make_tuple(0, 0, -1, 0));
+    int i, floor, weight, auxFloor, elevator, auxElevator, calculate, coste, auxCoste;
     string line;
 
     while(!q.empty()){
@@ -30,39 +30,46 @@ void dijkstra(vector<int>&visits, vector<vector<tuple<int, int, int>>>&graph, se
         floor = get<0>(q.top());
         weight = get<1>(q.top());
         elevator = get<2>(q.top());
+        coste = get<3>(q.top());
 
-        //printf("%i-> peso: %i -> elevator: %i\n", floor, weight, elevator);
+        //printf("%i-> peso: %i -> elevator: %i -> coste: %i\n", floor, weight, elevator, coste);
+        //printf("adyacensias:\n");
 
         q.pop();
 
-        /* if(weight == visits[floor]){ */
+        for(i = 0; i<graph[floor].size(); i++){
 
-            for(i = 0; i<graph[floor].size(); i++){
+            auxFloor = get<0>(graph[floor][i]);
+            calculate = get<1>(graph[floor][i]);
+            auxElevator = get<2>(graph[floor][i]);
+            auxCoste = coste;
 
-                auxFloor = get<0>(graph[floor][i]);
-                auxElevator = get<2>(graph[floor][i]);
-                calculate = weight + get<1>(graph[floor][i]);
+            if(elevator != auxElevator && elevator != -1) auxCoste++;
 
-                if(elevator != -1 && auxElevator != elevator) calculate+=60;
+            if(auxFloor == destiny){
 
-                //sprintf("%i-> destino: %i -> peso: %i -> elevator: %i-%i\n", floor, auxFloor, calculate, auxElevator, elevator);
-                for(it = conj.begin(); it!=conj.end() && (auxFloor != get<0>(*it) || auxElevator != get<2>(*it)); it++);
-
-                if(calculate <= visits[auxFloor]){
-
-                    visits[auxFloor] = calculate;
-                    q.push(make_tuple(auxFloor, calculate, auxElevator));
-                    conj.insert(make_tuple(auxFloor, calculate, auxElevator));
-                }
-
-                else if(it == conj.end()){
-
-                    q.push(make_tuple(auxFloor, calculate, auxElevator));
-                    conj.insert(make_tuple(auxFloor, calculate, auxElevator));
-
-                }
+                if(weight+calculate+60*auxCoste < visits[auxFloor]) visits[auxFloor] = weight+calculate+60*auxCoste;
+                conj.insert(make_tuple(auxFloor, weight + calculate+60*auxCoste, auxElevator, floor));
             }
-        /* } */
+
+            else{
+
+                for(it = conj.begin(); it != conj.end() && (get<0>(*it) != auxFloor || get<2>(*it) != auxElevator || get<3>(*it) != floor); it++);
+
+                if(it == conj.end()){
+
+                    if(weight + calculate < visits[auxFloor]) visits[auxFloor] = weight + calculate;
+
+                    //printf("%i-> peso: %i -> elevator: %i -> coste: %i\n", auxFloor, weight + calculate, auxElevator, auxCoste);
+
+                    q.push(make_tuple(auxFloor, weight + calculate, auxElevator, auxCoste));
+                    conj.insert(make_tuple(auxFloor, weight + calculate, auxElevator, floor));
+                }
+
+            }
+        }
+
+        //printf("end.\n");
     }
 }
 
@@ -102,9 +109,9 @@ int main(){
             }
         }
 
-        set<tuple<int, int, int>>conj;
+        set<tuple<int, int, int, int>>conj;
 
-        dijkstra(visits, graph, conj);
+        dijkstra(visits, graph, conj, destiny);
 
         if(visits[destiny] != INT_MAX) printf("%i\n", visits[destiny]);
         else printf("IMPOSSIBLE\n");
