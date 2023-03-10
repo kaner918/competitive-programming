@@ -22,18 +22,17 @@ void dijkstra(vector<int>&visits, vector<vector<tuple<int, int, int>>>&graph, se
     visits[0] = 0;
 
     q.push(make_tuple(0, 0, -1, 0));
+
     int i, floor, weight, auxFloor, elevator, auxElevator, calculate, coste, auxCoste;
-    string line;
 
     while(!q.empty()){
 
-        floor = get<0>(q.top());
-        weight = get<1>(q.top());
+        weight = get<0>(q.top());
+        coste = get<1>(q.top());
         elevator = get<2>(q.top());
-        coste = get<3>(q.top());
+        floor = get<3>(q.top());
 
-        //printf("%i-> peso: %i -> elevator: %i -> coste: %i\n", floor, weight, elevator, coste);
-        //printf("adyacensias:\n");
+        //cout<<floor<<" elevator: "<< elevator<< " end "<<endl;
 
         q.pop();
 
@@ -44,32 +43,30 @@ void dijkstra(vector<int>&visits, vector<vector<tuple<int, int, int>>>&graph, se
             auxElevator = get<2>(graph[floor][i]);
             auxCoste = coste;
 
-            if(elevator != auxElevator && elevator != -1) auxCoste++;
+            if(elevator != auxElevator && elevator != -1) calculate+=60;
 
             if(auxFloor == destiny){
 
-                if(weight+calculate+60*auxCoste < visits[auxFloor]) visits[auxFloor] = weight+calculate+60*auxCoste;
-                conj.insert(make_tuple(auxFloor, weight + calculate+60*auxCoste, auxElevator, floor));
+                if(weight+calculate < visits[auxFloor]) visits[auxFloor] = weight+calculate;
+                //conj.insert(make_tuple(auxFloor, elevator, auxElevator, floor));
             }
 
             else{
 
-                for(it = conj.begin(); it != conj.end() && (get<0>(*it) != auxFloor || get<2>(*it) != auxElevator || get<3>(*it) != floor); it++);
+                for(it = conj.begin(); it!=conj.end() && (get<0>(*it) != auxFloor || get<1>(*it) != floor || get<2>(*it) != auxElevator || get<3>(*it) != elevator); it++);
+
 
                 if(it == conj.end()){
+                    
+                    //cout<<floor<<" to "<<auxFloor<<" elevator: "<< elevator << " newElevetar "<< auxElevator << " coste "<< weight + calculate<<endl;
+                    q.push(make_tuple(weight + calculate, auxCoste, auxElevator, auxFloor));
+                    conj.insert(make_tuple(auxFloor, floor, auxElevator, elevator));
 
-                    if(weight + calculate < visits[auxFloor]) visits[auxFloor] = weight + calculate;
-
-                    //printf("%i-> peso: %i -> elevator: %i -> coste: %i\n", auxFloor, weight + calculate, auxElevator, auxCoste);
-
-                    q.push(make_tuple(auxFloor, weight + calculate, auxElevator, auxCoste));
-                    conj.insert(make_tuple(auxFloor, weight + calculate, auxElevator, floor));
                 }
-
             }
         }
 
-        //printf("end.\n");
+        //printf("end.\n\n");
     }
 }
 
