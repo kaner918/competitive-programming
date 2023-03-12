@@ -10,22 +10,23 @@
 #include<tuple>
 #include<map>
 #include<set>
+#include<algorithm>
 
 using namespace std;
 
-void dijkstra(int city, int finish, int index, map<int, int>&visits, map<int, vector<tuple<int, int, int>>>&graph, map<int, int>&order, set<tuple<int, int, int, int>>&conj, vector<int>&res){
+void dijkstra(int city, int finish, int index, map<int, int>&visits, map<int, vector<tuple<int, int, int, bool>>>&graph, vector<int>&order, set<tuple<int, int, int, int>>&conj, vector<int>&res){
     
     if(city != finish) visits[city] = 0;
     priority_queue<tuple<int, int, int, vector<int>, int>, vector<tuple<int, int, int, vector<int>, int>>, greater<tuple<int, int, int, vector<int>, int>>>q;
     q.push(make_tuple(0, city, -1, vector<int>(), 1));
     vector<int>aux;
     vector<int>aux2;
-    set<tuple<int, int, int, int>>::iterator it;
+    tuple<int, int, int, int>auxTuple;
 
     int i, coste, auxCity, auxCoste, tique, auxTique, auxIndex;
     bool flag, fini = true;
 
-    while(!q.empty() && fini){
+    while(!q.empty()){
 
         coste = get<0>(q.top());
         city = get<1>(q.top());
@@ -37,47 +38,48 @@ void dijkstra(int city, int finish, int index, map<int, int>&visits, map<int, ve
 
         q.pop();   
         
-        if(city == finish && coste < visits[finish] && index-1 == order[city]) visits[finish] = coste, res = aux, fini = false;
+        if(city == finish && coste < visits[finish] && order[index-1] == city && index == order.size()) visits[finish] = coste, res = aux, fini = false;
         
-        else{
+        //else{
 
             //cout<<"gou"<<endl<<endl;
 
             for(i = 0; i<graph[city].size(); i++){
 
-                auxCity = get<0>(graph[city][i]);
-                auxCoste = coste;
-                auxTique = get<2>(graph[city][i]);
-                aux2 = aux;
-                auxIndex = index;
-                flag = false;
+                if((tique == -1 && get<3>(graph[city][i])) || (tique != -1)){
 
-                if(tique != auxTique) auxCoste+= get<1>(graph[city][i]), flag = true;
-                if(order[auxCity] == index) auxIndex++;
+                    auxCity = get<0>(graph[city][i]);
+                    auxCoste = coste;
+                    auxTique = get<2>(graph[city][i]);
+                    aux2 = aux;
+                    auxIndex = index;
+                    flag = false;
 
-                if((auxCoste < visits[auxCity]) || !order[auxCity]){
+                    if(tique != auxTique) auxCoste+= get<1>(graph[city][i]), aux2.push_back(auxTique+1);
+                    if(order[index] == auxCity) auxIndex++;
 
-                    for(it = conj.begin(); it!= conj.end() && (get<0>(*it) != auxIndex || get<1>(*it) != auxCity || get<2>(*it) != tique || get<3>(*it) != auxTique); it++); // implementar el estado del tiquete anterior
+                    //if((auxCoste < visits[auxCity]) || !order[auxCity]){
+
+                    auxTuple = make_tuple(auxIndex, city, tique, auxTique);
+
+                    auto it = conj.find(auxTuple);
+                    //for(it = conj.begin(); it!= conj.end() && (get<0>(*it) != auxIndex || get<1>(*it) != auxCity || get<2>(*it) != tique || get<3>(*it) != auxTique); it++); // implementar el estado del tiquete anterior
 
                     if(it == conj.end()){
-                        
-                        if(flag){
 
-                            aux2.push_back(auxTique+1);
-                        }   
-
-                        //cout<<"aux_city: "<<auxCity<<" tique "<< auxTique<<" coste "<<auxCoste<<" index "<<auxIndex<<endl;
+                        //cout<<"aux_city: "<<auxCity<<" tique "<< auxTique<<" coste "<<auxCoste<<" index "<<auxIndex-1<<endl;
 
                         q.push(make_tuple(auxCoste, auxCity, auxTique, aux2, auxIndex));
-                        conj.insert(make_tuple(auxIndex, auxCity, tique, auxTique));
+                        conj.insert(auxTuple);
                         
                     }
                 }
             }
+            //}
 
             //cout<<endl<<endl;
 
-        }
+        //}
     }
     
 }
@@ -91,19 +93,21 @@ int main(){
 
         counter++;
         counter2 = 1;
-        map<int, vector<tuple<int, int, int>>> graph; 
-        
+        map<int, vector<tuple<int, int, int, bool>>> graph; 
+
         for(i = 0; i<offers; i++){
 
             scanf("%i %i %i", &coste, &sizeOffers, &pre);
             sizeOffers--;
-
+            bool flag = true;
+            
             while(sizeOffers--){
 
                 scanf("%i", &pos);
                 
-                graph[pre].push_back(make_tuple(pos, coste, i));
+                graph[pre].push_back(make_tuple(pos, coste, i, flag));
                 pre = pos;
+                flag = false;
             }
         }
 
@@ -113,21 +117,22 @@ int main(){
 
             map<int, int>visits;
             index = 0;
-            map<int, int>order;
+            vector<int>order;
             set<tuple<int, int, int, int>>conj;
             scanf("%i", &sizeOffers);
             scanf("%i", &city);
             first = city;
-            order[city] = index++;
+            order.push_back(city);
             visits[city] = INT_MAX;
             sizeOffers--;
 
             while(sizeOffers--){
 
                 scanf("%i", &city);
-                order[city] = index++;
+                order.push_back(city);
                 visits[city] = INT_MAX;
             }
+
             vector<int>res;
             dijkstra(first, city, 0, visits, graph, order, conj, res);
             printf("Case %i, Trip %i: Cost = %i\n  Tickets used:", counter, counter2, visits[city]);
@@ -138,7 +143,7 @@ int main(){
             }
 
             printf("\n");
-            
+
             counter2++;
         }
     }

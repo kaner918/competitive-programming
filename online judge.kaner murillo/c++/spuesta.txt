@@ -1,0 +1,10 @@
+Case 1, Trip 1: Cost = 225
+  Tickets used: 1
+Case 2, Trip 1: Cost = 2147483647
+  Tickets used:
+Case 2, Trip 2: Cost = 2147483647
+  Tickets used:
+Case 3, Trip 1: Cost = 2147483647
+  Tickets used:
+Case 3, Trip 2: Cost = 2147483647
+  Tickets used:
