@@ -1,2 +1,200 @@
-Case 1, Trip 1: Cost = 2147483647
-  Tickets used:
+Test Case 1.
+Vladimir needs 0 litre(s) of blood.
+Test Case 2.
+Vladimir needs 1 litre(s) of blood.
+Test Case 3.
+Vladimir needs 0 litre(s) of blood.
+Test Case 4.
+Vladimir needs 0 litre(s) of blood.
+Test Case 5.
+Vladimir needs 0 litre(s) of blood.
+Test Case 6.
+Vladimir needs 0 litre(s) of blood.
+Test Case 7.
+Vladimir needs 0 litre(s) of blood.
+Test Case 8.
+Vladimir needs 1 litre(s) of blood.
+Test Case 9.
+Vladimir needs 0 litre(s) of blood.
+Test Case 10.
+Vladimir needs 0 litre(s) of blood.
+Test Case 11.
+Vladimir needs 0 litre(s) of blood.
+Test Case 12.
+Vladimir needs 1 litre(s) of blood.
+Test Case 13.
+Vladimir needs 1 litre(s) of blood.
+Test Case 14.
+Vladimir needs 0 litre(s) of blood.
+Test Case 15.
+Vladimir needs 0 litre(s) of blood.
+Test Case 16.
+There is no route Vladimir can take.
+Test Case 17.
+There is no route Vladimir can take.
+Test Case 18.
+There is no route Vladimir can take.
+Test Case 19.
+Vladimir needs 0 litre(s) of blood.
+Test Case 20.
+Vladimir needs 0 litre(s) of blood.
+Test Case 21.
+Vladimir needs 1 litre(s) of blood.
+Test Case 22.
+There is no route Vladimir can take.
+Test Case 23.
+Vladimir needs 1 litre(s) of blood.
+Test Case 24.
+Vladimir needs 0 litre(s) of blood.
+Test Case 25.
+There is no route Vladimir can take.
+Test Case 26.
+Vladimir needs 1 litre(s) of blood.
+Test Case 27.
+Vladimir needs 1 litre(s) of blood.
+Test Case 28.
+Vladimir needs 2 litre(s) of blood.
+Test Case 29.
+Vladimir needs 1 litre(s) of blood.
+Test Case 30.
+There is no route Vladimir can take.
+Test Case 31.
+Vladimir needs 2 litre(s) of blood.
+Test Case 32.
+Vladimir needs 0 litre(s) of blood.
+Test Case 33.
+Vladimir needs 0 litre(s) of blood.
+Test Case 34.
+Vladimir needs 1 litre(s) of blood.
+Test Case 35.
+There is no route Vladimir can take.
+Test Case 36.
+There is no route Vladimir can take.
+Test Case 37.
+Vladimir needs 0 litre(s) of blood.
+Test Case 38.
+Vladimir needs 1 litre(s) of blood.
+Test Case 39.
+Vladimir needs 1 litre(s) of blood.
+Test Case 40.
+Vladimir needs 0 litre(s) of blood.
+Test Case 41.
+Vladimir needs 1 litre(s) of blood.
+Test Case 42.
+Vladimir needs 0 litre(s) of blood.
+Test Case 43.
+There is no route Vladimir can take.
+Test Case 44.
+Vladimir needs 0 litre(s) of blood.
+Test Case 45.
+Vladimir needs 0 litre(s) of blood.
+Test Case 46.
+Vladimir needs 0 litre(s) of blood.
+Test Case 47.
+Vladimir needs 0 litre(s) of blood.
+Test Case 48.
+Vladimir needs 1 litre(s) of blood.
+Test Case 49.
+Vladimir needs 0 litre(s) of blood.
+Test Case 50.
+Vladimir needs 0 litre(s) of blood.
+Test Case 51.
+There is no route Vladimir can take.
+Test Case 52.
+Vladimir needs 1 litre(s) of blood.
+Test Case 53.
+Vladimir needs 0 litre(s) of blood.
+Test Case 54.
+Vladimir needs 1 litre(s) of blood.
+Test Case 55.
+There is no route Vladimir can take.
+Test Case 56.
+Vladimir needs 0 litre(s) of blood.
+Test Case 57.
+Vladimir needs 0 litre(s) of blood.
+Test Case 58.
+Vladimir needs 0 litre(s) of blood.
+Test Case 59.
+Vladimir needs 1 litre(s) of blood.
+Test Case 60.
+There is no route Vladimir can take.
+Test Case 61.
+Vladimir needs 0 litre(s) of blood.
+Test Case 62.
+There is no route Vladimir can take.
+Test Case 63.
+Vladimir needs 1 litre(s) of blood.
+Test Case 64.
+Vladimir needs 0 litre(s) of blood.
+Test Case 65.
+Vladimir needs 2 litre(s) of blood.
+Test Case 66.
+There is no route Vladimir can take.
+Test Case 67.
+There is no route Vladimir can take.
+Test Case 68.
+Vladimir needs 1 litre(s) of blood.
+Test Case 69.
+There is no route Vladimir can take.
+Test Case 70.
+There is no route Vladimir can take.
+Test Case 71.
+Vladimir needs 0 litre(s) of blood.
+Test Case 72.
+Vladimir needs 0 litre(s) of blood.
+Test Case 73.
+There is no route Vladimir can take.
+Test Case 74.
+There is no route Vladimir can take.
+Test Case 75.
+Vladimir needs 0 litre(s) of blood.
+Test Case 76.
+Vladimir needs 0 litre(s) of blood.
+Test Case 77.
+Vladimir needs 0 litre(s) of blood.
+Test Case 78.
+Vladimir needs 0 litre(s) of blood.
+Test Case 79.
+Vladimir needs 0 litre(s) of blood.
+Test Case 80.
+There is no route Vladimir can take.
+Test Case 81.
+There is no route Vladimir can take.
+Test Case 82.
+There is no route Vladimir can take.
+Test Case 83.
+Vladimir needs 1 litre(s) of blood.
+Test Case 84.
+There is no route Vladimir can take.
+Test Case 85.
+Vladimir needs 3 litre(s) of blood.
+Test Case 86.
+There is no route Vladimir can take.
+Test Case 87.
+There is no route Vladimir can take.
+Test Case 88.
+Vladimir needs 1 litre(s) of blood.
+Test Case 89.
+There is no route Vladimir can take.
+Test Case 90.
+Vladimir needs 0 litre(s) of blood.
+Test Case 91.
+There is no route Vladimir can take.
+Test Case 92.
+There is no route Vladimir can take.
+Test Case 93.
+There is no route Vladimir can take.
+Test Case 94.
+There is no route Vladimir can take.
+Test Case 95.
+Vladimir needs 0 litre(s) of blood.
+Test Case 96.
+Vladimir needs 0 litre(s) of blood.
+Test Case 97.
+There is no route Vladimir can take.
+Test Case 98.
+There is no route Vladimir can take.
+Test Case 99.
+Vladimir needs 0 litre(s) of blood.
+Test Case 100.
+Vladimir needs 1 litre(s) of blood.

@@ -1,5 +1,6 @@
 //https://onlinejudge.org/external/10/1048.pdf
 //1048
+//10369 arbol de recubrimiento minimo. ->kruskal-prin-10 dias
 
 #include<vector>
 #include<queue>
@@ -14,16 +15,16 @@
 
 using namespace std;
 
-void dijkstra(int city, int finish, int index, map<int, int>&visits, map<int, vector<tuple<int, int, int, bool>>>&graph, vector<int>&order, set<tuple<int, int, int, int>>&conj, vector<int>&res){
+void dijkstra(long long int city, long long int finish, int index, map<long long int, long long int>&visits, map<long long int, vector<tuple<long long int, int, int, bool>>>&graph, vector<long long int>&order, set<tuple<int, long long int, int>>&conj, vector<long long int>&res){
     
-    if(city != finish) visits[city] = 0;
-    priority_queue<tuple<int, int, int, vector<int>, int>, vector<tuple<int, int, int, vector<int>, int>>, greater<tuple<int, int, int, vector<int>, int>>>q;
-    q.push(make_tuple(0, city, -1, vector<int>(), 1));
-    vector<int>aux;
-    vector<int>aux2;
-    tuple<int, int, int, int>auxTuple;
+    priority_queue<tuple<int, long long int, int, vector<long long int>, int>, vector<tuple<int, long long int, int, vector<long long int>, int>>, greater<tuple<int, long long int, int, vector<long long int>, int>>>q;
+    q.push(make_tuple(0, city, -1, vector<long long int>(), 1));
+    vector<long long int>aux;
+    vector<long long int>aux2;
+    tuple<int, long long int, int>auxTuple;
 
-    int i, coste, auxCity, auxCoste, tique, auxTique, auxIndex;
+    int i, coste, auxCoste, tique, auxTique, auxIndex;
+    long long int auxCity;
     bool flag, fini = true;
 
     while(!q.empty()){
@@ -46,11 +47,12 @@ void dijkstra(int city, int finish, int index, map<int, int>&visits, map<int, ve
 
             for(i = 0; i<graph[city].size(); i++){
 
-                if((tique == -1 && get<3>(graph[city][i])) || (tique != -1)){
+                auxTique = get<2>(graph[city][i]);
+
+                if((get<3>(graph[city][i])) || (tique == auxTique && !get<3>(graph[city][i]))){
 
                     auxCity = get<0>(graph[city][i]);
                     auxCoste = coste;
-                    auxTique = get<2>(graph[city][i]);
                     aux2 = aux;
                     auxIndex = index;
                     flag = false;
@@ -60,7 +62,7 @@ void dijkstra(int city, int finish, int index, map<int, int>&visits, map<int, ve
 
                     //if((auxCoste < visits[auxCity]) || !order[auxCity]){
 
-                    auxTuple = make_tuple(auxIndex, city, tique, auxTique);
+                    auxTuple = make_tuple(auxIndex, auxCity, auxTique);
 
                     auto it = conj.find(auxTuple);
                     //for(it = conj.begin(); it!= conj.end() && (get<0>(*it) != auxIndex || get<1>(*it) != auxCity || get<2>(*it) != tique || get<3>(*it) != auxTique); it++); // implementar el estado del tiquete anterior
@@ -87,23 +89,24 @@ void dijkstra(int city, int finish, int index, map<int, int>&visits, map<int, ve
 
 int main(){
 
-    int offers, coste, sizeOffers, cases, first, offer, city, i, pre, pos, counter = 0, counter2, index;
+    int offers, coste, sizeOffers, cases, offer, i, counter = 0, counter2, index;
+    long long int city, pre, pos, first;
 
     while(scanf("%i", &offers) && offers){
 
         counter++;
         counter2 = 1;
-        map<int, vector<tuple<int, int, int, bool>>> graph; 
+        map<long long int, vector<tuple<long long int, int, int, bool>>> graph; 
 
         for(i = 0; i<offers; i++){
 
-            scanf("%i %i %i", &coste, &sizeOffers, &pre);
+            scanf("%i %i %lld", &coste, &sizeOffers, &pre);
             sizeOffers--;
             bool flag = true;
             
             while(sizeOffers--){
 
-                scanf("%i", &pos);
+                scanf("%lld", &pos);
                 
                 graph[pre].push_back(make_tuple(pos, coste, i, flag));
                 pre = pos;
@@ -115,12 +118,12 @@ int main(){
 
         while(cases--){
 
-            map<int, int>visits;
+            map<long long int, long long int>visits;
             index = 0;
-            vector<int>order;
-            set<tuple<int, int, int, int>>conj;
+            vector<long long int>order;
+            set<tuple<int, long long int, int>>conj;
             scanf("%i", &sizeOffers);
-            scanf("%i", &city);
+            scanf("%lld", &city);
             first = city;
             order.push_back(city);
             visits[city] = INT_MAX;
@@ -128,18 +131,18 @@ int main(){
 
             while(sizeOffers--){
 
-                scanf("%i", &city);
+                scanf("%lld", &city);
                 order.push_back(city);
                 visits[city] = INT_MAX;
             }
 
-            vector<int>res;
+            vector<long long int>res;
             dijkstra(first, city, 0, visits, graph, order, conj, res);
-            printf("Case %i, Trip %i: Cost = %i\n  Tickets used:", counter, counter2, visits[city]);
+            printf("Case %i, Trip %i: Cost = %lld\n  Tickets used:", counter, counter2, visits[city]);
             
             for(i = 0; i<res.size(); i++){
 
-                printf(" %i", res[i]);
+                printf(" %lld", res[i]);
             }
 
             printf("\n");
