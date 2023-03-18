@@ -27,7 +27,7 @@ void dijkstra(long long int city, long long int finish, int index, map<long long
     long long int auxCity;
     bool flag, fini = true;
 
-    while(!q.empty()){
+    while(!q.empty() && fini){
 
         coste = get<0>(q.top());
         city = get<1>(q.top());
@@ -39,11 +39,11 @@ void dijkstra(long long int city, long long int finish, int index, map<long long
 
         q.pop();   
         
-        if(city == finish && coste < visits[finish] && order[index-1] == city && index == order.size()) visits[finish] = coste, res = aux, fini = false;
+        if(index == order.size()) visits[finish] = coste, res = aux, fini = false;
         
         //else{
 
-            //cout<<"gou"<<endl<<endl;
+            //cout<<"gou"<<endl<<endl;a
 
             for(i = 0; i<graph[city].size(); i++){
 
