@@ -8,17 +8,19 @@
 #include<tuple>
 #include<set>
 #include<algorithm>
+#include<climits>
 
 using namespace std;
 
-int dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&hotels, int finish){
+int dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&hotels, int finish, vector<int>&visits){
 
     priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>>q;
-    set<tuple<int, int, int>>conj;
+    set<tuple<int, int, int, int>>conj;
 
     q.push(make_tuple(0, 0, 0));
-    conj.insert(make_tuple(0, 0, 0));
-    tuple<int, int, int>aux;
+    conj.insert(make_tuple(0, 0, 0, 0));
+    tuple<int, int, int, int>aux;
+    tuple<int, int, int, int>aux2;
 
     int city, time, coste, i;
 
@@ -39,27 +41,28 @@ int dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&hotels, int finis
 
             if(hotels[city]){
 
-                aux = make_tuple(coste + 1, graph[city][i].second, graph[city][i].first);
+                aux = make_tuple(city, graph[city][i].second, graph[city][i].first, 1);
 
                 auto it = conj.find(aux);
 
                 if(it == conj.end()){
 
                     conj.insert(aux);
-                    q.push(aux);
+                    q.push(make_tuple(coste + 1, graph[city][i].second, graph[city][i].first));
                 }
             }
 
             if(time + graph[city][i].second<=600){
 
-                aux = make_tuple(coste, time + graph[city][i].second, graph[city][i].first);
+                aux2 = make_tuple(city, time + graph[city][i].second, graph[city][i].first, 0);
 
-                auto it = conj.find(aux);
+                auto it = conj.find(aux2);
 
-                if(it == conj.end()){
+                if(it == conj.end() && time + graph[city][i].second < visits[graph[city][i].first]){
 
-                    conj.insert(aux);
-                    q.push(aux);
+                    conj.insert(aux2);
+                    visits[graph[city][i].first] = time + graph[city][i].second;
+                    q.push(make_tuple(coste, time + graph[city][i].second, graph[city][i].first));
                 }
             }
         }
@@ -76,12 +79,14 @@ int main(){
 
         scanf("%i", &hotels);
         vector<int>hotelCity(citys, 0);
+        vector<int>visits(citys, INT_MAX);
+
         vector<vector<pair<int, int>>>graph(citys, vector<pair<int, int>>());
 
         while(hotels--){
 
             scanf("%i", &hotel);
-            hotelCity[hotel] = 1;
+            hotelCity[hotel-1] = 1;
         }
 
         scanf("%i", &conections);
@@ -93,12 +98,12 @@ int main(){
             if(coste <= 600){
 
                 graph[a-1].push_back(make_pair(b-1, coste));
+                graph[b-1].push_back(make_pair(a-1, coste));
             }
         }
 
-        printf("%i\n", dijkstra(graph, hotelCity, citys-1));
+        printf("%i\n", dijkstra(graph, hotelCity, citys-1, visits));
     }
-
 
     return 0;
 }

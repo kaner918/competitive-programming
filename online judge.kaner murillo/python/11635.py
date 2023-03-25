@@ -30,6 +30,8 @@ def dijkstra():
 
     heappush(q, State(0, 0, 0))
     visits.add((0, 0, 0))
+    visits2 = [float('inf') for i in range(len(graph))]
+
     finish = len(graph)-1
 
     state = State()
@@ -44,20 +46,21 @@ def dijkstra():
 
         for i in graph[state.city]:
 
-            if state.city in hotels:
+            if state.city+1 in hotels:
 
-                if (state.coste + 1, i[1], i[0]) not in visits:
+                if (state.city, i[1], i[0]) not in visits:
 
                     heappush(q, State(state.coste + 1, i[1], i[0]))
-                    visits.add((state.coste + 1, i[1], i[0]) )
+                    visits.add((state.city, i[1], i[0]) )
 
     
             if state.time + i[1] <= 600:
 
-                if (state.coste, state.time + i[1], i[0]) not in visits:
+                if (state.city, state.time + i[1], i[0]) not in visits and state.time + i[1] < visits2[i[0]]:
                     
+                    visits2[i[0]] = state.time + i[1]
                     heappush(q, State(state.coste, state.time + i[1], i[0]))
-                    visits.add((state.coste, state.time + i[1], i[0]))
+                    visits.add((state.city, state.time + i[1], i[0]))
 
     return -1
 
@@ -82,6 +85,7 @@ def main():
             if(conection[2] <= 600):
 
                 graph[conection[0]-1].append((conection[1]-1, conection[2]))
+                graph[conection[1]-1].append((conection[0]-1, conection[2]))
 
         print(dijkstra())
 
