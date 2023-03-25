@@ -44,19 +44,9 @@ def dijkstra():
 
     state = State()
 
-    """ print() """
-
     while len(q):
 
         state = heappop(q)
-
-        """ print(state.size_lives)
-
-        for i in state.graph:
-
-            print(i)
-
-        print("ad") """
 
         if(state.size_lives<=0):
 
@@ -79,23 +69,12 @@ def dijkstra():
                 enemy_colums = list(state.enemy_colums)
                 size_lives = state.size_lives
                 flag = True
-
-                #print(board[auxRow][auxColum], auxRow, auxColum)
+                pres = set()
 
                 if(auxRow > -1 and auxColum > -1 and auxRow < 9 and auxColum < 8 and board[auxRow][auxColum] == '.'):
-                    
 
                     board[auxRow][auxColum] = 'S'
                     board[state.row][state.colum] = '.'
-                    
-
-                    """ print(i)
-                    
-                    for x in board:
-
-                        print(x)
-
-                    print() """
 
                     for n in range(len(liv)):
 
@@ -103,7 +82,6 @@ def dijkstra():
                             
                             initRow = enemy_rows[n]
                             initColum = enemy_colums[n]
-
 
                             if(enemy_rows[n] == auxRow):
                                 
@@ -128,12 +106,11 @@ def dijkstra():
                             elif(enemy_rows[n] > auxRow):
 
                                 if(enemy_colums[n] > auxColum):
-
+                                
                                     enemy_colums[n]-=1
                                     enemy_rows[n]-=1
                                 
                                 else:
-                                    
                                     enemy_colums[n]+=1
                                     enemy_rows[n]-=1
 
@@ -148,7 +125,7 @@ def dijkstra():
                                     
                                     enemy_colums[n]+=1
                                     enemy_rows[n]+=1
-                            
+                
                             if board[enemy_rows[n]][enemy_colums[n]] == 'S':
                                     
                                 flag = False
@@ -157,10 +134,16 @@ def dijkstra():
 
                                 size_lives-=1
                                 liv[n] = False
-                                
-                            board[enemy_rows[n]][enemy_colums[n]] =  board[initRow][initColum] 
-                            board[initRow][initColum] = '.'
-                    
+                            
+                            if board[enemy_rows[n]][enemy_colums[n]] == '.':
+
+                                board[enemy_rows[n]][enemy_colums[n]] = board[initRow][initColum]
+
+                            if (initRow, initColum) not in pres:
+
+                                board[initRow][initColum] = '.'
+                                pres.add((enemy_rows[n], enemy_colums[n]))
+
                     for n in range(len(liv)):
                         
                         pre = liv[n]
@@ -223,9 +206,6 @@ def main():
 
             graph.append(aux)
 
-        """ for n in graph:
-            print(n) """
-        
         ans = dijkstra()          
 
         if i < cases-1:
