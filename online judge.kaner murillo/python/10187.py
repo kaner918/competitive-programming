@@ -24,7 +24,7 @@ def dijkstra(init, finish):
 
     global graph
     q = [State(0, 18, init)]
-    conj = set((18, init))
+    conj = set((18, 18, init))
     state = State()
     ans = float('inf')
 
