@@ -14,18 +14,17 @@
 
 using namespace std;
 
-void dijkstra(map<string, vector<tuple<string, int, int>>>&graph, map<string, int>&visits, set<tuple<string, string, int, int>>&conj, string init, string finish){
+void dijkstra(map<string, vector<tuple<string, int, int>>>&graph, map<string, int>&visits, set<tuple<string, string, int, int, int>>&conj, string init, string finish){
 
-    visits[init] = 0;
     priority_queue<tuple<int, int, string>, vector<tuple<int, int, string>>, greater<tuple<int, int, string>>>q;
 
-    q.push(make_tuple(0, -1, init));
+    q.push(make_tuple(0, 18, init));
     int blood, auxBlood, time, i, auxTime1, auxTime2;
     string auxCity;
-    tuple<string, string, int, int>auxTuple;
-    bool coste;
+    tuple<string, string, int, int, int>auxTuple;
+    bool coste, flag = false;
 
-    while(!q.empty()){
+    while(!q.empty() && !flag){
 
         blood = get<0>(q.top());
         time = get<1>(q.top());    
@@ -35,38 +34,40 @@ void dijkstra(map<string, vector<tuple<string, int, int>>>&graph, map<string, in
 
         q.pop();
 
-        if(init == finish && blood != -1 && blood < visits[finish]) visits[finish] = blood;
+        if(init == finish && blood != -1 && blood < visits[finish]) visits[finish] = blood, flag = true;
 
-        for(i = 0; i<graph[init].size(); i++){
+        if(!flag){
 
-            auxCity = get<0>(graph[init][i]);
-            auxTime1 = get<1>(graph[init][i]);
-            auxTime2 = get<2>(graph[init][i]);
-            auxBlood = blood;
-            coste = false;
+            for(i = 0; i<graph[init].size(); i++){
 
-            if((time<=24 && time>=18) && (auxTime1<=24 && auxTime1 >= 18) && time>auxTime1) auxBlood++, coste = true;
+                auxCity = get<0>(graph[init][i]);
+                auxTime1 = get<1>(graph[init][i]);
+                auxTime2 = get<2>(graph[init][i]);
+                auxBlood = blood;
 
-            else if((time<=6 && time>=1) && (auxTime1<=6 && auxTime1 >= 1) && time>auxTime1) auxBlood++, coste = true;
+                if((time<=24 && time>=18) && (auxTime1<=24 && auxTime1 >= 18) && time>auxTime1) auxBlood++, coste = true;
 
-            else if((time<=6 && time>=1) && (auxTime1<=24 && auxTime1 >= 18)) auxBlood++, coste = true;
+                else if((time<=6 && time>=1) && (auxTime1<=6 && auxTime1 >= 1) && time>auxTime1) auxBlood++, coste = true;
 
-            //else if((time<=24 && time>=18) && (auxTime1<=6 && auxTime1 >= 1)) auxBlood++;
+                else if((time<=6 && time>=1) && (auxTime1<=24 && auxTime1 >= 18)) auxBlood++, coste = true;
 
-            auxTuple = make_tuple(auxCity, init, time, auxTime2);
-            
-            auto it = conj.find(auxTuple);
+                //else if((time<=24 && time>=18) && (auxTime1<=6 && auxTime1 >= 1)) auxBlood++;
 
-            if(it == conj.end()){
+                auxTuple = make_tuple(auxCity, init, time, auxTime1, auxTime2);
+                
+                auto it = conj.find(auxTuple);
 
-                //cout<<auxCity<<" init "<<time<<" finish "<<auxTime2<<" coste "<<coste<<endl;
+                if(it == conj.end()){
 
-                q.push(make_tuple(auxBlood, auxTime2, auxCity));
-                conj.insert(auxTuple);
+                    //cout<<auxCity<<" init "<<time<<" finish "<<auxTime2<<" coste "<<coste<<endl;
+
+                    q.push(make_tuple(auxBlood, auxTime2, auxCity));
+                    conj.insert(auxTuple);
+                }
             }
-        }
 
-        //cout<<endl<<endl;
+            //cout<<endl<<endl;
+        }
     }
 }
 
@@ -107,7 +108,7 @@ int main(){
         visits[city1] = INT_MAX;
         visits[city2] = INT_MAX;
 
-        set<tuple<string, string, int, int>>conj;
+        set<tuple<string, string, int, int, int>>conj;
 
         //cout<<endl;
         dijkstra(graph, visits, conj, city1, city2);
