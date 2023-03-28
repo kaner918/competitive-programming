@@ -34,7 +34,7 @@ def dijkstra(init, finish):
 
         if(state.city == finish and state.coste < ans):
 
-            ans = state.coste
+            return state.coste
         
         if (18, 18, state.city) not in conj:
             
@@ -47,15 +47,18 @@ def dijkstra(init, finish):
 
                 flag = False
 
-                if(state.time >= 1 and state.time<= 6 and i[1] >= 1 and i[1] <= 6 and state.time <= i[1]):
+                if(i[1] == state.time):
                     flag = True
                 
-                elif(((state.time >= 18 and state.time<= 24) or state.time == 0) and ((i[1] >= 18 and i[1]<= 24) or i[1] == 0) and (state.time <= i[1] or i[1] == 0)):
+                elif (state.time > 17 and state.time < i[1]):
                     flag = True
-
-                elif(((state.time >= 18 and state.time<= 24) or state.time == 0) and i[1] >= 1 and i[1] <= 6):
+                
+                elif (state.time > 17 and i[1] < 7):
                     flag = True
-
+                    
+                elif (state.time < 7 and i[1] < 7 and  state.time < i[1]):
+                    flag = True
+                
                 if (i[1], i[2], i[0]) not in conj and flag:
 
                     conj.add((i[1], i[2], i[0]))
