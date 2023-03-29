@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int points, res, re;
+int points, re;
 vector<int>pre(10000);
 vector<int>cost(10000);
 vector<int>cost2(10000);
@@ -28,14 +28,14 @@ void initialize(int init){
     cost[init] = 0;
 }
 
-void dijkstra(int init, vector<vector<tuple<int, int, int>>>&graph){
+void dijkstra(int init, vector<vector<tuple<int, int, int>>>&graph, vector<int>&res){
 
     int weight, auxCost, vertex, vertexAd, i, recar;
     priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>>cola;
 
     initialize(init);
     cola.push(make_tuple(init, 0, 0));
-    vector<int>res; 
+    
 
     while(!cola.empty()){
 
@@ -53,7 +53,20 @@ void dijkstra(int init, vector<vector<tuple<int, int, int>>>&graph){
                 vertexAd = get<0>(graph[vertex][i]);
                 weight = get<1>(graph[vertex][i]);
                 
-                if(auxCost != INT_MAX && auxCost + weight < cost[vertexAd] && vertexAd != points-1){
+                if(vertexAd == points-1){
+
+                    if(auxCost + weight < cost[vertexAd]){
+                        res = {vertex};
+                        re = recar;
+                    }
+
+                    else if(auxCost + weight == cost[vertexAd]){
+                        res.push_back(vertex);
+                        re+=recar;
+                    }
+
+                }
+                if(auxCost != INT_MAX && auxCost + weight < cost[vertexAd]){
                     
                     pre[vertexAd] = vertex;
                     cost[vertexAd] = auxCost + weight;
@@ -68,7 +81,7 @@ void dijkstra(int init, vector<vector<tuple<int, int, int>>>&graph){
 
 int main(){
 
-    int trails, length, a, b, size, counter = 1;
+    int trails, length, a, b, size, counter, i;
 
     while(scanf("%i %i", &points, &trails) != EOF){
 
@@ -76,13 +89,14 @@ int main(){
         vector<tuple<int, int, int>>::iterator it;
         vector<tuple<int, int, int>>::iterator it2;  
         vector<int>res;
-
-        res = 0;
         re = 0;
+        counter = 0;
+
         while(trails--){
 
             scanf("%i %i %i", &a, &b, &size);
-
+            
+            for(it2 = graph[b].begin(); it2 != graph[b].end() && (get<0>(*it2) != a || get<1>(*it2) != size); it2++);
             for(it = graph[a].begin(); it != graph[a].end() && (get<0>(*it) != b || get<1>(*it) != size); it++);
 
             if(it != graph[a].end()) get<2>(*it)+=size, get<2>(*it2)+=size;
@@ -91,9 +105,22 @@ int main(){
 
         }
 
-        res = dijkstra(0, graph);
-        cout<<(res+re)*2<<endl;
-        counter++;
+        dijkstra(0, graph, res);
+
+        for(i = 0; i<res.size(); i++){
+
+            a = res[i]; 
+            
+            counter+= cost[points-1] - cost[a];
+
+            while(pre[a] != -1){
+
+                counter+= cost[a] - cost[pre[a]];
+                a = pre[a];
+            }
+        }
+        
+        printf("%i\n", (counter + re) * 2);
     }
 
 }
