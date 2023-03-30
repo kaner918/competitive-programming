@@ -12,8 +12,8 @@ using namespace std;
 
 int points, re;
 vector<int>pre(10000);
+vector<int>canti(10000);
 vector<int>cost(10000);
-vector<int>cost2(10000);
 
 void initialize(int init){
 
@@ -23,6 +23,7 @@ void initialize(int init){
 
         cost[i] = INT_MAX;
         pre[i] = -1;
+        canti[i] = 0;
     }
 
     cost[init] = 0;
@@ -57,21 +58,27 @@ void dijkstra(int init, vector<vector<tuple<int, int, int>>>&graph, vector<int>&
 
                     if(auxCost + weight < cost[vertexAd]){
                         res = {vertex};
-                        re = recar;
+                        re = recar + get<2>(graph[vertex][i]);
                     }
 
                     else if(auxCost + weight == cost[vertexAd]){
                         res.push_back(vertex);
-                        re+=recar;
+                        re+=recar + get<2>(graph[vertex][i]);
                     }
 
                 }
                 if(auxCost != INT_MAX && auxCost + weight < cost[vertexAd]){
                     
+                    canti[vertexAd] = 1;
                     pre[vertexAd] = vertex;
                     cost[vertexAd] = auxCost + weight;
                     cola.push(make_tuple(vertexAd, cost[vertexAd], recar+get<2>(graph[vertex][i])));
 
+                } 
+
+                else if(auxCost != INT_MAX && auxCost + weight == cost[vertexAd]){
+                    
+                    canti[vertexAd]+=1;
                 } 
             }
         }
@@ -89,6 +96,8 @@ int main(){
         vector<tuple<int, int, int>>::iterator it;
         vector<tuple<int, int, int>>::iterator it2;  
         vector<int>res;
+        vector<int>visits(points, 0);
+
         re = 0;
         counter = 0;
 
@@ -99,9 +108,29 @@ int main(){
             for(it2 = graph[b].begin(); it2 != graph[b].end() && (get<0>(*it2) != a || get<1>(*it2) != size); it2++);
             for(it = graph[a].begin(); it != graph[a].end() && (get<0>(*it) != b || get<1>(*it) != size); it++);
 
-            if(it != graph[a].end()) get<2>(*it)+=size, get<2>(*it2)+=size;
+            if(it != graph[a].end()) {
+                
+                if(size < get<1>(*it2)){
+                    
+                    get<1>(*it) = size;
+                    get<1>(*it2) = size;
+                    get<2>(*it) = 0;
+                    get<2>(*it2) = 0;
+                }
 
-            else graph[a].push_back(make_tuple(b, size, 0)), graph[b].push_back(make_tuple(a, size, 0));
+                else if(size == get<1>(*it2)){
+
+                    get<2>(*it)+=size;
+                    get<2>(*it2)+=size;
+                }
+            }
+
+            else {
+                
+                graph[a].push_back(make_tuple(b, size, 0));
+                graph[b].push_back(make_tuple(a, size, 0));
+
+            }
 
         }
 
@@ -110,16 +139,21 @@ int main(){
         for(i = 0; i<res.size(); i++){
 
             a = res[i]; 
-            
+            int mult = 1;
             counter+= cost[points-1] - cost[a];
 
-            while(pre[a] != -1){
+            while(pre[a] != -1 && !visits[a]){
+                
+                if(canti[a] > mult) mult = canti[a];
+                
+               /*  cout<<canti[pre[a]]<<" "<<a<<endl; */
 
-                counter+= cost[a] - cost[pre[a]];
+                counter+= (cost[a] - cost[pre[a]]) * mult;
+                visits[a] = 1;
                 a = pre[a];
             }
         }
-        
+
         printf("%i\n", (counter + re) * 2);
     }
 
