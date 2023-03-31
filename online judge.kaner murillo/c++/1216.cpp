@@ -14,17 +14,17 @@ using namespace std;
 
 int total;
 
-void prim(vector<pair<int, int>>&graph, vector<pair<int, int>>&dist, vector<int>&pre){
+void prim(vector<pair<int, int>>&graph, vector<int>&dist, vector<int>&pre){
 
     int i, node, weight, auxWeight;
 
     for(i = 0; i<dist.size(); i++){
 
-        dist[i].first = i;
-        dist[i].second = INT_MAX;
+        dist[i] = INT_MAX;
+
     }
 
-    dist[0].second = 0;
+    dist[0] = 0;
     vector<int>visits(graph.size(), 0);
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>q;
 
@@ -39,7 +39,7 @@ void prim(vector<pair<int, int>>&graph, vector<pair<int, int>>&dist, vector<int>
 
         q.pop();
 
-        if(weight == dist[node].second){
+        if(weight == dist[node]){
             
             total+= weight;
 
@@ -49,9 +49,9 @@ void prim(vector<pair<int, int>>&graph, vector<pair<int, int>>&dist, vector<int>
 
                     auxWeight = ceil(sqrt(pow(graph[i].first - graph[node].first, 2) + pow(graph[i].second - graph[node].second, 2)));
 
-                    if(!visits[i] && auxWeight < dist[i].second){
+                    if(!visits[i] && auxWeight < dist[i]){
 
-                        dist[i].second = auxWeight;
+                        dist[i] = auxWeight;
                         pre[i] = node;
                         q.push(make_pair(auxWeight, i));
                     }
@@ -61,9 +61,9 @@ void prim(vector<pair<int, int>>&graph, vector<pair<int, int>>&dist, vector<int>
     }
 }
 
-bool comp(pair<int, int>&a, pair<int, int>&b){
+bool comp(int &a, int &b){
 
-    return a.second > b.second;
+    return a > b;
 }
 
 int main(){
@@ -85,48 +85,17 @@ int main(){
             graph.push_back(make_pair(x, y));
         }
 
-        vector<pair<int, int>>dist(graph.size());
+        vector<int>dist(graph.size());
         vector<int>pre(graph.size(), -1);
-        vector<int>receivers(graph.size(), 0);
 
         prim(graph, dist, pre);
-        
+
         sort(dist.begin(), dist.end(), comp);
 
-        /* cout<<"pre "<<total<<endl; */
+        receiver--;
+        
+        printf("%i\n", dist[receiver]);
 
-        total = dist[0].second;
-
-        for(i = 0; i<dist.size()-1 && receiver; i ++){
-
-            if(!receivers[dist[i].first] && receiver){
-                
-                receivers[dist[i].first] = 1;
-                receiver--;
-            }
-
-            if(receivers[dist[i].first]){
-
-                if(receivers[pre[dist[i].first]]){
-
-                    total = dist[i+1].second;
-                }
-
-                else if(!receivers[pre[dist[i].first]] && receiver){
-
-                    total = dist[i+1].second;
-                    receivers[pre[dist[i].first]] = 1;
-                    receiver--;
-                }
-            }
-        }
-
-        printf("%i\n", total);
-
-        /* for(i = 0; i<dist.size() && receiver; i ++){
-
-            cout<<graph[dist[i].first].first<<","<<graph[dist[i].first].second<<" dist "<<dist[i].second<<" pre "<<graph[pre[dist[i].first]].first<<","<<graph[pre[dist[i].first]].second<<endl;
-        } */
     }
 
     return 0;
