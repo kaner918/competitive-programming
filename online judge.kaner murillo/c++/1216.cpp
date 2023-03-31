@@ -30,8 +30,6 @@ void prim(vector<pair<int, int>>&graph, vector<pair<int, int>>&dist, vector<int>
 
     q.push(make_pair(0, 0));
 
-    
-
     while(!q.empty()){
 
         weight = q.top().first;
@@ -99,7 +97,7 @@ int main(){
 
         total = dist[0].second;
 
-        for(i = 0; i<dist.size() && receiver; i ++){
+        for(i = 0; i<dist.size()-1 && receiver; i ++){
 
             if(!receivers[dist[i].first] && receiver){
                 
@@ -107,23 +105,28 @@ int main(){
                 receiver--;
             }
 
-            if(receivers[dist[i].first] ){
+            if(receivers[dist[i].first]){
 
                 if(receivers[pre[dist[i].first]]){
 
                     total = dist[i+1].second;
-
                 }
 
                 else if(!receivers[pre[dist[i].first]] && receiver){
 
                     total = dist[i+1].second;
-                     receiver--;
+                    receivers[pre[dist[i].first]] = 1;
+                    receiver--;
                 }
             }
         }
 
         printf("%i\n", total);
+
+        /* for(i = 0; i<dist.size() && receiver; i ++){
+
+            cout<<graph[dist[i].first].first<<","<<graph[dist[i].first].second<<" dist "<<dist[i].second<<" pre "<<graph[pre[dist[i].first]].first<<","<<graph[pre[dist[i].first]].second<<endl;
+        } */
     }
 
     return 0;
