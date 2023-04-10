@@ -37,15 +37,16 @@ struct State{
 int prim(vector<vector<pair<int, int>>>&graph, int speedInit, int speedFinish, int init, int finish){
 
     priority_queue<State>q;
-    set<tuple<int,int>>conj;
-    tuple<int,int>aux;
-
-    int i, speed, maxi, position, auxMaxi, auxSpeed, pre, maxi2, mini, auxMaxi2, auxMini2;
+    set<tuple<int, int, int>>conj;
+    tuple<int, int, int>aux;
+    vector<vector<int>>visits(graph.size(), vector<int>(graph.size(), INT_MAX));
+    int i, speed, maxi, position, auxMaxi, auxSpeed, pre, maxi2, mini, auxMaxi2, auxMini2, counter=0, p = init;
     
     for(i = 0; i<graph[init].size(); i++){
 
+        counter++;
         q.push(State(init, graph[init][i].first, graph[init][i].second, 0, graph[init][i].first, graph[init][i].first));
-        conj.insert(make_tuple(graph[init][i].second, 0));
+        conj.insert(make_tuple(graph[init][i].second, graph[init][i].first, graph[init][i].first));
     }
 
     while(!q.empty()){
@@ -61,6 +62,7 @@ int prim(vector<vector<pair<int, int>>>&graph, int speedInit, int speedFinish, i
 
         if(position == finish){
 
+            /* cout<<"estados generados: "<<counter<<endl; */
             return maxi;
         }
 
@@ -72,26 +74,29 @@ int prim(vector<vector<pair<int, int>>>&graph, int speedInit, int speedFinish, i
 
             if(graph[position][i].first < mini || graph[position][i].first > maxi2){
 
-                auxMini2 = graph[position][i].first;
                 auxMini2 = min(mini, graph[position][i].first);
                 auxMaxi2 = max(maxi2, graph[position][i].first);
                 auxMaxi = max(auxMaxi, abs(mini - graph[position][i].first));
                 auxMaxi = max(auxMaxi, abs(maxi2 - graph[position][i].first));
             }
 
-            aux = make_tuple(graph[position][i].second, auxMaxi);
+            aux = make_tuple(graph[position][i].second, graph[position][i].first, auxMaxi);
 
             auto it = conj.find(aux);
 
-            if(it == conj.end() && graph[position][i].second != pre){
+            if(it == conj.end() && graph[position][i].second != pre && graph[position][i].second != p && auxMaxi < visits[position][graph[position][i].second]){
 
+                counter++;
+                visits[position][graph[position][i].second] = auxMaxi;
                 conj.insert(aux);
+                /* aux = make_tuple(position, auxMaxi2, auxMini2);
+                conj.insert(aux); */
                 q.push(State(position, graph[position][i].first, graph[position][i].second, auxMaxi, auxMaxi2, auxMini2));
             }
         }
     }
 
-    return -1;
+    return 0;
 }
 
 int main(){
