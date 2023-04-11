@@ -25,15 +25,22 @@ struct State{
 
     bool operator<(const State&other)const{
 
+        if(coste == other.coste){
+
+            return tank < other.tank;
+        }
+
         return coste > other.coste;
     }
 };
 
 int dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&costes, int init, int finish, int capacity){
 
-    set<tuple<int,int>>conj;
+    set<tuple<int, int, int>>conj;
+    vector<int>dist(graph.size(), INT_MAX);
+    vector<int>ls(graph.size(), 0);
     priority_queue<State>q;
-    tuple<int, int>aux = make_tuple(init, 0);
+    tuple<int, int, int>aux = make_tuple(init, init, 0);
 
     q.push(State(0, 0, init));
     conj.insert(aux);
@@ -46,8 +53,7 @@ int dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&costes, int init,
         init = q.top().position;
         coste = q.top().coste;
         tank = q.top().tank;
-
-        /* cout<<"position "<<init<<" tank "<<tank<<" adyacencias :"<<endl; */
+        
         q.pop();
 
         if(init == finish){
@@ -55,16 +61,13 @@ int dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&costes, int init,
             return coste;
         }
 
-        for(i = tank + 1; i<=capacity; i++){
+        aux = make_tuple(init, init, tank+1);
+        auto it = conj.find(aux);
 
-            aux = make_tuple(init, i);
-            auto it = conj.find(aux);
+        if(it == conj.end() && tank+1 <= capacity){
 
-            if(it == conj.end()){
-
-                conj.insert(aux);
-                q.push(State(coste+costes[init]*i-tank, i, init));
-            }
+            conj.insert(aux);
+            q.push(State(coste+costes[init], tank+1, init));
         }
 
         for(i = 0; i<graph[init].size(); i++){
@@ -74,13 +77,21 @@ int dijkstra(vector<vector<pair<int, int>>>&graph, vector<int>&costes, int init,
 
             if(tank >= weight){
 
-                aux = make_tuple(auxNode, tank-weight);
+                aux = make_tuple(init, auxNode, tank-weight);
 
                 auto it = conj.find(aux);
 
-                if(it == conj.end()){
+                if(it == conj.end() && (dist[auxNode] > coste || ls[auxNode] < tank-weight)){
                 
-                    /* cout<<auxNode<<" costo "<<weight<<" new tank "<<tank-weight<<endl; */
+                    if(dist[auxNode] > coste){
+                        dist[auxNode] = coste;
+                    }
+
+                    if(ls[auxNode] < tank-weight){
+
+                        ls[auxNode] = tank-weight;
+                    }
+
                     conj.insert(aux);
                     q.push(State(coste, tank-weight, auxNode));
                 }
