@@ -73,6 +73,7 @@ def main():
 
     for i in range(cases):
 
+
         graph = {}
 
         conections = int(stdin.readline())
