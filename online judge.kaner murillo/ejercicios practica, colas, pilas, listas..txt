@@ -11,5 +11,4 @@ https://onlinejudge.org/external/131/13190.pdf --> resuelto - c++
 https://onlinejudge.org/external/109/10901.pdf --> resuelto - c++
 https://onlinejudge.org/external/121/12100.pdf --> resuelto - c++
 https://onlinejudge.org/external/1/127.pdf     --> resuelto c++
-https://onlinejudge.org/external/1/158.pdf     --> resuelto python
 https://onlinejudge.org/external/16/1610.pdf   --> resuelto - c++
