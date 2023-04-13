@@ -52,10 +52,7 @@ def main():
         matrix_ad = []
 
         line = [int(x) for x in stdin.readline().split()]
-
-        if(line):
-
-            matrix_ad.append(line)
+        matrix_ad.append(line)
         
         for n in range(len(line)-1):
             
@@ -64,22 +61,23 @@ def main():
         
         costes = [int(x) for x in stdin.readline().split()]
 
-        for n in range(3):
+        case = [int(x) for x in stdin.readline().split()]
 
-            init, finish = [int(x) for x in stdin.readline().split()]
+        while case != []:
+
             pre = [-1 for x in range(len(costes))]
-            coste = dijkstra(matrix_ad, costes, pre, init-1, finish-1)
+            coste = dijkstra(matrix_ad, costes, pre, case[0]-1, case[1]-1)
 
             pre_aux = deque()
-            aux = finish-1
+            aux = case[1]-1
 
             while(pre[aux] != -1):
 
                 pre_aux.append(aux+1)
                 aux = pre[aux]
 
-            print(f"From {init} to {finish} :")
-            print(f"Path: {init}", end="")
+            print(f"From {case[0]} to {case[1]} :")
+            print(f"Path: {case[0]}", end="")
 
             while(len(pre_aux) > 1):
                 
@@ -93,11 +91,13 @@ def main():
             
             print()
             print(f"Total cost : {coste}")
+            
+            case = [int(x) for x in stdin.readline().split()]
 
-            if(n<2):
+            if case != []:
                 print()
-        
-        if(i<cases-1):
+                
+        if(i<cases-1):  
             print()
 
 main()
