@@ -16,54 +16,53 @@ int arrRow[] = {1, 0, -1, 0}, arrColum[] = {0, -1, 0, 1};
 
 struct State{
 
-    int coste, rowPosition, columPosition, rowBox, columBox, orientation;
-    bool stateBox;
+    int coste, coste2, rowPosition, columPosition, rowBox, columBox;
     string res;
     
     State(){}
-    State(int coste, int rowPosition, int columPosition, int rowBox, int columBox, int orientation, bool stateBox, string res){
+    State(int coste, int coste2, int rowPosition, int columPosition, int rowBox, int columBox, string res){
 
         this->coste = coste;
+        this->coste2 = coste2;
         this->rowPosition = rowPosition;
         this->columPosition = columPosition;
         this->rowBox = rowBox;
         this->columBox = columBox;
-        this->orientation = orientation;
-        this->stateBox = stateBox;
         this->res = res;
     }
 
     bool operator<(const State&other)const{
 
+        if(coste == other.coste){
+
+            return coste2 > other.coste2;
+        }
         return coste > other.coste;
     }
 };                                      
 
 string dijkstra(int r, int c, int rowPlayed, int columPlayed, int rowBox, int columBox, int rowT, int columT){
 
-    set<tuple<int, int, int, int, int, int, int, bool>>conj;
+    set<tuple<int, int, int, int>>conj;
     priority_queue<State>q;
 
-    int i, auxRow, auxColum, auxBoxR, auxBoxC, coste, orientation;
+    int i, auxRow, auxColum, coste2, auxBoxR, auxBoxC, coste, orientation;
     bool stateBox;
     string res, auxRes;
-    tuple<int, int, int, int, int, int, int, bool>aux = make_tuple(-1, -1, rowPlayed, columPlayed, -1, false, rowBox, columBox);
+    tuple<int, int, int, int>aux = make_tuple(rowPlayed, columPlayed, rowBox, columBox);
 
-    q.push(State(0, rowPlayed, columPlayed, rowBox, columBox, -1, false, ""));
+    q.push(State(0, 0, rowPlayed, columPlayed, rowBox, columBox, ""));
     conj.insert(aux);
 
     while(!q.empty()){
 
         coste = q.top().coste;
+        coste2 = q.top().coste2;
         rowPlayed = q.top().rowPosition;
         columPlayed = q.top().columPosition;
         rowBox = q.top().rowBox;
         columBox = q.top().columBox;
-        stateBox = q.top().stateBox;
-        orientation = q.top().orientation;
         res = q.top().res;
-
-        cout<<"coste: "<<coste<<" rowPlayed "<<rowPlayed<<" columPlayed "<<columPlayed<<" rowBox "<<rowBox<<" columBox "<<columBox<<" "<<res<<" ads: "<<endl;
 
         if(rowBox == rowT && columBox == columT){
 
@@ -79,31 +78,27 @@ string dijkstra(int r, int c, int rowPlayed, int columPlayed, int rowBox, int co
             auxBoxR = rowBox + arrRow[i];
             auxBoxC = columBox + arrColum[i];
 
-            cout<<" rowPlayed "<<auxRow<<" columPlayed "<<auxColum<<" rowBox "<<auxBoxR<<" columBox"<<auxBoxC<<endl;
-
             if(auxRow == rowBox && auxColum == columBox &&  auxBoxR > -1 &&  auxBoxC > -1 && auxBoxR < r && auxBoxC < c && graph[auxBoxR][auxBoxC] != '#'){
                 
-                aux = make_tuple(rowPlayed, columPlayed, auxRow, auxColum, i, true, auxBoxR, auxBoxC);
+                aux = make_tuple(auxRow, auxColum, auxBoxR, auxBoxC);
                 auto it = conj.find(aux);
 
                 if(it == conj.end()){
 
-                    cout<<"push"<<endl;
                     conj.insert(aux);
-                    q.push(State(coste + 1, auxRow, auxColum, auxBoxR, auxBoxC, i, true, res+boxOrientation[i]));
+                    q.push(State(coste + 1, coste2, auxRow, auxColum, auxBoxR, auxBoxC, res+boxOrientation[i]));
                 }
             }
 
             if((auxRow != rowBox || auxColum != columBox) && auxRow > -1 &&  auxColum > -1 && auxRow < r && auxColum < c && graph[auxRow][auxColum] != '#'){         
                 
-                aux = make_tuple(rowPlayed, columPlayed, auxRow, auxColum, i, false, rowBox, columBox);
+                aux = make_tuple(auxRow, auxColum, rowBox, columBox);
                 auto it = conj.find(aux);
 
                 if(it == conj.end()){
 
-                    cout<<"alone"<<endl;
                     conj.insert(aux);
-                    q.push(State(coste + 1, auxRow, auxColum, rowBox, columBox, i, false, res+playedOrientation[i]));
+                    q.push(State(coste, coste2 + 1, auxRow, auxColum, rowBox, columBox, res+playedOrientation[i]));
                 }              
             }
         }
@@ -140,7 +135,9 @@ int main(){
                     columBox = n;
                 }
             }
-        }        
+        }    
+
+        cin.ignore();    
 
         cout<<"Maze #"<<counter++<<endl<<dijkstra(r, c, rowPlayed, columPlayed, rowBox, columBox, rowT, columT)<<endl<<endl;
     }
