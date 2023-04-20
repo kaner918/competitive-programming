@@ -7,6 +7,7 @@
 #include<queue>
 #include<climits>
 #include<set>
+#include<tuple>
 
 using namespace std;
 
@@ -24,21 +25,6 @@ struct State{
 
     bool operator<(const State&other)const{
 
-        if(!(other.size%2) && !(size%2)){
-
-            return coste>other.coste;
-        }
-
-        else if(!(other.size%2)){
-
-            return true;
-        }
-
-        else if(!(size%2)){
-
-            return false;
-        }
-
         return coste > other.coste;
     }
 };
@@ -47,12 +33,12 @@ int dijkstra(vector<vector<pair<int, int>>>&graph){
 
     int finish = graph.size()-1;
 
-    set<pair<int, bool>>conj;
-    pair<int, bool>aux;
+    set<tuple<int, int, bool>>conj;
+    tuple<int, int, bool>aux;
     priority_queue<State>q;
 
     q.push(State(0, 0, 0));
-    conj.insert(make_pair(0, true));
+    conj.insert(make_tuple(0, 0, true));
 
     int i, node, size, auxNode, coste, weight;
 
@@ -68,6 +54,7 @@ int dijkstra(vector<vector<pair<int, int>>>&graph){
 
         if(node == finish && !(size%2)){
 
+            /* cout<<coste<<endl; */
             return coste;
         }
 
@@ -76,7 +63,7 @@ int dijkstra(vector<vector<pair<int, int>>>&graph){
             auxNode = graph[node][i].first;
             weight = graph[node][i].second;
 
-            aux = make_pair(auxNode, !((size+1)%2));
+            aux = make_tuple(node, auxNode, !((size+1)%2));
 
             auto it = conj.find(aux);
 
