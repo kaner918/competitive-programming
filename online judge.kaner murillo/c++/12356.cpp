@@ -14,7 +14,7 @@ int main(){
 
     while(scanf("%i %i", &army, &consults) && (army || consults)){
 
-        for(i = 0; i<army; i++){
+        for(i = 1; i<army; i++){
 
             lefts[i] = i-1;
             rights[i] = i+1; 
@@ -31,8 +31,8 @@ int main(){
             low--;
             hight--;
 
-            aux1 = low;
-            aux2 = hight;
+            aux1 = lefts[low];
+            aux2 = rights[hight];
 
             aux3 = low;
             aux4 = hight;
@@ -40,55 +40,81 @@ int main(){
             lives[low] = 0;
             lives[hight] = 0;
 
-            lefts[hight] = lefts[low];
-            rights[low] = rights[hight];
+            /* if(hight<army-1){
 
-            cout<<lefts[low]+1<<" vida "<<lives[lefts[low]]<<" "<<rights[low]+1<<" vida "<<lives[rights[low]]<<endl;
+            } */
 
-            while(!lives[rights[aux1]] &&  hight<army-1){
+            /* if(low>0){
+
+            } */
+
+            if(low != hight){
                 
-                /* cout<<"peo"<<endl; */
-
-                aux2 = rights[aux1];
-                rights[aux1] = rights[aux2];
+                lefts[rights[hight]] = lefts[low]; 
+                aux1 = lefts[rights[hight]];
+                rights[lefts[low]] = rights[hight];
+                aux2 =  rights[lefts[low]];
             }
 
-            aux1 = rights[aux1];
-
-            /* cout<<"holaaaaa"<<endl; */
-
-            while(aux3 > 0 && !lives[lefts[aux4]] && aux3 != -1){
+            else{
                 
-                /* cout<<"holi"<<endl; */
+                if(low){
 
-                aux3 = lefts[aux4];
-                lefts[aux4] = lefts[aux3];
+                    lefts[rights[low]] = lefts[low]; 
+                    aux1 = lefts[rights[low]];
+                }
+
+                else{
+
+                    cout<<"hol"<<endl;
+                    lefts[rights[low]] = -1; 
+                    aux1 = lefts[rights[low]];
+                }
+
+                if(hight<army-1){
+
+                    rights[lefts[hight]] = rights[hight];
+                    aux2 =  rights[lefts[low]];
+                }
+
+                else{
+
+                    rights[lefts[hight]] = -1;
+                    aux2 =  rights[lefts[low]];
+                }
             }
-
-            aux2 = lefts[aux4];
 
             if(aux1 == -1){
-                aux2 = -1;
-            }
-
-
-            if(aux2 == -1){
                 printf("*");
             }
 
             else{
 
-                printf("%i", aux2+1);
+                printf("%i", aux1+1);
             }
 
-            if(aux1 == -1){
+            if(aux2 == -1){
                 printf(" *\n");
             }
 
             else{
 
-                printf(" %i\n", aux1+1);
+                printf(" %i\n", aux2+1);
             }
+
+            for(i = 0; i<army; i++){
+
+                cout<<lefts[i]<<" ";
+            }
+
+            cout<<endl;
+
+            for(i = 0; i<army; i++){
+
+                cout<<rights[i]<<" ";
+            }
+
+            cout<<endl;
         }
 
         printf("-\n");
