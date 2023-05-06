@@ -3,14 +3,15 @@
 
 #include<cstdio>
 #include<iostream>
+#include<climits>
 
 using namespace std;
 
-int boxs[101], auxBox[101];
+int boxs[101];
 
 int main(){
 
-    int size, i, sum, index, sizeBox;
+    int size, i, sum, maxi, res, index, auxIndex, sizeBox;
 
     while(scanf("%i", &size) != EOF){
 
@@ -21,38 +22,41 @@ int main(){
 
             scanf("%i", &sizeBox);
 
-
             if(!index){
                 sum+=sizeBox;
                 boxs[index] = sizeBox;
-                auxBox[index] = 0;
-                index++;
             }
 
-            else{
-
+            else{   
                 
-                if(sizeBox <= auxBox[index-1]){
+                res = -1;
+                maxi = INT_MAX;
 
-                    boxs[index] = boxs[index-1];
-                    auxBox[index] = auxBox[index-1] - sizeBox;
+                for(auxIndex = 0; auxIndex<index; auxIndex++){
+
+                    if(sizeBox <= boxs[auxIndex]){
+
+                        if(boxs[auxIndex] <= maxi){
+                            maxi = boxs[auxIndex];
+                            res = auxIndex;
+                        }
+                    }
+
                 }
-
-                else if(sizeBox <= boxs[index-1]){
-
-                    boxs[index] = boxs[index-1] - sizeBox;
-                    auxBox[index] = sizeBox;
-                }
+                
+                if(res == -1){
+                    sum+=sizeBox;
+                }                
 
                 else{
 
-                    sum+=sizeBox;
-                    boxs[index] = sizeBox;
-                    auxBox[index] = 0;
-                }
-                
-                index++;
+                    boxs[res]-=sizeBox;
+                }    
+
+                boxs[index] = sizeBox;
             }
+
+            index++;
         }
 
         printf("%i\n", sum);
