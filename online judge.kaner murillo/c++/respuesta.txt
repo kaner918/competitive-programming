@@ -1,7 +1,16 @@
-5 4 8 11 13 4 7 2 1
-not complete
-1 2 7 9 10 8 11 3 4 6 5
-not complete
-2
-1 3 4
-not complete
+Case 1 is a tree.
+Case 2 is not a tree.
+Case 3 is a tree.
+Case 4 is not a tree.
+Case 5 is not a tree.
+Case 6 is a tree.
+Case 7 is not a tree.
+Case 8 is not a tree.
+Case 9 is a tree.
+Case 10 is not a tree.
+Case 11 is not a tree.
+Case 12 is not a tree.
+Case 13 is a tree.
+Case 14 is a tree.
+Case 15 is not a tree.
+Case 16 is not a tree.
