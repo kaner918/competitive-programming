@@ -1,5 +1,6 @@
 //https://onlinejudge.org/external/121/12186.pdf
 //12186
+//no soluciona el problema, pero si es un buen enfoque
 
 #include<cstdio>
 #include<iostream>
@@ -27,10 +28,11 @@ int solved(vector<vector<int>>&tree, int porcentage){
         if(tree[i].size()){
 
             visits[i] = (tree[i].size()*porcentage-1) / 100+1;
-            cout<<visits[i]<<endl;
 
         }
     }
+
+    cout<<node<<" "<<visits[0]<<endl;
 
     while(visits[0]){
         
@@ -60,6 +62,8 @@ int solved(vector<vector<int>>&tree, int porcentage){
                 /* cout<<aux<<endl; */
                 aux = pre[aux];
             }
+
+            cout<<node<<" "<<visits[0]<<endl;
         }
 
         else{
