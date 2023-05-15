@@ -6,17 +6,24 @@
 #include<string>
 #include<vector>
 #include<algorithm>
+#include<set>
 
 using namespace std;
 
 char letters[21][21];
 int arrRow[] = {1, 1, 1, 0, -1, -1, -1, 0}, arrColum[] = {1, 0, -1, -1, -1, 0, 1, 1};
 
-void solved(vector<string>&res, int size, int row, int colum, string word){
+void solved(vector<string>&res, set<string>&conj, int size, int row, int colum, string word){
 
     if(word.length() > 2){
 
-        res.push_back(word);
+        auto it = conj.find(word);
+
+        if(it == conj.end()){
+
+            res.push_back(word);
+            conj.insert(word);
+        }
     }
 
     int i, auxRow, auxColum;
@@ -28,7 +35,7 @@ void solved(vector<string>&res, int size, int row, int colum, string word){
 
         if(auxRow > -1 && auxColum > -1 && auxRow < size && auxColum < size && letters[auxRow][auxColum] > word[word.length()-1]){
 
-            solved(res, size, auxRow, auxColum, word+letters[auxRow][auxColum]);
+            solved(res, conj, size, auxRow, auxColum, word+letters[auxRow][auxColum]);
         }
     }
 }
@@ -69,7 +76,8 @@ int main(){
         cin.ignore();
         scanf("%i,", &size);
         vector<string>res;
-
+        set<string>conj;
+        
         for(n = 0; n<size; n++){
 
             cin.ignore();
@@ -84,7 +92,7 @@ int main(){
 
             for(m = 0; m<size; m++){
 
-                solved(res, size, n, m, "");
+                solved(res, conj, size, n, m, "");
             }
         }
 
@@ -100,6 +108,7 @@ int main(){
                 }
             }
         }
+
         if(cases>0){
         printf("\n");
         }
