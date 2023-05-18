@@ -6,57 +6,50 @@
 #include<vector>
 #include<string>
 #include<algorithm>
-#include<map>
 
 using namespace std;
 
 char arr[] = {'A', 'C', 'G', 'T'};
 
-void solved(int limit, int change, int index, map<vector<char>, int>&memo, vector<vector<char>>&res, vector<char>&comb){
+void solved(int index, int change, int limit, vector<vector<char>>&res, vector<char>&comb){
 
-    if(index == comb.size()){
+    if(change == limit){
 
-        /* auto it = memo.find(comb); */
-        if(change == limit){
-
-            res.push_back(comb);
-            /* memo[comb] = 1; */
-        }
+        res.push_back(comb);
     }
 
     else{
 
+        if(index == comb.size()){
+            return;
+        }
+
         int i, n;
         char pre;
+
+        solved(index+1, change, limit, res, comb);
         
-        solved(limit, change, index+1, memo, res, comb);
-        
-        for(i = 0; i<comb.size(); i++){
+        for(i = 0; i<4; i++){
 
-            comb[i] = arr[0];
-            solved(limit, change+1, index+1, memo, res, comb);
-
-            comb[i] = arr[1];
-            solved(limit, change+1, index+1, memo, res, comb);
-
-            comb[i] = arr[2];
-            solved(limit, change+1, index+1, memo, res, comb);
-
-            comb[i] = arr[3];
-            solved(limit, change+1, index+1, memo, res, comb);
+            pre = comb[index];
+            comb[index] = arr[i];
+            solved(index+1, change+1, limit, res, comb);
+            comb[index] = pre;
+            
         }
     }
 }
 
 int main(){
 
-    int cases, size, i, n, power;
+    int cases, size, i, n, power,counter;
     string cad;
 
     scanf("%i", &cases);
 
     while(cases--){
 
+        counter = 1;
         scanf("%i %i\n", &size, &power);    
         getline(cin, cad);
         vector<char>comb;
@@ -66,19 +59,35 @@ int main(){
 
             comb.push_back(cad[i]);
         }
-        map<vector<char>, int>memo;
         
-        solved(power, 0, 0, memo, res, comb);
-        /* sort(res.begin(), res.end()); */
+        solved(0, 0, power, res, comb);
 
-        cout<<res.size()<<endl;
-
+        sort(res.begin(), res.end());
+        
         for(i = 1; i<res.size(); i++){
 
-            for(n = 0; n<res[i].size(); n++){
-                cout<<res[i][n];
+            if(res[i] != res[i-1]){
+
+                counter++;
             }
-            cout<<endl;
+        }
+
+        cout<<counter<<endl;
+
+        for(n = 0; n<res[0].size(); n++){
+            cout<<res[0][n];
+        }
+        cout<<endl;
+        
+        for(i = 1; i<res.size(); i++){
+
+            if(res[i] != res[i-1]){
+
+                for(n = 0; n<res[i].size(); n++){
+                    cout<<res[i][n];
+                }
+                cout<<endl;
+            }
         }
     }
     
