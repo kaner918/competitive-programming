@@ -5,35 +5,36 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<map>
 #include<algorithm>
 
 using namespace std;
 
-void solved(int index, int change, int limit, vector<string>&res, string&s, string cad){
+void solved(int change, map<char, int>&freq, int limit, vector<string>&res, string&s, string cad){
 
     if(change == limit){
 
-        if(!(res.size()) || (res.back() != cad)){
-
-            res.push_back(cad);
-        }
+        res.push_back(cad);
     }
 
     else{
 
-        if(index == s.length()){
-            return;
-        }
+        for(auto it = freq.begin(); it!=freq.end(); it++){
 
-        solved(index+1, change, limit, res, s, cad);
-        solved(index+1, change+1, limit, res, s, cad+s[index]);
+            if(it->second && (!cad.length() || it->first >= cad.back())){
+
+                it->second--;
+                solved(change+1, freq, limit, res, s, cad+it->first);
+                it->second++;
+            }
+        }
     }
 }
 
 int main(){
 
-    int limit, i;
-    string cad;
+    int limit, i, counter;
+    string cad, aux;
 
     while(cin>>cad){
 
@@ -41,9 +42,24 @@ int main(){
         
         sort(cad.begin(), cad.end());
         vector<string>res;
-        solved(0, 0, limit, res, cad, "");
+        map<char, int>freq;
 
-        for(i = res.size()-1; i>-1; i--){
+        freq[cad[0]] = 1;
+
+        for(i = 1; i<cad.length(); i++){
+
+            if(cad[i] == cad[i-1]){
+                freq[cad[i]]++;
+            }
+            
+            else{
+                freq[cad[i]] = 1;
+            }
+        }
+
+        solved(0, freq, limit, res, cad, "");
+
+        for(i = 0; i<res.size(); i++){
             cout<<res[i]<<endl;
         }
     } 
