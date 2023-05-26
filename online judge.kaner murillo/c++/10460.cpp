@@ -27,11 +27,10 @@ void calFactorial(int size){
 
 void solved(int index, int find, string&cad, deque<char>&comb){
 
-    if(counter){
+        int i;
 
         if(comb.size() == cad.length()-1){
-
-            int i;
+   
             comb.push_front(cad[index]);
             
             i = 0;
@@ -46,8 +45,6 @@ void solved(int index, int find, string&cad, deque<char>&comb){
         }
  
         else{
-
-            int i;
 
             comb.push_front(cad[index]);
 
@@ -66,7 +63,6 @@ void solved(int index, int find, string&cad, deque<char>&comb){
             solved(index+1, find, cad, comb);
     
         }
-    }
 }
 
 int main(){ 
