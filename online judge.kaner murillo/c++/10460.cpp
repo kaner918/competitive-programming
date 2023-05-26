@@ -5,13 +5,13 @@
 #include<iostream>
 #include<deque>
 #include<string>
+#include<cmath>
 
 using namespace std;
 
-
-int counter;
-unsigned long long int factorial;
-unsigned long long int low;
+long long int counter;
+long double factorial;
+long double low;
 
 deque<char>last;
 
@@ -25,21 +25,15 @@ void calFactorial(int size){
     }
 }
 
-void solved(int index, int find, string&cad, deque<char>comb){
+void solved(int index, int find, string&cad, deque<char>&comb){
 
     if(counter){
 
-        int i;
-        cout<<low<<" "<<factorial<<endl;
-
         if(comb.size() == cad.length()-1){
 
-            int i = 0;
+            int i;
             comb.push_front(cad[index]);
-            for(i = 0; i<comb.size(); i++){
-                cout<<comb[i];
-            }
-            printf("\n");
+            
             i = 0;
             while(low < find-1){
                 swap(comb[i], comb[i+1]);
@@ -57,30 +51,20 @@ void solved(int index, int find, string&cad, deque<char>comb){
 
             comb.push_front(cad[index]);
 
-            unsigned long long int aux = low;
-            unsigned long long int sum = factorial/comb.size();
-            unsigned long long int pre = factorial/comb.size();
+            long double aux = low;
+            long double sum = (factorial-low)/(comb.size()*1.0);
 
-            if(find <= factorial/comb.size()){
-                factorial /= comb.size();
-                solved(index+1, find, cad, comb);
-            } 
-
-            else{
-
-                i = 0;
-                while(find > aux+sum){
-                    swap(comb[i], comb[i+1]);
-                    pre = aux;
-                    aux+=sum;
-                    i++;    
-                }
-
-                low = aux;
-                solved(index+1, find, cad, comb);
+            i = 0;
+            while(find > aux+sum){
+                swap(comb[i], comb[i+1]);
+                aux+=sum;
+                i++;    
             }
 
-            comb.pop_back();
+            low = aux;
+            factorial = aux + sum;
+            solved(index+1, find, cad, comb);
+    
         }
     }
 }
@@ -94,20 +78,26 @@ int main(){
 
     while(cases--){
 
-        cin.ignore();
-        getline(cin, cad);
-        scanf("%i", &counter);
-        deque<char>comb = {cad[0]};
-        
-        calFactorial(cad.length());
-        low = 0;
+        cin>>cad>>counter;
 
-        solved(1, counter, cad, comb);
-
-        for(i = 0; i<last.size(); i++){
-            cout<<last[i];
+        if(cad.length() <= 1){
+            cout<<cad<<endl;
         }
-        printf("\n");
+
+        else{
+
+            deque<char>comb = {cad[0]};
+            
+            calFactorial(cad.length());
+            low = 0;
+
+            solved(1, counter, cad, comb);
+
+            for(i = 0; i<last.size(); i++){
+                cout<<last[i];
+            }
+            printf("\n");
+        }
     }
 
     return 0;
