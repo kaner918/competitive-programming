@@ -4,12 +4,13 @@
 #include<cstdio>
 #include<iostream>
 #include<vector>
+#include<unordered_set>
 
 using namespace std;
 
 int flag, sizeRes;
 
-void solved(int index2, int index, int size, int limit, vector<int>&nums, vector<int>&comb){
+void solved(int index2, int index, int size, int limit, vector<int>&nums, vector<int>&comb, unordered_set<int>&numbers){
 
     if(index == nums.size()){
 
@@ -38,19 +39,18 @@ void solved(int index2, int index, int size, int limit, vector<int>&nums, vector
     else{
 
         int i;
+        comb[index2] = nums[index];
+        if(index2 < comb.size()){
 
-        /* comb[index2] = nums[index];
-        solved(index2+1, index+1, size, limit, nums, comb); */
+            solved(index2+1, index+1, size, limit, nums, comb, numbers);
+        }
 
-        for(i = 0;  i<nums.size(); i++){
+        for(auto it = numbers.begin(); it!=numbers.end(); it++){
 
-           /*  if(limit < comb.size() && size + 1 < sizeRes){ */
-
-                comb.insert(comb.begin()+index, nums[i]);
-                solved(index2+1, index+1, size+1, limit+1, nums, comb);
-                comb.erase(comb.begin()+index);
-
-           /*  } */
+            if(index2 < comb.size() && size+1 <= limit){
+                comb[index2] = *it;
+                solved(index2+1, index, size+1, limit+1, nums, comb, numbers);
+            }
         }
     }
 }
@@ -66,8 +66,9 @@ int main(){
         scanf("%i %i", &size, &limit);
         
         vector<int>nums(size);
-        vector<int>comb(size);
-        /* vector<int>comb(size*2-1, 0); */
+        unordered_set<int>numbers;
+        vector<int>comb(size*2-1, 0);
+
         flag = 1;
         sizeRes = limit;
 
@@ -75,7 +76,7 @@ int main(){
 
             scanf("%i", &num);
             nums[n] = num; 
-            comb[n] = num;
+            numbers.insert(num);
         }
 
         for(n = 0; n<size/2 && flag; n++){
@@ -92,8 +93,9 @@ int main(){
         }
 
         else{
-
-            solved(0, 0, 0, size, nums, comb);
+            
+            
+            solved(0, 0, 0, size, nums, comb, numbers);
 
             if(sizeRes <= limit){
                 printf("%i\n", sizeRes);
