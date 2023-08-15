@@ -4,105 +4,83 @@
 from sys import stdin
 from collections import deque
 
-def dfs(v, buscar):
+coste_b, coste_b, coste_c = 0, 0, 0
 
-    if v != buscar:
+def bfs(name_init, name_finish, graph, visits):
 
-        for u in grafo[v]:
+    q = deque()
+    q.append((name_init, 1, 0))
+    visits[name_init] = True
+    global coste_a, coste_b, coste_c
+    while(len(q)):
 
-            if visits[u[0]] == False and u[0] not in pila:
+        aux_item = q.popleft()
+        print(aux_item)
 
-                pila.append(u[0])
+        for i in graph[aux_item[0]]:
 
-                dfs(u[0], buscar)
+            if i[0] == name_finish:
 
-                if len(pila) > 0 and pila[-1] == buscar:
+                coste_a = aux_item[1]
+                coste_b = i[1]
+                coste_c = i[2]
 
-                    return 
+                return True
 
-        if len(pila) > 0:
+            elif not visits[i[0]]:
+                
+                visits[i[0]] = True
 
-            visits[pila.pop()] = True
+                if aux_item[2]:
+                    q.append((i[0], (aux_item[1] * i[2])//i[1], 1))
 
-line = stdin.readline().strip()
-dicIndex = {}
-dicName = {}
-counter = 0
-grafo = {}
-visits = []
+                else:
+                    q.append((i[0], (i[2]), 1))
 
-while line != ".":
+    return False
 
-    lineAux = line.split()
-    pila = deque()
 
-    if True in visits:
+def main():
 
-        for n in range(len(visits)):
-            visits[n] = False
+    consult = stdin.readline().split()
+    graph = {}
+    visits = {}
+    global coste_a, coste_b, coste_c
 
-    if lineAux[0] == "!":
-        
-        if lineAux[2] not in dicIndex:
+    while consult[0] != '.':
 
-            dicIndex[lineAux[2]] = counter
-            dicName[counter] = lineAux[5]
-            visits.append(False)
-            counter+=1
-        
-        if lineAux[5] not in dicIndex:
+        if consult[0] == '!':
 
-            dicIndex[lineAux[5]] = counter
-            dicName[counter] = lineAux[5]
-            visits.append(False)
-            counter+=1
+            if consult[2] not in graph: #first coste A and then coste B
 
-        if dicIndex[lineAux[2]] not in grafo:
+                visits[consult[2]] = False
+                graph[consult[2]] = [(consult[5], int(consult[1]), int(consult[4]))]
+            
+            else:
+                
+                graph[consult[2]].append((consult[5], int(consult[1]), int(consult[4])))
 
-            grafo[dicIndex[lineAux[2]]] = [[dicIndex[lineAux[5]], int(lineAux[1]), int(lineAux[4])]]
+            if consult[5] not in graph: #first coste A and then coste B
+
+                visits[consult[5]] = False
+                graph[consult[5]] = [(consult[2], int(consult[4]), int(consult[1]))]
+            
+            else:
+                
+                graph[consult[5]].append((consult[2], int(consult[4]), int(consult[1])))
 
         else:
 
-            grafo[dicIndex[lineAux[2]]].append([dicIndex[lineAux[5]], int(lineAux[1]), int(lineAux[4])])
-        
-        if dicIndex[lineAux[5]] not in grafo:
-
-            grafo[dicIndex[lineAux[5]]] = [[dicIndex[lineAux[2]], int(lineAux[4]), int(lineAux[1])]]
-        
-        else:
-
-            grafo[dicIndex[lineAux[5]]].append([dicIndex[lineAux[2]], int(lineAux[4]), int(lineAux[1])])
-
-    else:
-
-        dfs(dicIndex[lineAux[1]], dicIndex[lineAux[3]])
-
-        if len(pila) == 0:
-
-            print(line)
+            print(graph)
             
-        elif len(pila) <= 2 and len(pila) > 0:
+            if bfs(consult[1], consult[3], graph, visits):
+                
 
-            num1 = grafo[dicIndex[lineAux[1]]][0][1]
-            num2 = grafo[dicIndex[lineAux[3]]][0][1]
-            
-            print(num1, num2)
+                print(f"{consult[1]} {coste_a} = {coste_b} {consult[3]}")
+            else:
 
-            divisor  = 2
+                print(f"? {consult[1]} = ? {consult[3]}")
 
-            while divisor <= num1:
+        consult = stdin.readline().split()
 
-                while num1 % divisor == 0 and num2 % divisor == 0:
-
-                    num1//= divisor
-                    num2//= divisor
-
-                divisor+=1
-
-            print(num1, lineAux[1], "=", num2, lineAux[3])
-            
-        else:
-            
-            print(pila[n])
-
-    line = stdin.readline().strip()
+main()

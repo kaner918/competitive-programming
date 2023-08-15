@@ -4,56 +4,65 @@
 from sys import stdin
 from math import sqrt
 
-def dfs(visits, graph, node):
+def dfs(visits, points, node, size):
 
     ans = 1
     visits[node] = True
+    ad = []
 
-    for i in graph[node]:
+    for i in range(0, size*2, 2):
+
+        if i!=node:
+
+            dist = sqrt((points[i]- points[node])**2 + (points[i+1] - points[node+1])**2)
+            compare(dist, ad, node, i)
+
+    for i in ad:
 
         if i and not visits[i[0]]:
-            ans+= dfs(visits, graph, i[0])
-    
+            ans+=dfs(visits, points, i[0], size)
+
     return ans
 
-def compare(dist, graph, i, j):
+def compare(dist, ad, i, j):
 
-    if not len(graph[i]):
+    if not len(ad):
 
-        graph[i].append((j, dist))
-        graph[i].append(None)
+        ad.append((j, dist))
+        ad.append(None)
 
     else:
         
-        if dist < graph[i][0][1]:
+        if dist < ad[0][1]:
             
-            graph[i][0], graph[i][1] = (j, dist), graph[i][0]
+            ad[0], ad[1] = (j, dist), ad[0]
             
         else:
 
-            if graph[i][1] == None:
+            if ad[1] == None:
 
-                graph[i][1] = (j, dist)
+                ad[1] = (j, dist)
 
             else:
 
-                if dist < graph[i][1][1]:
+                if dist < ad[1][1]:
             
-                    graph[i][1] = (j, dist)
+                    ad[1] = (j, dist)
 
 def main():
 
     size = int(stdin.readline())
-    visits = [False for _ in range(1001)]
-    aux_points = []
+    points = []
 
     while size:
 
-        while len(aux_points) < size*2:
+        while len(points) < size*2:
 
-            aux_points.extend([int(x) for x in stdin.readline().split()])
+            points.extend([int(x) for x in stdin.readline().split()])
 
-        init_x = aux_points[0]
+        visits = [False for _ in range(1001*2)]
+
+        """ init_x = aux_points[0]
         init_y = aux_points[1]
         init = None
         points = []
@@ -76,15 +85,15 @@ def main():
                 dist = sqrt((points[i][0] - points[j][0])**2 + (points[i][1] - points[j][1])**2)
                
                 compare(dist, graph, i, j)
-                compare(dist, graph, j, i)
+                compare(dist, graph, j, i) """
           
-        if dfs(visits, graph, init) == size:
+        if dfs(visits, points, 0, size) == size:
             print("All stations are reachable.")
         
         else:
             print("There are stations that are unreachable.")
 
         size = int(stdin.readline())
-        aux_points = []
+        points = []
 
 main()
