@@ -37,20 +37,16 @@ int solved(long long int number, int sum){
 int main(){
 
     string line;
-    int i, counter;
-    long long int number;
 
     while(getline(cin, line) && line != "END"){
 
-        cout<<line<<endl;
-        number = 0;
-        counter = 0;
-
-        for(i = 0; i<line.length(); i++){
-            number = number * 10 + line[i]-48;
+        if(line == "1"){
+            printf("1\n");            
         }
 
-        printf("%i\n", solved(number, 0));
+        else{
+            printf("%i\n", solved(line.size(), 1));
+        }
     }    
 
     return 0;
