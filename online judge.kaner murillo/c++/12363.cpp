@@ -15,7 +15,7 @@ vector<int>childrens(10000);
 vector<int>low(10000);
 int index;
 
-void tarjan(vector<vector<int>>&graph, int node, map<int, int>&comp, int mar){
+void tarjan(vector<vector<int>>&graph, vector<vector<int>>&graph2, int node){
 
     visits[node] = index;
     low[node] = index;
@@ -28,23 +28,27 @@ void tarjan(vector<vector<int>>&graph, int node, map<int, int>&comp, int mar){
             
             childrens[node]++;
             father[graph[node][i]] = node; 
-            tarjan(graph, graph[node][i], comp, mar);
+            tarjan(graph, graph2, graph[node][i]);
             low[node] = min(low[node], low[graph[node][i]]);
-            if(father[node] != -1 && low[graph[node][i]] >= visits[node]){
-                comp[node] = mar;
+            if(low[graph[node][i]] > visits[node]){
+                graph2[node].push_back(graph[node][i]);
+                graph2[graph[node][i]].push_back(node);
             }
         }
         else if(father[node] != graph[node][i]){
             low[node] = min(low[node], visits[graph[node][i]]);
         }
     } 
+}
 
-    if(father[node] == -1 && childrens[node] > 1){
-        comp[node] = mar;
-    }
+void dfs(vector<vector<int>>&graph, int node){
 
-    else if(low[node] == visits[node] && graph[node].size() <= 1){
-        comp[node] =  mar;
+    visits[node] = index;
+    int i;
+    for(i = 0; i<graph[node].size(); i++){
+        if(visits[graph[node][i]] == -1){
+            dfs(graph, graph[node][i]);
+        }
     }
 }
 
@@ -56,15 +60,14 @@ int main(){
         index = 1;
         counter = 1;
         vector<vector<int>>graph(nodes, vector<int>());
+        vector<vector<int>>graph2(nodes, vector<int>());
         set<pair<int, int>>conj;
-        map<int, int>comp;
 
         for(i = 0; i<nodes; i++){
             visits[i] = -1;
             father[i] = -1;
             childrens[i] = 0;
             low[i] = -1;
-            comp[i] = -1;
         }
 
         for(i  = 0; i<conections; i++){
@@ -87,16 +90,28 @@ int main(){
 
         for(i = 0; i<nodes; i++){
             if(visits[i] == -1){
-                tarjan(graph, i, comp, counter);
-                counter++;
+                tarjan(graph, graph2, i);
             }
         }
+
+        for(i = 0; i<nodes; i++){
+            visits[i] = -1;
+        }
+
+        index = 1;
+        for(i = 0; i<nodes; i++){
+            if(visits[i] == -1){
+                dfs(graph2, i);
+                index++;
+            }
+        }
+
 
         for(i = 0; i<queries; i++){
             scanf("%i %i", &a, &b);
             a--, b--;
 
-            if(comp[a] == comp[b] && (comp[a] != -1 && comp[b] != -1)){
+            if(visits[a] == visits[b]){
                 printf("Y\n");
             }
             else{
@@ -106,9 +121,6 @@ int main(){
 
         printf("-\n");
 
-        /* for(i = 0; i<nodes; i++){
-            cout<<"node :"<<i+1<<" padre: "<<father[i]+1<<" low: "<<low[i]<<endl;
-        } */
     }
 
     return 0;
