@@ -1,8 +1,9 @@
 #https://onlinejudge.org/external/107/10765.pdf
 #10756
 
-from sys import stdin
+from sys import stdin, setrecursionlimit
 
+setrecursionlimit(1000000)
 visits = [-1 for _ in range(10002)]
 fathers = [-1 for _ in range(10002)]
 low = [-1 for _ in range(10002)]
@@ -54,14 +55,14 @@ def main():
             childrens[i] = 0
             dic[i] = 1
 
-        a, b = (int(x) for x in stdin.readline().split())
+        a, b = [int(x) for x in stdin.readline().split()]
 
         while a != -1 or  b != -1:
 
             graph[a].append(b)
             graph[b].append(a)
 
-            a, b = (int(x) for x in stdin.readline().split())
+            a, b = [int(x) for x in stdin.readline().split()]
 
         for i in range(nodes):
 
@@ -76,7 +77,7 @@ def main():
         aux.sort(key=lambda x: (-x[1], x[0]))
 
         for i in range(candidates):
-            print(aux[i][0], aux[i][1])
+            print(f"{aux[i][0]} {aux[i][1]}")
         print()
 
         nodes, candidates = [int(x) for x in stdin.readline().split()]
