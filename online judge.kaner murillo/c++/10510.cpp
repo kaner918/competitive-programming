@@ -11,7 +11,6 @@ int indexC, indexTps, index;
 vector<int>visits(10001);
 vector<int>low(10001);
 vector<int>visits2(10001);
-vector<int>fathers(10001);
 vector<int>indexComponent(10001);
 vector<int>tps(10001);
 
@@ -59,50 +58,42 @@ void kosaraju(int nodes,  vector<vector<int>>&graph,  vector<vector<int>>&graphT
     }
 }
 
-bool draw(int e, int u){
-
-    while(fathers[u] != e){
-        visits2[u]++;
-        if(visits2[u] >= 2){
-            return false;
-        }
-        u = fathers[u];
-    }
-
-    return true;
-}
-
 bool dfs(int node, vector<vector<int>>&graph){
 
-    /* cout<<"first "<<node<<endl; */
-    visits[node] = index;
-    low[node] = index;
-    index++;
     bool ans = true;
+    visits[node] = index;
+    index++;
+
     int i, auxNode;
 
     for(i = 0; i<graph[node].size(); i++){
-        
+
         auxNode = graph[node][i];
 
         if(!visits[auxNode]){
-            fathers[auxNode] = node;
+
             ans = ans && dfs(auxNode, graph);
-            low[node] = min(low[node], low[auxNode]);
-        } 
+            
+        }
 
         else{
 
-            low[node] = min(low[node], visits[auxNode]);
-            if(!draw(auxNode, node)){
+            if(visits2[auxNode]){
                 return false;
+            }
+
+            else if(low[auxNode] != -1 && !visits2[low[auxNode]] && visits[node] > visits[auxNode]){
+                return false;
+            }
+
+            else {
+                low[auxNode] = node;
             }
         }
     }
 
-    if(low[node] == visits[node]){
-        indexC;
-    }
+    visits2[node] =  index;
+    index++;
     return ans;
 }
 
@@ -157,7 +148,7 @@ int main(){
         }
 
         else{
-            printf("No\n");
+            printf("NO\n");
         }
     }
 
