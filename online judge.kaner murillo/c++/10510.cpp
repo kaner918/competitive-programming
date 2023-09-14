@@ -130,12 +130,10 @@ int main(){
         ans = (indexC == 1);
 
         if(ans){
-
             indexC = 0;
             for(i = 0; i<nodes; i++){
                 visits[i] = 0;
                 visits2[i] = 0;
-                fathers[i] = -1;
                 low[i] = -1;
             }
 
