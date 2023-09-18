@@ -4,29 +4,37 @@
 #include<cstdio>
 #include<iostream>
 #include<vector>
+#include<queue>
 
 using namespace std;
 
 vector<int>visits(201);
 vector<int>colors(2);
 
-bool dfs(int node, vector<vector<int>>&graph, int color){
+bool bfs(int node, vector<vector<int>>&graph, int color){
 
     bool ans = true;
     int i;
-    visits[node] = !color;
+    visits[node] = color;
     colors[visits[node]]++;
-    
-    if(node<graph.size()){
+    queue<int>q;
+    q.push(node);
 
-        for(i = 0; i< graph[node].size(); i++){
+    while(!q.empty()){
+
+        node = q.front();
+        q.pop();
+
+        for(i = 0; i<graph[node].size(); i++){
 
             if(visits[graph[node][i]] == -1){
-                ans = ans && dfs(graph[node][i], graph, !color);
+                q.push(graph[node][i]);
+                visits[graph[node][i]] = !visits[node];
+                colors[visits[graph[node][i]]]++;
             }
 
             else if(visits[graph[node][i]] == visits[node]){
-                return false;
+                ans = false;
             }
         }
     }
@@ -46,7 +54,6 @@ int main(){
         counter = 0;
         flag = 1;
         vector<vector<int>>graph(nodes);
-
         for(i = 0; i<202; i++){
             visits[i] = -1;
         }
@@ -58,27 +65,25 @@ int main(){
 
                 cin>>b;
                 b--;
-                
-                graph[i].push_back(b);
-
                 if(b<nodes){
+
+                    graph[i].push_back(b);
                     graph[b].push_back(i);
                 }
             }
         }     
 
-        for(i = 0; i<nodes && flag; i++){
+        for(i = 0; i<nodes; i++){
+            
             if(visits[i] == -1){
                 colors[0] = 0;
                 colors[1] = 0;
-                flag = flag && dfs(i, graph, 1);
-                counter+= max(colors[0], colors[1]);
+                flag = bfs(i, graph, 1);
+                if(flag){
+                    counter += max(colors[0], colors[1]);
+                }
             }
         }   
-
-        if(!flag){
-            counter = 0;
-        }
 
         printf("%i\n", counter);
     }
