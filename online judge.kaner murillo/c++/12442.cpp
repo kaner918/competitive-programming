@@ -7,22 +7,22 @@
 #include<queue>
 
 using namespace std;
-int counter;
+int counter, index;
 
-void dfs(int v, vector<vector<int>>&grafo, vector<bool>&visits, vector<bool>visits2){
+int dfs(int v, int low, int component, vector<vector<int>>&graph, vector<bool>&components, vector<bool>&visits, vector<int>sizes){
 
-    visits[v] = true;
-    visits2[v] = true;
+    int i, nodes = 1;
+    visits[v] = low;
+    components[v] = component;
 
-    counter++;  
-
-    for(int u = 0; u<grafo[v].size(); u++){
-
-        if(visits2[grafo[v][u]] == false){
-
-            dfs(grafo[v][u], grafo, visits, visits2); 
+    for(i = 0; i< graph[node].size(); i++){
+        
+        if(!visits[graph[node][i]]){
+            nodes+=dfs(graph[node][i], low + 1, graph, visits, sizes);        
         }
     }
+
+    return nodes;
 }
 
 int main(){
@@ -35,18 +35,21 @@ int main(){
 
         scanf("%i", &martians);
         vector<vector<int>> grafo(martians);
+        vector<vector<int>> flags(martians, vector<int>(martians, 0));
+
         vector<bool>visits;
-        vector<bool>visits2;
+        vector<int>components(martians, 0);
+        vector<int>sizes(martians, 0);
 
         higer = 0;
         martian = 0;
+        index = 0;
 
         for(n = 0; n<martians; n++){
 
             scanf("%i %i", &u, &v);
             grafo[u-1].push_back(v-1);
             visits.push_back(false);
-            visits2.push_back(false);
         }
 
         for(n = 0; n<martians; n++){
@@ -54,8 +57,10 @@ int main(){
             if(visits[n] == false){
 
                 counter = 0;
-                
+                index++;
                 dfs(n, grafo, visits, visits2);
+
+                components[index] = counter;
 
                 if(counter > higer){
 
@@ -64,7 +69,6 @@ int main(){
                 }
 
                 else if(counter == higer && n<martian){
-
                     martian  = n;
                 }
 
