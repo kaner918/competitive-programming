@@ -26,13 +26,16 @@ int bfs(){
     set<tuple<int, int, int>>conj;
     tuple<int, int, int>aux;
 
-    q.push(make_tuple(0, 99, 50));
+    q.push(make_tuple(graph[99][50], 99, 50));
+    q.push(make_tuple(-graph[99][50], 99, 50));
     
     while(!q.empty() && mini){
 
         coste = get<0>(q.front());
         row = get<1>(q.front());
         colum = get<2>(q.front());
+
+        cout<<row<<" "<<colum<<" "<<coste<<endl;
 
         q.pop();
 
@@ -51,11 +54,13 @@ int bfs(){
                     aux = make_tuple(coste + graph[row][auxColum], row-1, auxColum);
                     if(conj.find(aux) == conj.end()){
                         q.push(aux);
+                        conj.insert(aux);
                     }
 
                     aux = make_tuple(coste - graph[row][auxColum], row-1, auxColum);
                     if(conj.find(aux) == conj.end()){
                         q.push(aux);
+                        conj.insert(aux);
                     }
                 }
             }
@@ -64,25 +69,6 @@ int bfs(){
     }
 
     return mini;
-}
-
-int dp(int row, int colum){
-
-    if(colum <= sizeColum1 || colum >= sizeColum2){
-        return INT_MAX;
-    }
-
-    else if(row == sizeRow){
-        return graph[row][colum];
-    }
-
-    else if(memo[row][colum] != -1){
-        return memo[row][colum];
-    }
-
-    else{
-        
-    }
 }
 
 int main(){
@@ -117,9 +103,35 @@ int main(){
             colum+=sum2;
         }
 
-        sizeRow = 99-((size*2)-2), 50-size, 50+size;
+         counter = size;
+        counter2 = 1;
+        sum = 1;
+        sum2 = -1;
+        colum = 50;
+        row = 99;
+        for(i = 0; i<size*2; i++){
+            auxColum = colum;
+            for(j = 0; j<counter2; j++){
+            
+                cout<<graph[row][auxColum];
+                
+                auxColum+=2;
+            }   
+            cout<<endl;
+            if(counter == 1){
+                sum2 = 1;
+                sum = -1;
+            }
+
+            counter2+=sum;
+            counter-=1;
+            row-=1;
+            colum+=sum2;
+        }
+
+        sizeRow, sizeColum1, sizeColum2 = 99-((size*2)-2), 50-size, 50+size;
         
-        /* ans = bfs(99-((size*2)-2), 50-size, 50+size); */
+        ans = bfs();
 
         printf("%i\n", ans);
     }
