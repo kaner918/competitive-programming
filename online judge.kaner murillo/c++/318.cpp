@@ -30,14 +30,9 @@ void dijkstra(vector<vector<pair<int, int>>>&graph){
 
         if(coste == visits[node]){
 
-            if(visits[node] > maxi){
+            if(visits[node] >= maxi){
                 maxi = visits[node];
                 node1 = node;
-                counter = 1;
-            }
-
-            else if(visits[node] == maxi){
-                counter++;
             }
 
             for(i = 0; i<graph[node].size(); i++){
@@ -74,13 +69,13 @@ void bfs2(vector<vector<pair<int, int>>>&graph){
                  
             }
 
-            if(fathers[node]!=graph[node][i].first && visits[node] == maxi && visits[graph[node][i].first] + graph[node][i].second > visits[node]){
+            if(fathers[node]!=graph[node][i].first && fathers[graph[node][i].first]!= node && visits[graph[node][i].first] + graph[node][i].second > visits[node]){
 
-                if(res+((visits[graph[node][i].first] + graph[node][i].second-visits[node]) / 2.0) > auxito){
+                if(visits[node] + ((visits[graph[node][i].first] + graph[node][i].second-visits[node]) / 2.0) > auxito){
 
                     node1 = node;
                     node2 = graph[node][i].first;
-                    auxito = res+(((visits[graph[node][i].first] + graph[node][i].second)-visits[node]) / 2.0);
+                    auxito = visits[node] + (((visits[graph[node][i].first] + graph[node][i].second)-visits[node]) / 2.0);
                     counter = 2;
                 }
                 
@@ -100,7 +95,7 @@ int main(){
         
         vector<vector<pair<int, int>>>graph(nodes);
         maxi = 0;
-        counter = 0;
+        counter = 1;
         for(i = 0; i<nodes; i++){
             visits[i] = INT_MAX;
             visits2[i] = 0;
