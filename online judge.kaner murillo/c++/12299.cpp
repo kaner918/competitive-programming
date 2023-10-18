@@ -30,7 +30,7 @@ void build(int l, int r, int pos){
     }
 }
 
-void updte(int l, int r, int pos, int pos_change){
+void update(int l, int r, int pos, int pos_change){
 
     if(l == r){
         tree[pos] = A[l];
@@ -41,11 +41,11 @@ void updte(int l, int r, int pos, int pos_change){
         int mid = l + ((r-l)>>1);
 
         if(pos_change<=mid){
-            updte(l, mid, pos+1, pos_change);
+            update(l, mid, pos+1, pos_change);
         }
 
         else{
-            updte(mid+1, r, pos+2*(mid-l+1), pos_change);
+            update(mid+1, r, pos+2*(mid-l+1), pos_change);
         }
 
         tree[pos] = min(tree[pos+1], tree[pos + 2*(mid-l+1)]);
@@ -145,7 +145,7 @@ int main(){
 
                 for(j = 0; j<numbers.size(); j++){
                     flags[numbers[j]] = 1;
-                    updte(0, size-1, 0, numbers[j]);
+                    update(0, size-1, 0, numbers[j]);
                 }
 
                 printf("%i\n", querie(0, size-1, l, r, 0));
