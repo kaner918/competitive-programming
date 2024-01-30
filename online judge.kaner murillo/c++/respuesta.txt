@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Case 1:
 Q1: 5
 Q2: 1
 Case 2:
 Q1: 0
+=======
+No connection
+No connection
+No connection
+No connection
+No connection
+>>>>>>> dad7242aa2f08eb04e2c4e9e7a233aae6d1db57d
