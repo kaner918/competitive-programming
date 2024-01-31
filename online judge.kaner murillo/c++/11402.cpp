@@ -16,7 +16,7 @@ vector<int>marked(1000001*2);
 
 void build(int pos, int l, int r){
 
-    marked[pos] = false;
+    marked[pos] = -1;
 
     if(l == r){
         tree[pos] = (A[l] == 1);
@@ -32,51 +32,93 @@ void build(int pos, int l, int r){
     }
 }
 
-void push(int pos, int mid, int l){
-    if(marked[pos]){
-        tree[pos+1] = tree[pos];
-        tree[pos+2*(mid-l+1)] = tree[pos];
-        marked[pos+1] = 1;
-        marked[pos+2*(mid-l+1)] = 1;
-        marked[pos] = 0;
+void push(int pos, int mid, int l, int flag){
+    if(marked[pos] != -1){
+        if(flag){
+            marked[pos+1] = marked[pos];
+            marked[pos+2*(mid-l+1)] = marked[pos];
+        }
+        marked[pos] = -1;
     }
 }
 
-void update(int pos, int L, int R, int l, int r, int val){
+void update(int pos, int L, int R, int l, int r, int val, int flag){
+
+    int mid = L + ((R-L)>>1), res;
+
+    if(marked[pos] != -1 && marked[pos] != -2){
+        tree[pos] = (R-L+1) * marked[pos];
+        push(pos, mid, L, L!=R);
+    }
+
+    else if(marked[pos] == -2){
+        res = tree[pos];
+        tree[pos] = (R-L+1)-res;
+        push(pos, mid, L, L!=R);
+    }
 
     if(l<=r){
 
-        if(l == L && r == R){
-            tree[pos] = val * ((r-l)+1);
-            marked[pos] = 1;
+        if(L == l && R == r){
+            
+            if(flag){
+                res = tree[pos];
+                tree[pos] = (R-L+1)-res;
+
+                if(L != R){
+                    marked[pos+1] = -2;
+                    marked[pos+2*(mid-L+1)] = -2;
+                }
+            }
+
+
+            else{
+
+                tree[pos] = (R-L+1) * val;
+                if(L != R){
+                    marked[pos+1] = val;
+                    marked[pos+2*(mid-L+1)] = val;
+                }
+            }
         }
 
         else{
-
-            int mid = L + ((R-L)>>1);
-            push(pos, mid, L);
-            update(pos+1, L, mid, l, min(mid, r), val);
-            update(pos+2*(mid-l+1), mid+1, R, max(mid+1, l), r, val);
-            tree[pos] = tree[pos+1] + tree[pos+2*(mid-l+1)];
+            update(pos+1, L, mid, l, min(mid, r), val, flag);
+            update(pos+2*(mid-L+1), mid+1, R, max(mid+1, l), r, val, flag);
+            tree[pos] = tree[pos+1] + tree[pos+2*(mid-L+1)];
         }
     }
 }
 
 int querie(int pos, int L, int R, int l, int r){
 
-    int ans;
+    int ans,  mid = L + ((R-L)>>1), res;
+
+    if(marked[pos] != -1 && marked[pos] != -2){
+        tree[pos] = (R-L+1) * marked[pos];
+        push(pos, mid, L, L!=R);
+    }
+
+    else if(marked[pos] == -2){
+        res = tree[pos];
+        if(!res){
+            tree[pos] = (R-L+1);
+        }
+        else{
+            tree[pos] = (R-L+1)-res;
+        }
+        push(pos, mid, L, L!=R);
+    }
 
     if(l>r){
         ans = 0;
     }
     
-    else if(l == L && r == R){
-        ans = tree[pos];
+    else if(L == l && R == r){
+        return tree[pos];
     }
 
     else{
-        int mid = L + ((R-L)>>1);
-        push(pos, mid, L);
         ans = (querie(pos+1, L, mid, l, min(mid, r)) + querie(pos+2*(mid-L+1), mid+1, R, max(l, mid+1), r));
     }
 
@@ -120,18 +162,15 @@ int main(){
 
             if(letter == 'F'){
             
-                update(0, 0, index-1, low, hight, 1);
+                update(0, 0, index-1, low, hight, 1, 0);
             }
 
             else if(letter == 'E'){
-                update(0, 0, index-1, low, hight, 0);
+                update(0, 0, index-1, low, hight, 0, 0);
             }
 
             else if(letter == 'I'){
-                for(k = low; k<hight+1; k++){
-                    A[k] = !A[k];
-                    //update(0, 0, index-1, k);
-                }
+                update(0, 0, index-1, low, hight, 0, 1);
             }
 
             else{
