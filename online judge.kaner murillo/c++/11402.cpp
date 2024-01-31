@@ -10,10 +10,13 @@ using namespace std;
 
 vector<int>A(1000001);
 vector<int>tree(1000001*2);
+vector<int>marked(1000001*2);
 
 //1 > buccaneer, 0->other
 
 void build(int pos, int l, int r){
+
+    marked[pos] = false;
 
     if(l == r){
         tree[pos] = (A[l] == 1);
@@ -29,41 +32,55 @@ void build(int pos, int l, int r){
     }
 }
 
-void update(int pos, int l, int r, int index){
-
-    if(l == r){
-        tree[pos] = (A[l] == 1);
+void push(int pos, int mid, int l){
+    if(marked[pos]){
+        tree[pos+1] = tree[pos];
+        tree[pos+2*(mid-l+1)] = tree[pos];
+        marked[pos+1] = 1;
+        marked[pos+2*(mid-l+1)] = 1;
+        marked[pos] = 0;
     }
+}
 
-    else{
+void update(int pos, int L, int R, int l, int r, int val){
 
-        int mid = l + ((r-l)>>1);
+    if(l<=r){
 
-        if(index<=mid){
-            update(pos+1, l, mid, index);
+        if(l == L && r == R){
+            tree[pos] = val * ((r-l)+1);
+            marked[pos] = 1;
         }
+
         else{
-            update(pos+2*(mid-l+1), mid+1, r, index);
-        }
 
-        tree[pos] = tree[pos+1] + tree[pos+2*(mid-l+1)];
+            int mid = L + ((R-L)>>1);
+            push(pos, mid, L);
+            update(pos+1, L, mid, l, min(mid, r), val);
+            update(pos+2*(mid-l+1), mid+1, R, max(mid+1, l), r, val);
+            tree[pos] = tree[pos+1] + tree[pos+2*(mid-l+1)];
+        }
     }
 }
 
 int querie(int pos, int L, int R, int l, int r){
 
+    int ans;
+
     if(l>r){
-        return 0;
+        ans = 0;
     }
     
     else if(l == L && r == R){
-        return tree[pos];
+        ans = tree[pos];
     }
 
     else{
         int mid = L + ((R-L)>>1);
-        return (querie(pos+1, L, mid, l, min(mid, r)) + querie(pos+2*(mid-L+1), mid+1, R, max(l, mid+1), r));
+        push(pos, mid, L);
+        ans = (querie(pos+1, L, mid, l, min(mid, r)) + querie(pos+2*(mid-L+1), mid+1, R, max(l, mid+1), r));
     }
+
+    return ans;
 }
 
 int main(){
@@ -88,7 +105,6 @@ int main(){
             getline(cin, cad);
             for(k = 0; k<size2; k++){
                 for(l = 0; l<cad.length(); l++){
-
                     A[index++] = cad[l] - 48;
                 }
             }
@@ -103,23 +119,18 @@ int main(){
             scanf("%c %i %i", &letter, &low, &hight);
 
             if(letter == 'F'){
-                for(k = low; k<hight+1; k++){
-                    A[k] = 1;
-                    update(0, 0, index-1, k);
-                }
+            
+                update(0, 0, index-1, low, hight, 1);
             }
 
             else if(letter == 'E'){
-                for(k = low; k<hight+1; k++){
-                    A[k] = 0;
-                    update(0, 0, index-1, k);
-                }
+                update(0, 0, index-1, low, hight, 0);
             }
 
             else if(letter == 'I'){
                 for(k = low; k<hight+1; k++){
                     A[k] = !A[k];
-                    update(0, 0, index-1, k);
+                    //update(0, 0, index-1, k);
                 }
             }
 
