@@ -64,6 +64,7 @@ void update(int pos, int L, int R, int l, int r, int val, int flag){
             if(flag){
                 res = tree[pos];
                 tree[pos] = (R-L+1)-res;
+                cout<<L<<" "<<R<<" "<<tree[pos]<<endl;
 
                 if(L != R){
                     marked[pos+1] = -2;
@@ -101,12 +102,14 @@ int querie(int pos, int L, int R, int l, int r){
 
     else if(marked[pos] == -2){
         res = tree[pos];
+        cout<<L<<" "<<R<<" hi: "<<res<<" after: ";
         if(!res){
             tree[pos] = (R-L+1);
         }
         else{
             tree[pos] = (R-L+1)-res;
         }
+        cout<<tree[pos]<<endl;
         push(pos, mid, L, L!=R);
     }
 
