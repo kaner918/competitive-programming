@@ -11,13 +11,14 @@ using namespace std;
 vector<int>A(1000001);
 vector<int>tree(1000001*2);
 vector<int>marked(1000001*2);
+vector<int>marked2(1000001*2);
 
 //1 > buccaneer, 0->other
 
 void build(int pos, int l, int r){
 
     marked[pos] = -1;
-
+    marked2[pos] = 0;
     if(l == r){
         tree[pos] = (A[l] == 1);
     }
@@ -42,19 +43,29 @@ void push(int pos, int mid, int l, int flag){
     }
 }
 
+void push2(int pos, int mid, int l, int flag){
+    if(marked2[pos]){
+        if(flag){
+            marked2[pos+1] = marked2[pos];
+            marked2[pos+2*(mid-l+1)] = marked2[pos];
+        }
+        marked2[pos] = 0;
+    }
+}
+
 void update(int pos, int L, int R, int l, int r, int val, int flag){
 
     int mid = L + ((R-L)>>1), res;
 
-    if(marked[pos] != -1 && marked[pos] != -2){
+    if(marked[pos] != -1){
         tree[pos] = (R-L+1) * marked[pos];
         push(pos, mid, L, L!=R);
     }
 
-    else if(marked[pos] == -2){
+    if(marked2[pos]){
         res = tree[pos];
         tree[pos] = (R-L+1)-res;
-        push(pos, mid, L, L!=R);
+        push2(pos, mid, L, L!=R);
     }
 
     if(l<=r){
@@ -64,11 +75,11 @@ void update(int pos, int L, int R, int l, int r, int val, int flag){
             if(flag){
                 res = tree[pos];
                 tree[pos] = (R-L+1)-res;
-                cout<<L<<" "<<R<<" "<<tree[pos]<<endl;
+                //cout<<L<<" "<<R<<" "<<tree[pos]<<endl;
 
                 if(L != R){
-                    marked[pos+1] = -2;
-                    marked[pos+2*(mid-L+1)] = -2;
+                    marked2[pos+1] = 1;
+                    marked2[pos+2*(mid-L+1)] = 1;
                 }
             }
 
@@ -95,22 +106,22 @@ int querie(int pos, int L, int R, int l, int r){
 
     int ans,  mid = L + ((R-L)>>1), res;
 
-    if(marked[pos] != -1 && marked[pos] != -2){
+    if(marked[pos] != -1){
         tree[pos] = (R-L+1) * marked[pos];
         push(pos, mid, L, L!=R);
     }
 
-    else if(marked[pos] == -2){
+    if(marked2[pos]){
         res = tree[pos];
-        cout<<L<<" "<<R<<" hi: "<<res<<" after: ";
+        //cout<<L<<" "<<R<<" hi: "<<res<<" after: ";
         if(!res){
             tree[pos] = (R-L+1);
         }
         else{
             tree[pos] = (R-L+1)-res;
         }
-        cout<<tree[pos]<<endl;
-        push(pos, mid, L, L!=R);
+        //cout<<tree[pos]<<endl;
+        push2(pos, mid, L, L!=R);
     }
 
     if(l>r){
