@@ -18,6 +18,8 @@ void build(int l, int r, int pos){
     else{
         int mid = l + ((r-l)>>1);
 
+
+
         build(l, mid, pos+1);
         build(mid+1, r, pos+2*(mid-l+1));
             
