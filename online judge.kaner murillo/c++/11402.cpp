@@ -11,14 +11,13 @@ using namespace std;
 vector<int>A(1000001);
 vector<int>tree(1000001*2);
 vector<int>marked(1000001*2);
-vector<int>marked2(1000001*2);
 
 //1 > buccaneer, 0->other
 
 void build(int pos, int l, int r){
 
     marked[pos] = -1;
-    marked2[pos] = 0;
+
     if(l == r){
         tree[pos] = (A[l] == 1);
     }
@@ -36,20 +35,47 @@ void build(int pos, int l, int r){
 void push(int pos, int mid, int l, int flag){
     if(marked[pos] != -1){
         if(flag){
-            marked[pos+1] = marked[pos];
-            marked[pos+2*(mid-l+1)] = marked[pos];
+            if(marked[pos] == -2){
+
+                if(marked[pos+1] == 1){
+                   marked[pos+1] = 0; 
+                }
+                else if(marked[pos+1] == 0){
+                   marked[pos+1] = 1; 
+                }
+
+                else if(marked[pos+1] == -1){
+                    marked[pos+1] = marked[pos];
+                }
+
+                else{
+                    marked[pos+1] = -1;
+                }
+                
+                if(marked[pos+2*(mid-l+1)] == 1){
+                   marked[pos+2*(mid-l+1)] = 0; 
+                }
+
+                else if(marked[pos+2*(mid-l+1)] == 0){
+                   marked[pos+2*(mid-l+1)] = 1; 
+                }
+
+                else if(marked[pos+2*(mid-l+1)] == -1){
+                    marked[pos+2*(mid-l+1)] = marked[pos];
+                }
+                
+                else{
+                    marked[pos+2*(mid-l+1)] = -1;
+                }
+            }
+            
+            else{
+                
+                marked[pos+1] = marked[pos];
+                marked[pos+2*(mid-l+1)] = marked[pos];
+            }
         }
         marked[pos] = -1;
-    }
-}
-
-void push2(int pos, int mid, int l, int flag){
-    if(marked2[pos]){
-        if(flag){
-            marked2[pos+1] = marked2[pos];
-            marked2[pos+2*(mid-l+1)] = marked2[pos];
-        }
-        marked2[pos] = 0;
     }
 }
 
@@ -58,40 +84,29 @@ void update(int pos, int L, int R, int l, int r, int val, int flag){
     int mid = L + ((R-L)>>1), res;
 
     if(marked[pos] != -1){
-        tree[pos] = (R-L+1) * marked[pos];
+        if(marked[pos] == -2){
+            tree[pos] = (R-L+1) - tree[pos];
+        }
+        else{
+            tree[pos] = (R-L+1) * marked[pos];
+        }
+        
         push(pos, mid, L, L!=R);
-    }
-
-    if(marked2[pos]){
-        res = tree[pos];
-        tree[pos] = (R-L+1)-res;
-        push2(pos, mid, L, L!=R);
     }
 
     if(l<=r){
 
         if(L == l && R == r){
             
-            if(flag){
-                res = tree[pos];
-                tree[pos] = (R-L+1)-res;
-                //cout<<L<<" "<<R<<" "<<tree[pos]<<endl;
+            marked[pos] = val;
 
-                if(L != R){
-                    marked2[pos+1] = 1;
-                    marked2[pos+2*(mid-L+1)] = 1;
-                }
+            if(val == -2){
+                tree[pos] = (R-L+1) - tree[pos];
             }
-
-
             else{
-
                 tree[pos] = (R-L+1) * val;
-                if(L != R){
-                    marked[pos+1] = val;
-                    marked[pos+2*(mid-L+1)] = val;
-                }
             }
+            push(pos, mid, L, L!=R);
         }
 
         else{
@@ -106,22 +121,17 @@ int querie(int pos, int L, int R, int l, int r){
 
     int ans,  mid = L + ((R-L)>>1), res;
 
-    if(marked[pos] != -1){
-        tree[pos] = (R-L+1) * marked[pos];
-        push(pos, mid, L, L!=R);
-    }
+    //cout<<"hi "<<L<<" "<<R<<" "<<tree[pos]<<" "<<marked[pos]<<endl;
 
-    if(marked2[pos]){
-        res = tree[pos];
-        //cout<<L<<" "<<R<<" hi: "<<res<<" after: ";
-        if(!res){
-            tree[pos] = (R-L+1);
+    if(marked[pos] != -1){
+        if(marked[pos] == -2){
+            tree[pos] = (R-L+1) - tree[pos];
         }
         else{
-            tree[pos] = (R-L+1)-res;
+            tree[pos] = (R-L+1) * marked[pos];
         }
-        //cout<<tree[pos]<<endl;
-        push2(pos, mid, L, L!=R);
+        
+        push(pos, mid, L, L!=R);
     }
 
     if(l>r){
@@ -129,6 +139,7 @@ int querie(int pos, int L, int R, int l, int r){
     }
     
     else if(L == l && R == r){
+        //cout<<"hi "<<L<<" "<<R<<" "<<tree[pos]<<endl;
         return tree[pos];
     }
 
@@ -165,7 +176,7 @@ int main(){
                 }
             }
         }
-
+    
         build(0, 0, index-1);
 
         scanf("%i", &q);
@@ -184,7 +195,7 @@ int main(){
             }
 
             else if(letter == 'I'){
-                update(0, 0, index-1, low, hight, 0, 1);
+                update(0, 0, index-1, low, hight, -2, 1);
             }
 
             else{
