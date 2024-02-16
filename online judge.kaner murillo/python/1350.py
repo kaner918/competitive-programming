@@ -32,7 +32,6 @@ def main():
                 
                 mid = low + ((hight-low)>>1)
 
-
                 if number > fibos[mid][0]:
 
                     low = mid;

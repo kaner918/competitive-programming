@@ -5,11 +5,14 @@
 #include<iostream>
 #include<vector>
 
-int enemys[10000], friends[10000];
+using namespace std;
+
+int enemys[10000], friends[10000], rangeF[10000];
 
 void makeSet(int x){
     enemys[x] = x;
     friends[x] = x;
+    rangeF[x] = 0;
 }
 
 int findFriend(int x){
@@ -32,45 +35,61 @@ int findEnemy(int x){
 
 bool unionFriends(int x, int y){
 
-    int friend1, friend2, enemy1, enemy2, flag = 1;
+    int conj1, conj2, enemyX, enemyY, conj3, conj4, ans = 1;
 
-    friend1 = findFriend(x);
-    friend2 = findFriend(y);
-    enemy1 = findEnemy(x);
-    enemy2 = findEnemy(y);
+    conj1 = findFriend(x);
+    conj2 = findFriend(y); 
     
-    if(friend1 != friend2){
-        friends[friend2] = friend1;
-        enemys[friend2] = friend1;
-    }
-    
-    else{
-        flag = 0;
+    if (conj1 != conj2){
+        
+        enemyX = findEnemy(x);
+        enemyY = findEnemy(y);
+
+        if(enemyX != enemyY){
+
+            if(rangeF[conj1] < rangeF[conj2]){
+                swap(conj1, conj2);
+            }
+
+            friends[conj2] = conj1;
+            enemys[conj2] = conj1;
+
+            if(rangeF[conj1] == rangeF[conj2]){
+                rangeF[conj1]++;
+            }
+        }
+
+        else{
+            ans = 0;
+        }
     }
 
-    return flag;
+    return ans;
 }
 
 bool unionEnemys(int x, int y){
 
-    int friend1, friend2, enemy1, enemy2, flag = 1;
+    int conj1, conj2, friendX, friendY, conj3, conj4, ans = 1;
 
-    friend1 = findFriend(x);
-    friend2 = findFriend(y);
-    enemy1 = findEnemy(x);
-    enemy2 = findEnemy(y);
+    conj1 = findEnemy(x);
+    conj2 = findEnemy(y); 
     
-    if (friend1 != friend2){
-        if(enemy1 != enemy2){
-            enemys[enemy2] = enemy1;
+    if (conj1 != conj2){
+        
+        friendX = findFriend(x);
+        friendY = findFriend(y);
+
+        if(friendX != friendY){
+            enemys[conj2] = conj1;
+            friends[conj2] = conj1;
+        }
+
+        else{
+            ans = 0;
         }
     }
 
-    else{
-        flag = 0;
-    }
-
-    return flag;
+    return ans;
 }
 
 int main(){
@@ -99,6 +118,7 @@ int main(){
         }
 
         else if(c == 3){
+            //cout<<findFriend(x) <<" "<<findFriend(y)<<endl;
             printf("%i\n", (findFriend(x) == findFriend(y)));
         }
 
