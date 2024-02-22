@@ -1,120 +1,96 @@
 //https://onlinejudge.org/external/110/11002.pdf
 //11002
 
-#include<cstdio>
 #include<iostream>
+#include<cstdio>
 #include<vector>
 #include<climits>
-#include<queue>
-#include<set>
-#include<algorithm>
-#include<tuple>
+#include<cmath>
 
 using namespace std;
 
-int sizeRow, sizeColum1, sizeColum2;
-vector<vector<int>>graph(100, vector<int>(100));
-vector<vector<int>>memo(100, vector<int>(100));
+int mem[61][31][2501];
 
-int arrColum[] = {1, -1};
+int dp(int row, int colum, int min_sum, vector<vector<int>>&table){
 
-int bfs(){
+    int ans;
+    min_sum = abs(min_sum);
 
-    int node, coste, mini = INT_MAX, i, row, colum, auxColum;
+    if(mem[row][colum][min_sum] != INT_MAX-1){
+        ans = mem[row][colum][min_sum];
+    } 
 
-    queue<tuple<int, int, int>>q;
-    set<tuple<int, int, int>>conj;
-    tuple<int, int, int>aux;
+    else{
 
-    q.push(make_tuple(graph[sizeRow][50], sizeRow, 50));
-    
-    while(!q.empty() && mini){
-
-        coste = get<0>(q.front());
-        row = get<1>(q.front());
-        colum = get<2>(q.front());
-
-        /* cout<<row<<" "<<colum<<" "<<coste<<endl; */
-
-        q.pop();
-
-        if(row == 99){
-            mini = (mini, abs(coste));
+        if(!row && !colum){
+            ans = min_sum;
         }
 
         else{
-            
-            for(i = 0; i<2; i++){
-                
-                auxColum = colum + arrColum[i];
-                /* cout<<auxColum<<" "<<sizeColum1<<" "<<sizeColum2<<endl; */
-                if(graph[row+1][auxColum] != INT_MIN){
-                    /* cout<<"hi"<<endl; */
-                    aux = make_tuple(coste + graph[row+1][auxColum], row+1, auxColum);
-                
-                    if(conj.find(aux) == conj.end()){
-                        q.push(aux);
-                        conj.insert(aux);
-                    }
 
-                    aux = make_tuple(coste - graph[row+1][auxColum], row+1, auxColum);
-                    if(conj.find(aux) == conj.end()){
-                        q.push(aux);
-                        conj.insert(aux);
-                    }
-                }
+            int left = INT_MAX, right = INT_MAX;
+
+            if (colum+1 < table[row-1].size()){
+                right = min(dp(row-1, colum+1, min_sum+table[row-1][colum+1], table),
+                dp(row-1, colum+1, min_sum-table[row-1][colum+1], table));
             }
 
-        }
-    }
+            if (row > (table.size()+1)/2){
+                left = min(dp(row-1, colum, min_sum+table[row-1][colum], table),
+                dp(row-1, colum, min_sum-table[row-1][colum], table));
+            }
 
-    return mini;
+            else if (colum-1 > -1){
+                left = min(dp(row-1, colum-1, min_sum+table[row-1][colum-1], table),
+                dp(row-1, colum-1, min_sum-table[row-1][colum-1], table));
+            }
+
+            ans = min(left, right);
+        }
+        mem[row][colum][min_sum] = ans;
+    }
+    
+    return ans;
 }
 
 int main(){
 
-    int ans, size, number, i, j, counter, counter2, colum, row, sum, sum2, auxColum;
+    int size, val, i, j, k, counter, flag;
 
     while(scanf("%i", &size) && size){
-
-        for(i = 0; i<100; i++){
-            for(j = 0; j<100; j++){
-                graph[i][j] = INT_MIN;
+        flag = 1;
+        counter = 0;
+        vector<vector<int>>table;
+        for(i = 0; i<size*2; i++){
+            vector<int>aux;
+            if(flag){
+                counter+=1;
+            }
+            else{
+                counter-=1;
+            }
+            for(j = 0; j<counter+1; j++){
+                if(i<size*2-1 && j<counter){
+                    scanf("%i", &val);
+                    aux.push_back(abs(val));
+                }
+                
+                for(k = 0; k<2501; k++){
+                    mem[i][j][k] = INT_MAX-1;
+                }
+            }
+            
+            if(i<size*2-1){
+                table.push_back(aux);
+            }
+            if(counter == size){
+                flag = 0;
             }
         }
 
-        counter = size;
-        counter2 = 1;
-        sum = 1;
-        sum2 = -1;
-        colum = 50;
-        row = 99;
-        for(i = 0; i<(size*2)-1; i++){
-            auxColum = colum;
-            for(j = 0; j<counter2; j++){
-             /*    cout<<row<<" "<<auxColum<<endl; */
-                scanf("%i", &number);
-                graph[row][auxColum] = number;
-                memo[row][auxColum] = -1;
-                auxColum+=2;
-            }   
-
-            if(counter == 1){
-                sum2 = 1;
-                sum = -1;
-            }
-
-            counter2+=sum;
-            counter-=1;
-            row-=1;
-            colum+=sum2;
-        }
-        
-        sizeRow = 99-((size*2)-2);
-        ans = bfs();
-
-        printf("%i\n", ans);
+        printf("%i\n", dp(2*size-1, 0, 0, table));
     }
+
 
     return 0;
 }
