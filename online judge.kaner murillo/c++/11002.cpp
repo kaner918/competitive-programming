@@ -30,20 +30,29 @@ int dp(int row, int colum, int min_sum, vector<vector<int>>&table){
 
             int left = INT_MAX, right = INT_MAX;
 
-            if (colum+1 < table[row-1].size()){
-                right = min(dp(row-1, colum+1, min_sum+table[row-1][colum+1], table),
-                dp(row-1, colum+1, min_sum-table[row-1][colum+1], table));
-            }
+            if (row >= (table.size()+1)/2){
 
-            if (row > (table.size()+1)/2){
                 left = min(dp(row-1, colum, min_sum+table[row-1][colum], table),
                 dp(row-1, colum, min_sum-table[row-1][colum], table));
-            }
 
-            else if (colum-1 > -1){
-                left = min(dp(row-1, colum-1, min_sum+table[row-1][colum-1], table),
-                dp(row-1, colum-1, min_sum-table[row-1][colum-1], table));
+                if (colum+1 < table[row-1].size()){
+                    right = min(dp(row-1, colum+1, min_sum+table[row-1][colum+1], table),
+                    dp(row-1, colum+1, min_sum-table[row-1][colum+1], table));
+                }
+            }  
+
+            else{
+                if (colum < table[row-1].size()){
+                    right = min(dp(row-1, colum, min_sum+table[row-1][colum], table),
+                    dp(row-1, colum, min_sum-table[row-1][colum], table));
+                }
+
+                if (colum - 1 > -1){
+                    left = min(dp(row-1, colum-1, min_sum+table[row-1][colum-1], table),
+                    dp(row-1, colum-1, min_sum-table[row-1][colum-1], table));
+                }
             }
+                
 
             ans = min(left, right);
         }
@@ -90,7 +99,6 @@ int main(){
 
         printf("%i\n", dp(2*size-1, 0, 0, table));
     }
-
 
     return 0;
 }
