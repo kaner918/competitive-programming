@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int tab[102][102];
+int tab[502][502];
 
 int main(){
 
@@ -37,22 +37,16 @@ int main(){
 
         for(j = 4; j<=apples; j++){
             x = j;
-            for(m = 1; m<=apples; m++, x++){
+            for(m = 1; x<=apples; m++, x++){
                 mini = INT_MAX;
-                for(l = m; l<=j+m-1; l++){
-                    cout<<m<<" "<<m+j-1<<" "<<l<<endl;
-                    mini = min((l+k)*(j+m-l)+tab[m][l-1]+tab[m+1][j+m-1], mini);    
+                for(l = m; l<=x; l++){
+                    mini = min((l+k)*(x-m+1)+tab[m][l-1]+tab[l+1][x], mini);    
                 }
-                tab[m][j+m-1] = mini;
+                tab[m][x] = mini;
             }
         }
-        for(j = 1; j<=apples; j++){
-            for(m = 1; m<=apples; m++){
-                printf("%i\t", tab[j][m]);
-            }
-            cout<<endl;
-        }
-        
+
+        printf("Case %i: %i\n", i, tab[1][apples]);
     }
 
     return 0;
