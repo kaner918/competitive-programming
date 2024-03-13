@@ -6,41 +6,42 @@
 
 using namespace std;
 
-int arr[10001], diferents[10001][10001], diferents2[10001][10001];
+int arr[10001], diferents[10001], diferents2[10001];
 
 int main(){
 
     int size, i, j, ans, priority;
+    char c;
 
     while(scanf("%i", &size) && size){
-        cin.ignore();
+
+        scanf("%c", &c);
+
         ans = 0;
         for(i = 0; i<size; i++){
             scanf("%i", &arr[i]);
         }
 
-        for(i = 0; i<size; i++){
-            for(j = 0; j<size; j++){
-                diferents[i][j] = 0;
-                diferents2[i][j] = 0;
-            }
+        for(i = 0; i<size+2; i++){
+            diferents[i] = 0;
+            diferents2[i] = 0;    
         }
 
         i = 0;
-        while(i < size-2 && !ans){
+        
+        while(i < size && !ans){
             j = i+1;
-            while(j < size && !ans){
-                
-                if(arr[i] > arr[j]){
-                    diferents[i][arr[i]-arr[j]]++;
-                    ans = diferents[i][arr[i]-arr[j]] == 2;
-                }
+             
+            diferents[arr[i]] = 1; 
+            diferents2[arr[i]] = 1;
 
-                else{
-                    cout<<arr[i]<<" "<<arr[j]<<endl;
-                    diferents2[i][arr[j]-arr[i]]++;
-                    ans = diferents2[i][arr[j]-arr[i]] == 2;
+            while(j < size && !ans){ 
+                if(arr[i] < arr[j] && arr[i] > (arr[j]-arr[i]) && diferents[arr[i]-(arr[j]-arr[i])]){
+                    ans = 1;
                 }
+                else if(arr[i] > arr[j] && arr[i]+(arr[i]-arr[j]) < size && diferents[arr[i]+(arr[i]-arr[j])]){
+                    ans = 1;
+                } 
                 j+=1;
             }
             i+=1;
