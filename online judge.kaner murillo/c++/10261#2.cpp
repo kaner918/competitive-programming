@@ -86,15 +86,6 @@ int main(){
             }
             i+=1;
         }
-
-        /* for(i = ans.second.size()-1; i>0; i--){
-            if(!ans.second[i]){
-                printf("port\n");
-            }
-            else{
-                printf("starboard\n");
-            }
-        } */
     }
 
     return 0;
