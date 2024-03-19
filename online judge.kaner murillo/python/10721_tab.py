@@ -15,7 +15,6 @@ def solve(n, k, m):
                 if suma+contiguos <= n:
                     tab[suma][grupos] += tab[suma+contiguos][grupos+1]
 
-    pprint(tab)
     return tab[0][0]
 
 def main():

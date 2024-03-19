@@ -3,46 +3,111 @@
 
 #include<cstdio>
 #include<iostream>
+#include<map>
+#include<tuple>
+#include<climits>
 
 using namespace std;
 
-int arr[102], mem[102][2501][2501];
+int arr[102];
 
-int dp(int index, int size, int n, int m){
+int dp1(int i, int n, int count, int sums, int find, map<tuple<int, int, int>, int>&mem){
 
     int ans;
+    tuple<int, int, int>aux = make_tuple(i, count, find);
 
-    if(mem[index][n][m] != -1){
-        ans = mem[index][n][m];
+    if(mem.count(aux)){
+        ans = mem[aux];
     }
 
     else{
-        
-        if(index == size){
-        
+
+        if(i == n || !count){
+            
+            ans = find*(sums-find);
+            if(count){
+                ans = 0;
+            }
         }
+
+        else{
+
+            int a = 0, b = 0;
+
+            a = dp1(i+1, n, count, sums, find, mem);
+
+            if(count){
+                b = dp1(i+1, n, count-1, sums, find+arr[i], mem);
+            }
+
+            ans = max(a, b);
+        }
+
+        mem[aux] = ans;
     }
+
+    return ans;
+}
+
+int dp2(int i, int n, int count, int sums, int find, map<tuple<int, int, int>, int>&mem){
+
+    int ans;
+    tuple<int, int, int>aux = make_tuple(i, count, find);
+
+    if(mem.count(aux)){
+        ans = mem[aux];
+    }
+
+    else{
+
+        if(i == n || !count){
+            ans = find*(sums-find);
+            if(count){
+                ans = INT_MAX;
+            }
+        }
+
+        else{
+
+            int a = INT_MAX, b = INT_MAX;
+
+            a = dp2(i+1, n, count, sums, find, mem);
+
+            if(count){
+                b = dp2(i+1, n, count-1, sums, find+arr[i], mem);
+            }
+
+            ans = min(a, b);
+        }
+
+        mem[aux] = ans;
+    }
+
+    return ans;
 }
 
 int main(){
 
-    int n, m, i, j, k, maxi;
+    int n, m, i, sums, a, b;
 
     while(scanf("%i %i", &n, &m) != EOF){
-        maxi = 0;
+        
+        sums = 0;
+        if(m<n){
+            swap(n, m);
+        }
+
         for(i = 0; i<n+m; i++){
             scanf("%i", &arr[i]);
-            maxi+=arr[i];
+            sums+=arr[i];
         }
 
-        for(i = 0; i<n+m; i++){
-            for(j = 0; j<=maxi; j++){
-                for(k = 0; k<=maxi; k++){
-                    mem[i][j][k] = -1;
-                }
-            }
-        }
+        map<tuple<int, int, int>, int>mem;
+        a = dp1(0, n+m, n, sums, 0, mem);
+        mem.clear();
+        b = dp2(0, n+m, n, sums, 0, mem);
 
+        printf("%i %i\n", a, b);
     }
 
     return 0;
