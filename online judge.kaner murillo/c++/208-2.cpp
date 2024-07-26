@@ -6,17 +6,24 @@
 #include<vector>
 #include<algorithm>
 #include<map>
-#include<deque>
 
 using namespace std;
 int counter2;
-vector<deque<int>>res;
+//vector<vector<int>>res;
 
-void solved(map<int, vector<int>>&graph, map<int, int>&visits, int index, int find, deque<int>&combi){
+void solved(map<int, vector<int>>&graph, map<int, int>&visits, int index, int find, vector<int>&combi){
+
+    combi.push_back(index);
 
     if(index == find){
+
         counter2++;
-        res.push_back(combi);
+        int i, aux = index;
+        printf("%i", combi[combi.size()-1]);
+        for(i = combi.size()-2; i>-1; i--){
+            printf(" %i", combi[i]);
+        }
+        printf("\n");
     }
 
     else{
@@ -26,14 +33,13 @@ void solved(map<int, vector<int>>&graph, map<int, int>&visits, int index, int fi
         for(i = 0; i<graph[index].size(); i++){
             if(!visits[graph[index][i]]){
                 visits[graph[index][i]] = 1;
-                combi.push_front(graph[index][i]);
                 solved(graph, visits, graph[index][i], find, combi);
                 visits[graph[index][i]] = 0;
-                combi.pop_front();
             }
         }
     }
 
+    combi.pop_back();
 }
 
 
@@ -45,25 +51,29 @@ int main(){
 
         map<int, vector<int>>graph;
         map<int, int>visits;
-        res.clear();
-        deque<int>combi = {streetCorner}; 
+        vector<pair<int, int>>conections;
+        vector<int>combi;
+        //res.clear();
         counter2 = 0;
 
         while(scanf("%i %i", &a, &b) && (a || b)){
-
             visits[a] = 0;
             visits[b] = 0;
-            graph[a].push_back(b);
-            graph[b].push_back(a);
+            conections.push_back({min(a, b), max(a, b)});
         }        
+
+        sort(conections.begin(), conections.end());
+        for(i = 0; i<conections.size(); i++){
+            graph[conections[i].first].push_back(conections[i].second);
+            graph[conections[i].second].push_back(conections[i].first);
+        }
 
         visits[streetCorner] = 1;
         printf("CASE %i:\n", counter++);
         solved(graph, visits, streetCorner, 1, combi);
+        //sort(res.begin(), res.end());
 
-        sort(res.begin(), res.end());
-
-        for(i = 0; i<res.size(); i++){
+        /* for(i = 0; i<res.size(); i++){
 
             for(n = 0; n<res[i].size()-1; n++){
 
@@ -71,7 +81,7 @@ int main(){
             }
 
             printf("%i\n", streetCorner);
-        }
+        } */
 
         printf("There are %i routes from the firestation to streetcorner %i.\n", counter2, streetCorner);
     }   
