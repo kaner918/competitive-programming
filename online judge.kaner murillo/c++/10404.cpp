@@ -10,7 +10,7 @@ int tab[1000001][2];
 
 bool dp(int n, vector<int>& numbers) {
     int i, l, k;
-    bool flag;
+    bool flag, flag3;
 
     tab[0][0] = 0;
     tab[0][1] = 1;
@@ -18,19 +18,26 @@ bool dp(int n, vector<int>& numbers) {
     for (i = 1; i <= n; i++) {
         for (l = 0; l < 2; l++) {
             flag = false;
-            for (k = 0; k < numbers.size(); k++) {
+            flag3 = false;
+            for (k = 0; k < numbers.size() && !flag3; k++) {
                 if (i - numbers[k] >= 0) {
-                    if (!l) {
-                        if (!flag) {
-                            tab[i][l] = tab[i - numbers[k]][!l];
-                        } else {
+                    if(!flag){
+                        tab[i][l] = tab[i - numbers[k]][!l];
+                    }
+                    else{
+                        if (!l){
+                            
                             tab[i][l] |= tab[i - numbers[k]][!l];
+                            if(tab[i][l]){
+                                flag3 = true;
+                            }
                         }
-                    } else {
-                        if (!flag) {
-                            tab[i][l] = tab[i - numbers[k]][!l];
-                        } else {
+                        else {
+                            
                             tab[i][l] &= tab[i - numbers[k]][!l];
+                            if(!tab[i][l]){
+                                flag3 = true;
+                            }
                         }
                     }
                     flag = true;
@@ -57,7 +64,8 @@ int main() {
         ans = dp(size, numbers);
         if (ans) {
             printf("Stan wins\n");
-        } else {
+        }
+        else {
             printf("Ollie wins\n");
         }
     }
