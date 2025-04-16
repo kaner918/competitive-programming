@@ -1,3 +1,6 @@
+//https://onlinejudge.org/external/104/10404.pdf
+//10404
+
 #include <algorithm>
 #include <cstdio>
 #include <iostream>
@@ -26,14 +29,12 @@ bool dp(int n, vector<int>& numbers) {
                     }
                     else{
                         if (!l){
-                            
                             tab[i][l] |= tab[i - numbers[k]][!l];
                             if(tab[i][l]){
                                 flag3 = true;
                             }
                         }
                         else {
-                            
                             tab[i][l] &= tab[i - numbers[k]][!l];
                             if(!tab[i][l]){
                                 flag3 = true;
