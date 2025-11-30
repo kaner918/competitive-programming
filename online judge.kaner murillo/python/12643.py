@@ -3,14 +3,33 @@
 
 from sys import stdin
 
-tournament = [int(x) for x in stdin.readline().split()]
+def main():
 
-while tournament != []:
+        tournament = [int(x) for x in stdin.readline().split()]
 
-    matchs = 2**(tournament[0]-1)
-    
-    if (tournament[1] <= matchs//2 and tournament[2]>matchs//2) or (tournament[1] > matchs//2 and tournament[2]<=matchs//2):
+        while tournament != []:
+        
+                n = tournament[0]
+                p1 = min(tournament[1], tournament[2])
+                p2 = max(tournament[1], tournament[2])
+                l = 1
+                h = 2 ** n
+                flag = False 
 
-            print(tournament[0])
+                while not flag:
+                        mid = l + ((h-l)>>1)
+                        if p1 <= mid and p2 > mid:
+                                flag = True
+                        elif p1 <= mid:
+                                h = mid
+                                n-=1
+                        else:
+                                l = mid + 1
+                                n-=1
 
-    tournament = [int(x) for x in stdin.readline().split()]
+                print(n)
+
+                tournament = [int(x) for x in stdin.readline().split()]
+
+if __name__ == "__main__":
+        main()
